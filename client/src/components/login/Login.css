@@ -1,0 +1,109 @@
+.login {
+	height: calc(95vh - 50px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.login__title {
+	position: absolute;
+	top: 25%;
+	padding: 0 1rem;
+	border-radius: 3px;
+	background-color: rgba(135, 206, 250, 0.5);
+}
+.wrapper {
+	width: 60%;
+	height: 75%;
+	box-shadow: 0px 5px 33px -5px rgb(164, 107, 164);
+	-webkit-box-shadow: 0px 5px 33px -5px rgb(164, 107, 164);
+	-moz-box-shadow: 0px 5px 33px -5px rgb(164, 107, 164);
+	display: flex;
+	align-items: center;
+	border-radius: 20px;
+}
+.left,
+.right {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 2rem;
+	gap: 1rem;
+}
+.login__btn {
+	width: 150px;
+	padding: 13px 25px;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	box-shadow: 0px 0px 4px 2px lightslategrey;
+}
+.login__btn:hover {
+	box-shadow: 0px 0px 6px 2px rgb(234, 147, 191);
+}
+.google {
+	background-color: #df4930;
+}
+.facebook {
+	background-color: #507cc0;
+}
+.github {
+	background-color: #000;
+}
+.icon_login {
+	margin-right: 0.5rem;
+	font-size: 1.3rem;
+}
+.center {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+.or {
+	border: 2px solid lightskyblue;
+	border-radius: 50%;
+	padding: 10px;
+	background-color: #000;
+	color: rgb(251, 75, 251);
+	font-weight: bold;
+}
+.line {
+	width: 0.5px;
+	height: 70%;
+	background-color: rgb(251, 75, 251);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	z-index: -1;
+}
+
+.right input {
+	width: 60%;
+	padding: 10px 15px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px 2px lightslategrey;
+}
+.btn__submit {
+	width: 60%;
+	padding: 5px;
+	background-color: rgb(251, 75, 251);
+	color: #fff;
+	font-weight: bold;
+	border-radius: 5px;
+	border: none;
+	box-shadow: 0px 0px 10px 2px lightslategrey;
+	cursor: pointer;
+}
+.btn__submit:hover {
+	background-color: rgb(250, 38, 250);
+}
