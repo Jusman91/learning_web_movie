@@ -34,13 +34,7 @@
 .list__title {
 	font-size: 1.75rem;
 }
-.list__cards {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 2rem;
-}
+
 .movie__list h2 {
 	color: rgba(251, 75, 251, 0.91);
 	text-align: center;

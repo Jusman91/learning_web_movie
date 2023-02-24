@@ -55,34 +55,52 @@ const NavBar = ({ user }) => {
 				</div>
 				<div className='nav-movie-list'>
 					<Link
-						to='/movies/popular'
-						onClick={() => setActiveList('popular')}
+						to='/'
+						onClick={() => setActiveList('home')}
 						className={
-							listActive === 'popular'
+							listActive === 'home'
 								? 'nav-movie-list-active'
 								: ''
 						}>
-						Popular
+						Home
 					</Link>
 					<Link
-						to='/movies/top_rated'
-						onClick={() => setActiveList('top_rated')}
+						to='/trending'
+						onClick={() => setActiveList('trending')}
 						className={
-							listActive === 'top_rated'
+							listActive === 'trending'
+								? 'nav-movie-list-active'
+								: ''
+						}>
+						Trending
+					</Link>
+					<Link
+						to='/movies'
+						onClick={() => setActiveList('movies')}
+						className={
+							listActive === 'movies'
 								? 'nav-list-active'
 								: ''
 						}>
-						Top Rated
+						Movies
 					</Link>
 					<Link
-						to='/movies/upcoming'
-						onClick={() => setActiveList('upcoming')}
+						to='/tv'
+						onClick={() => setActiveList('tv')}
 						className={
-							listActive === 'upcoming'
+							listActive === 'tv' ? 'nav-list-active' : ''
+						}>
+						Tv
+					</Link>
+					<Link
+						to='/search'
+						onClick={() => setActiveList('search')}
+						className={
+							listActive === 'search'
 								? 'nav-list-active'
 								: ''
 						}>
-						Upcoming
+						Search
 					</Link>
 				</div>
 			</div>

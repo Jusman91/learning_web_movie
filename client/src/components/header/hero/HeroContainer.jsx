@@ -19,10 +19,12 @@ const Hero = ({ poster }) => {
 				</div>
 				<div className='posterImage__overlay'>
 					<div className='posterImage__title'>
-						{poster.original_title}
+						{poster.original_title || poster.original_name}
 					</div>
 					<div className='posterImage__runtime'>
-						<h4>{poster.release_date}</h4>
+						<h4>
+							{poster.release_date || poster.first_air_date}
+						</h4>
 						<div className='posterImage__rating'>
 							<span>{poster.vote_average}</span>
 							<div className='icon__rating'>

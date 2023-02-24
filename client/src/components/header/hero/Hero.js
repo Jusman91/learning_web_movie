@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import HeroContainer from './HeroContainer';
 
@@ -30,7 +29,8 @@ const Hero = () => {
 				autoPlay={true}
 				transitionTime={3}
 				infiniteLoop={true}
-				showStatus={false}>
+				showStatus={false}
+				showIndicators={false}>
 				{popularMovies?.map((movie, index) => (
 					<HeroContainer key={index} poster={movie} />
 				))}

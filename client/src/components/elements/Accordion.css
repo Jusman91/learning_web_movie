@@ -1,0 +1,25 @@
+.wrapper__accordion {
+	display: flex;
+	gap: 1rem;
+	position: relative;
+	width: 100%;
+}
+.wrapper__accordion button {
+	background: lightskyblue;
+	border: none;
+	outline: none;
+	border-radius: 50%;
+	padding: 0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	height: fit-content;
+}
+.title {
+	font-size: 1.5rem;
+	margin-left: 4rem;
+}
+.genre__item {
+	margin-right: 4rem;
+}

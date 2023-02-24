@@ -1,0 +1,14 @@
+.wrapper__list {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+}
+.list__item {
+	list-style: none;
+	border: 2px solid skyblue;
+	border-radius: 15px;
+	padding: 0 1rem;
+	width: fit-content;
+	text-align: center;
+}

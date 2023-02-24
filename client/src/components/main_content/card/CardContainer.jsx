@@ -26,7 +26,7 @@ const Card = ({ movie }) => {
 				</div>
 			) : (
 				<Link
-					to={`/movie/${movie.id}`}
+					to={`/movie/details/${movie.id}`}
 					style={{
 						textDecoration: 'none',
 						color: 'white',
@@ -42,7 +42,10 @@ const Card = ({ movie }) => {
 								{movie.original_title}
 							</div>
 							<div className='card__runtime'>
-								<h5>{movie.release_date}</h5>
+								<h5>
+									{movie.release_date ||
+										movie.first_air_date}
+								</h5>
 								<div className='card__rating'>
 									<span>{movie.vote_average}</span>
 									<div className='card__icon__rating'>
