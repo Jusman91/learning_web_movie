@@ -10,7 +10,7 @@ const Hero = ({ poster }) => {
 					textDecoration: 'none',
 					color: 'white',
 				}}
-				to={`/movie/${poster.id}`}>
+				to={`/details/${poster.id}/${poster.media_type}`}>
 				<div className='posterImage'>
 					<img
 						src={`${process.env.REACT_APP_BASEIMGURL}${poster.backdrop_path}`}

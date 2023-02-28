@@ -12,4 +12,5 @@ body,
 .App {
 	min-height: 100%;
 	color: beige;
+	scroll-behavior: smooth;
 }

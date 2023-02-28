@@ -6,18 +6,19 @@ import { useParams } from 'react-router-dom';
 import { BsStarFill } from 'react-icons/bs';
 import { FiExternalLink } from 'react-icons/fi';
 
-const MovieDetails = () => {
+const MovieDetails = ({ categorys }) => {
 	const [playTrailer, setPlayTrailer] = useState(false);
 	const [currentMovieDetail, setMovie] = useState();
-	const { id } = useParams();
+	const { id, mediatype } = useParams();
 
 	const getData = async () => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/movie/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos`,
+				`${process.env.REACT_APP_BASEURL}/${mediatype}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos`,
 			);
 			const results = response.data;
 			setMovie(results);
+			console.log(results);
 		} catch (err) {
 			console.error(err, '<==== get data gagal ====>');
 		}
@@ -26,6 +27,7 @@ const MovieDetails = () => {
 	useEffect(() => {
 		getData();
 		window.scrollTo(0, 0);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<>

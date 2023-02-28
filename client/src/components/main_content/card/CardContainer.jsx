@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import '../card/Card.css';
 import { BsStarFill } from 'react-icons/bs';
 
-const Card = ({ movie }) => {
+const Card = ({ movie, link }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -26,7 +26,8 @@ const Card = ({ movie }) => {
 				</div>
 			) : (
 				<Link
-					to={`/movie/details/${movie.id}`}
+					relative='path'
+					to={link}
 					style={{
 						textDecoration: 'none',
 						color: 'white',

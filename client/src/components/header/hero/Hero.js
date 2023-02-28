@@ -9,7 +9,7 @@ const Hero = () => {
 	const fetchData = async () => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/movie/popular?api_key=${process.env.REACT_APP_APIKEY}`,
+				`${process.env.REACT_APP_BASEURL}/trending/all/day?api_key=${process.env.REACT_APP_APIKEY}`,
 			);
 			const results = response.data.results;
 			setPopularMovies(results);
