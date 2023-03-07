@@ -1,8 +1,12 @@
-import logoImg from '../../../asset/logo/logo-movie.png';
 import avatar from '../../..//asset/avatar.jpg';
 import '../navbar/NavBar.css';
-import { Link, NavLink } from 'react-router-dom';
+import logoImg from '../../../asset/logo/logo_s3.png';
+import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { MdPersonalVideo } from 'react-icons/md';
+import { RiMovie2Line } from 'react-icons/ri';
+import { GoHome } from 'react-icons/go';
+import { BsSearch } from 'react-icons/bs';
 
 const NavBar = ({ user }) => {
 	// <===== hidden & show navbar with scrolling
@@ -35,68 +39,92 @@ const NavBar = ({ user }) => {
 
 	return (
 		<nav
-			className={`container-nav-bar ${
+			className={`container__navbar ${
 				show && 'hiddenNav'
 			}`}>
-			<div className='nav__list_left'>
-				<div className='logo'>
-					<div className='logo-img'>
-						<Link to='/'>
-							<img src={logoImg} alt='Logo' />
-						</Link>
-					</div>
-					<NavLink to='/' className='logo-title'>
-						<h3>NontonAja</h3>
+			<div className='nav__item'>
+				<div className='left__nav'>
+					<NavLink to='/'>
+						<img
+							src={logoImg}
+							alt='Logo'
+							className='logo'
+						/>
+						<span>movies</span>
 					</NavLink>
 				</div>
-				<div className='nav-movie-list'>
-					<NavLink
-						to='/'
-						className={({ isActive }) =>
-							isActive ? 'nav-movie-list-active' : ''
-						}>
-						Home
-					</NavLink>
-					<NavLink
-						to='/movies'
-						className={({ isActive }) =>
-							isActive ? 'nav-movie-list-active' : ''
-						}>
-						Movies
-					</NavLink>
-					<NavLink
-						to='/tv'
-						className={({ isActive }) =>
-							isActive ? 'nav-movie-list-active' : ''
-						}>
-						Tv
-					</NavLink>
-					<NavLink
-						to='/search'
-						className={({ isActive }) =>
-							isActive ? 'nav-movie-list-active' : ''
-						}>
-						Search
-					</NavLink>
+				<div className='middle__nav'>
+					<ul>
+						<li>
+							<NavLink
+								className={({ isActive }) =>
+									isActive ? 'active__nav' : ''
+								}
+								to='/'>
+								<span className='icon'>
+									<GoHome />
+								</span>
+								<span className='text'>Home</span>
+							</NavLink>
+						</li>
+						<li>
+							<NavLink
+								to='/movies'
+								className={({ isActive }) =>
+									isActive ? 'active__nav' : ''
+								}>
+								<span className='icon'>
+									<RiMovie2Line />
+								</span>
+								<span className='text'>Movies</span>
+							</NavLink>
+						</li>
+						<li>
+							<NavLink
+								className={({ isActive }) =>
+									isActive ? 'active__nav' : ''
+								}
+								to='/tv'>
+								<span className='icon'>
+									<MdPersonalVideo />
+								</span>
+								<span className='text'>Tv</span>
+							</NavLink>
+						</li>
+						<li>
+							<NavLink
+								className={({ isActive }) =>
+									isActive ? 'active__nav' : ''
+								}
+								to='/search'>
+								<span className='icon'>
+									<BsSearch />
+								</span>
+								<span className='text'>Search</span>
+							</NavLink>
+						</li>
+					</ul>
+				</div>
+				<div className='right__nav'>
+					{user ? (
+						<ul>
+							<li>
+								<img
+									src={avatar}
+									alt='avatar'
+									className='avatar'
+								/>
+							</li>
+							<li>Jusman</li>
+							<li>Logout</li>
+						</ul>
+					) : (
+						<div className='login__item'>
+							<NavLink to='/login'>Login</NavLink>
+						</div>
+					)}
 				</div>
 			</div>
-			{user ? (
-				<ul className='nav-list-right'>
-					<li className='list-item'>
-						<img
-							src={avatar}
-							alt='avatar'
-							className='avatar'
-						/>
-					</li>
-					<li className='list-item'>Jusman</li>
-					<li className='list-item'>Logout</li>
-				</ul>
-			) : (
-				<NavLink to='/login' className='link'>
-					Login
-				</NavLink>
-			)}
 		</nav>
 	);
 };

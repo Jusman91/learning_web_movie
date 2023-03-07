@@ -26,7 +26,6 @@ const Card = ({ movie, link }) => {
 				</div>
 			) : (
 				<Link
-					relative='path'
 					to={link}
 					style={{
 						textDecoration: 'none',

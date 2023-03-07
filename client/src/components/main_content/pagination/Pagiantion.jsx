@@ -30,7 +30,7 @@ const Pagiantion = (props) => {
 				pageLinkClassName={'page__link'}
 				breakLinkClassName={'page__link'}
 				nextLinkClassName={'page__link'}
-				activeClassName={'active'}
+				activeClassName={'active__pagination'}
 				renderOnZeroPageCount={null}
 				forcePage={forcePageActive}
 			/>

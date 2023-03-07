@@ -1,85 +1,129 @@
-.container-nav-bar {
+.container__navbar {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 4rem;
+	height: 80px;
 	z-index: 999;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: black;
+	background: #000000; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to bottom,
+		#434343,
+		#000000
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to bottom,
+		#434343,
+		#000000
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	box-shadow: 0px 2px 20px -2px rgba(230, 62, 62, 0.47);
 	transition: top 0.3s linear;
 }
 .hiddenNav {
-	top: -10%;
+	top: -12%;
 }
-.nav__list_left {
+.nav__item {
 	display: flex;
-	gap: 2rem;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 2rem;
 }
-.container-nav-bar .logo {
+.left__nav {
 	display: flex;
-	gap: 0.3rem;
+	justify-content: center;
+	align-items: center;
+	height: 80px;
 }
-.container-nav-bar .logo .logo-img {
-	width: 60px;
-	height: 30px;
+.left__nav a {
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.8);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
-.container-nav-bar .logo .logo-img img {
+.left__nav a .logo {
+	width: 50px;
+	height: 55px;
+	object-fit: cover;
+}
+.left__nav a span {
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 1px;
+	color: rgba(255, 255, 255, 0.8);
+}
+.middle__nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
-	height: 100%;
-	object-fit: contain;
+	height: 80px;
 }
-.container-nav-bar .logo .logo-title {
-	text-decoration: none;
-	font-size: 1.2rem;
-	color: beige;
-	cursor: pointer;
-	filter: drop-shadow(0px -8px 3px rgb(251, 75, 251));
-	background: linear-gradient(
-		90deg,
-		rgba(251, 75, 251, 1) 0%,
-		rgba(232, 170, 82, 1) 50%,
-		rgba(113, 32, 84, 1) 100%
-	);
-	padding: 0 1rem;
-	border-radius: 3px;
-}
-.container-nav-bar .nav-movie-list {
+.middle__nav ul {
 	display: flex;
-	align-items: center;
-	gap: 3rem;
+	width: 100%;
 }
-.container-nav-bar .nav-movie-list a {
-	text-decoration: none;
-	font-size: 1.1rem;
-	color: beige;
-	font-weight: 400;
-	transition: all 0.5s ease-in-out;
-	cursor: pointer;
-}
-.container-nav-bar .nav-movie-list .nav-movie-list-active {
-	color: rgb(251, 75, 251);
-}
-.container-nav-bar .nav-movie-list a:hover {
-	color: rgb(251, 75, 251);
-	transform: rotate(5deg);
-}
-.nav-list-right {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
+.middle__nav ul li {
 	list-style: none;
-
-	padding-right: 1rem;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 80px;
 }
-.nav-list-right:hover :nth-child(3) {
+.middle__nav ul li a {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	text-align: center;
+	font-weight: 500;
+}
+.middle__nav ul li a .icon {
+	position: relative;
+	display: block;
+	font-size: 1.9rem;
+	line-height: 75px;
+	transition: 0.5s;
+	color: rgba(255, 255, 255, 0.8);
+}
+.middle__nav ul li a.active__nav .icon {
+	transform: translateY(-8px);
+	color: #fd29ba;
+}
+.middle__nav ul li a .text {
+	position: absolute;
+	opacity: 0;
+	color: rgba(255, 255, 255, 0.8);
+	font-weight: 400;
+	font-size: 0.85rem;
+	transition: 0.5s;
+	letter-spacing: 0.05rem;
+	text-transform: uppercase;
+	transform: translateY(0px);
+}
+.middle__nav ul li a.active__nav .text {
+	transform: translateY(20px);
+	opacity: 1;
+}
+.right__nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.right__nav ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	list-style: none;
+	gap: 1rem;
+}
+.right__nav ul :nth-child(3):hover {
 	color: rgb(230, 62, 62);
 }
-.nav-list-right .list-item {
-	cursor: pointer;
+.right__nav ul li {
+	list-style: none;
 }
 .avatar {
 	width: 2rem;
@@ -87,11 +131,11 @@
 	border-radius: 50%;
 	object-fit: cover;
 }
-.link {
+.right__nav .login__item a {
 	color: #fff;
 	text-decoration: none;
 	font-size: 1.1rem;
 }
-.link:hover {
+.right__nav .login__item a:hover {
 	color: rgb(230, 62, 62);
 }

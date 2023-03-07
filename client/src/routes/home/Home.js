@@ -1,4 +1,4 @@
-import Hero from "../../components/header/hero/Hero"
+import Hero from "../../components/header/hero/HeroContainer"
 import MovieList from "../../components/main_content/movie_list/MovieList"
 
 const Home = () => {
