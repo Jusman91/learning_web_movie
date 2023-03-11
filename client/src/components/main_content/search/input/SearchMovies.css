@@ -1,0 +1,27 @@
+.movie__search {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+}
+.movie__search input {
+	height: 20px;
+	padding: 0.1rem 0.7rem;
+	outline: none;
+	border: 1px solid rgb(251, 75, 251);
+	border-radius: 3px;
+	animation: width 1s forwards;
+}
+@keyframes width {
+	0% {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+.search__btn {
+	height: 26px;
+
+	cursor: pointer;
+}

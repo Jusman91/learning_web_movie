@@ -1,0 +1,32 @@
+.container__search__results {
+	position: relative;
+	width: 100%;
+}
+.wrapper__search__results {
+	margin: 6rem 2rem 0 2rem;
+	display: grid;
+	grid-template-columns: 1fr 3.5fr;
+	/* background: #999; */
+	gap: 1rem;
+}
+.wrapper__search__results .left__side {
+	width: 100%;
+	/* border: 5px solid #fff; */
+}
+.wrapper__search__results .left__side h2 {
+	background-color: rgba(230, 62, 62, 0.47);
+	padding: 1rem 2rem;
+	border-radius: 10px;
+}
+.wrapper__search__results .left__side ul .list__results {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.7rem 2rem;
+	border-bottom: 1px solid #fff;
+}
+.wrapper__search__results .right {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}

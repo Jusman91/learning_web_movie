@@ -7,11 +7,18 @@ import { MdPersonalVideo } from 'react-icons/md';
 import { RiMovie2Line } from 'react-icons/ri';
 import { GoHome } from 'react-icons/go';
 import { BsSearch } from 'react-icons/bs';
+import { IoCloseSharp } from 'react-icons/io5';
+import SearchMovies from '../../main_content/search/input/SearchMovies';
 
 const NavBar = ({ user }) => {
 	// <===== hidden & show navbar with scrolling
 	const [show, setShow] = useState(false);
 	const [lastScrollY, setLastScrollY] = useState();
+	const [showSearch, setShowSearch] = useState(false);
+
+	const handleShowSearch = () => {
+		setShowSearch(!showSearch);
+	};
 
 	const controlNavbar = () => {
 		if (window.scrollY > lastScrollY) {
@@ -93,12 +100,19 @@ const NavBar = ({ user }) => {
 						</li>
 						<li>
 							<NavLink
-								className={({ isActive }) =>
-									isActive ? 'active__nav' : ''
-								}
-								to='/search'>
+								onClick={() => handleShowSearch(true)}
+								className={
+									showSearch === true
+										? ({ isActive }) =>
+												isActive ? 'active__nav' : ''
+										: ''
+								}>
 								<span className='icon'>
-									<BsSearch />
+									{showSearch === true ? (
+										<IoCloseSharp />
+									) : (
+										<BsSearch />
+									)}
 								</span>
 								<span className='text'>Search</span>
 							</NavLink>
@@ -125,6 +139,7 @@ const NavBar = ({ user }) => {
 					)}
 				</div>
 			</div>
+			{showSearch === true && <SearchMovies />}
 		</nav>
 	);
 };

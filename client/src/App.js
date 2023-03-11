@@ -6,6 +6,7 @@ import MovieDetails from './components/main_content/details/MoviesDetails';
 import Login from './components/login/Login';
 import TrendingMovies from './routes/trending/TrendingMovies';
 import TrendingTv from './routes/trending/TrendingTv';
+import SearchAll from './routes/search/SearchResults';
 
 function App() {
   const user = true
@@ -20,7 +21,7 @@ function App() {
           <Route path='details/:id/:mediatype' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
           <Route path='movies' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
           <Route path='tv' element={user ? <TrendingTv /> : <Navigate to='/login' />} />
-          <Route path='search' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
+          <Route path='search' element={user ? <SearchAll /> : <Navigate to='/login' />} />
           <Route path='/*' element={<h1>Error Page</h1>} />
         </Routes>
       </Router>
