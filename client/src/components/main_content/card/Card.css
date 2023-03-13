@@ -1,65 +1,107 @@
-.cards {
-	display: inline-block;
+.card {
 	position: relative;
-	border-radius: 10px;
-	min-width: 200px;
+	border-radius: 20px;
+	width: 300px;
+	height: 210px;
 	z-index: 0;
-	border: 1px solid #999;
+	/* border: 1px solid #999; */
 	overflow: hidden;
 	cursor: pointer;
-	box-shadow: 0px 0px 10px 1px rgba(251, 75, 251, 0.91);
+	/* box-shadow: 0px 0px 10px 1px rgba(251, 75, 251, 0.91);
 	-webkit-box-shadow: 0px 0px 10px 1px
 		rgba(251, 75, 251, 0.91);
-	-moz-box-shadow: 0px 0px 10px 1px rgba(251, 75, 251, 0.91);
+	-moz-box-shadow: 0px 0px 10px 1px rgba(251, 75, 251, 0.91); */
 	transition: trasform 0.2s;
 }
-.cards:hover {
-	transform: scale(1.2);
-	z-index: 999;
-	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-		rgba(0, 0, 0, 0.12) 0px -12px 30px,
-		rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.12);
+.card .poster {
+	position: relative;
+	overflow: hidden;
+	/* width: 100%;
+	height: 100%; */
 }
-.cards__img {
-	height: 300px;
-}
-
-.cards__overlay {
+.card .poster::before {
+	content: '';
 	position: absolute;
-	padding: 0 1rem 1rem 1rem;
-	bottom: 0;
-	height: 290px;
-	display: flex;
-	flex-direction: column;
+	bottom: -100px;
 	width: 100%;
-	justify-content: flex-end;
-	background-image: linear-gradient(
-		rgb(0, 0, 0, 0) rgb(0, 0, 0, 1)
+	height: 100%;
+	background: linear-gradient(
+		0deg,
+		rgba(255, 255, 255, 0.5) 50%,
+		transparent
 	);
-
-	opacity: 0;
-	transition: opacity 0.2s;
+	transition: 0.5s;
+	z-index: 1;
 }
-.cards__overlay:hover {
-	opacity: 1;
+.card:hover .poster::before {
+	bottom: 0px;
+}
+.card .poster img {
+	width: 100%;
+	transition: 0.5s;
+}
+.card:hover .poster img {
+	transform: translateY(-50px);
+	filter: blur(5px);
+}
+.card .card__details {
+	position: absolute;
+	bottom: -80px;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+	transition: 0.5s;
+}
+.card:hover .card__details {
+	bottom: 10px;
 }
 
-.card__title {
-	font-size: 1rem;
+.card .card__details .card__title {
+	font-size: 1.3rem;
 	font-weight: 800;
-	color: rgb(251, 75, 251);
+	color: rgb(230, 62, 62);
+	padding: 0 0.5rem;
 }
 .card__runtime {
 	display: flex;
 	gap: 1rem;
+	font-size: 1.2rem;
+	color: rgba(255, 255, 255, 0.8);
+	padding: 0 0.5rem;
+	margin-bottom: 2rem;
 }
 .card__rating {
-	display: flex;
+	position: absolute;
+	right: 0;
+	top: 0;
+	/* display: flex; */
+}
+.card__rating b {
+	position: absolute;
+	left: 0;
+	left: 70%;
+	bottom: 35%;
 	font-size: 0.9rem;
-	color: rgb(251, 75, 251);
+	color: rgba(255, 255, 255, 0.8);
+	/* padding: 0 0.5rem; */
+	z-index: 99;
+}
+.circle__chart {
+	/* position: absolute;
+	right: 0;
+	top: 0; */
+	position: relative;
+}
+.circle__chart__background {
+	background-color: transparent !important;
+}
+.circle__chart__circle {
+	background-color: transparent !important;
 }
 .card__description {
 	font-style: italic;
-	font-size: 0.75rem;
-	text-align: start;
+	font-size: 0.85rem;
+	font-weight: 600;
+	padding: 0 0.5rem;
+	color: rgb(21, 21, 21);
 }

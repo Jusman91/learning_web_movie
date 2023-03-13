@@ -22,6 +22,7 @@ function App() {
           <Route path='movies' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
           <Route path='tv' element={user ? <TrendingTv /> : <Navigate to='/login' />} />
           <Route path='search' element={user ? <SearchAll /> : <Navigate to='/login' />} />
+          <Route path='search/:type' element={user ? <SearchAll /> : <Navigate to='/login' />} />
           <Route path='/*' element={<h1>Error Page</h1>} />
         </Routes>
       </Router>

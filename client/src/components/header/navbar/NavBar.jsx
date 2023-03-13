@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import avatar from '../../..//asset/avatar.jpg';
 import '../navbar/NavBar.css';
 import logoImg from '../../../asset/logo/logo_s3.png';
@@ -99,13 +100,10 @@ const NavBar = ({ user }) => {
 							</NavLink>
 						</li>
 						<li>
-							<NavLink
+							<a
 								onClick={() => handleShowSearch(true)}
 								className={
-									showSearch === true
-										? ({ isActive }) =>
-												isActive ? 'active__nav' : ''
-										: ''
+									showSearch === true ? 'active__nav' : ''
 								}>
 								<span className='icon'>
 									{showSearch === true ? (
@@ -115,7 +113,7 @@ const NavBar = ({ user }) => {
 									)}
 								</span>
 								<span className='text'>Search</span>
-							</NavLink>
+							</a>
 						</li>
 					</ul>
 				</div>

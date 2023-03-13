@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { BsStarFill } from 'react-icons/bs';
 import heroImg from '../../../asset/hero/hero.jpg';
 import '../hero/Hero.css';
+import { img_1280 } from '../../../config/config';
 
-const HeroContainer = ({ poster, hero }) => {
+const HeroContainer = ({ poster }) => {
 	if (poster) {
 		return (
 			<>
@@ -15,7 +16,7 @@ const HeroContainer = ({ poster, hero }) => {
 					to={`/details/${poster.id}/${poster.media_type}`}>
 					<div className='posterImage'>
 						<img
-							src={`${process.env.REACT_APP_BASEIMGURL}${poster.backdrop_path}`}
+							src={`${img_1280}${poster.backdrop_path}`}
 							alt='poster'
 						/>
 					</div>

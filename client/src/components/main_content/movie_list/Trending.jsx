@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import Card from '../card/CardContainer';
+import AliceCarousel from 'react-alice-carousel';
+import Card from '../card/Card';
 import HeroContainer from '../../header/hero/HeroContainer';
 import Genres from '../genres/Genres';
 import Pagination from '../pagination/Pagiantion';
@@ -42,7 +42,7 @@ const Trending = ({ mediaType }) => {
 
 	return (
 		<>
-			<Carousel
+			{/* <Carousel
 				showThumbs={false}
 				showArrows={true}
 				autoPlay={true}
@@ -54,7 +54,19 @@ const Trending = ({ mediaType }) => {
 					data?.map((movie, index) => (
 						<HeroContainer key={index} poster={movie} />
 					))}
-			</Carousel>
+			</Carousel> */}
+			<AliceCarousel
+				disableDotsControls
+				disableButtonsControls
+				autoPlay={true}
+				autoPlayInterval={3000}
+				animationDuration={1000}
+				infinite={true}>
+				{data &&
+					data?.map((movie, index) => (
+						<HeroContainer key={index} poster={movie} />
+					))}
+			</AliceCarousel>
 			<div
 				style={{
 					display: 'flex',
