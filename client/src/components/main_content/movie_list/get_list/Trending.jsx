@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
-import Card from '../card/Card';
-import HeroContainer from '../../header/hero/HeroContainer';
-import Genres from '../genres/Genres';
-import Pagination from '../pagination/Pagiantion';
+import Card from '../../card/Card';
+import HeroContainer from '../../../header/hero/HeroContainer';
+import Genres from '../../genres/Genres';
+import Pagination from '../../pagination/Pagiantion';
 
 const Trending = ({ mediaType }) => {
 	const [data, setData] = useState([]);

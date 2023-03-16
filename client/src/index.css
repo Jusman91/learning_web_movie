@@ -10,6 +10,8 @@ html,
 body,
 #root,
 .App {
+	width: 100%;
+	/* overflow-x: hidden; */
 	/* min-height: 100%; */
 	color: beige;
 	background-color: #131313;

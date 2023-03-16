@@ -1,4 +1,4 @@
-import Trending from "../../components/main_content/movie_list/Trending"
+import Trending from "../../components/main_content/movie_list/get_list/Trending"
 
 const TrendingMovies = () => {
   return (

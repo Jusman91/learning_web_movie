@@ -2,8 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import Card from '../card/Card';
-import '../movie_list/MovieList.css';
+import Card from '../../card/Card';
+// import Card from '../card/Card';
+import './MovieList.css';
 
 const MovieList = ({ movieType, type }) => {
 	const [movieList, setMovieList] = useState([]);
@@ -39,8 +40,7 @@ const MovieList = ({ movieType, type }) => {
 		getData();
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
+	}, [movieType, type]);
 	return (
 		<>
 			<div className='movie__list'>
@@ -51,25 +51,6 @@ const MovieList = ({ movieType, type }) => {
 				</div>
 				<div>
 					{movieList && movieList.length > 0 ? (
-						// <Carousel
-						// 	showThumbs={false}
-						// 	showArrows={true}
-						// 	autoPlay={true}
-						// 	transitionTime={3}
-						// 	infiniteLoop={true}
-						// 	showStatus={false}
-						// 	showIndicators={false}
-						// 	centerMode={true}
-						// 	centerSlidePercentage={20}>
-						// 	{movieList &&
-						// 		movieList?.map((movie, index) => (
-						// 			<Card
-						// 				key={index}
-						// 				movie={movie}
-						// 				link={`/details/${movie.id}/${movieType}`}
-						// 			/>
-						// 		))}
-						// </Carousel>
 						<AliceCarousel
 							disableDotsControls
 							disableButtonsControls

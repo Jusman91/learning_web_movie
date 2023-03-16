@@ -5,6 +5,11 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsStarFill } from 'react-icons/bs';
 import { FiExternalLink } from 'react-icons/fi';
+import {
+	img_1280,
+	img_300,
+	img_500,
+} from '../../../config/config';
 
 const MovieDetails = ({ categorys }) => {
 	const [playTrailer, setPlayTrailer] = useState(false);
@@ -29,13 +34,14 @@ const MovieDetails = ({ categorys }) => {
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+	console.log(currentMovieDetail);
 	return (
 		<>
 			<div className='movie'>
 				<div className='movie__intro'>
 					<img
 						className='movie__backdrop'
-						src={`${process.env.REACT_APP_BASEIMGURL}${currentMovieDetail?.backdrop_path}`}
+						src={`${img_1280}${currentMovieDetail?.backdrop_path}`}
 						alt='poster'
 					/>
 
@@ -78,7 +84,7 @@ const MovieDetails = ({ categorys }) => {
 					<div className='movie__detailLeft'>
 						<div className='movie__posterBox'>
 							<img
-								src={`${process.env.REACT_APP_BASEIMGURL}${currentMovieDetail?.poster_path}`}
+								src={`${img_500}${currentMovieDetail?.poster_path}`}
 								alt='poster'
 							/>
 						</div>
@@ -86,7 +92,8 @@ const MovieDetails = ({ categorys }) => {
 					<div className='movie__detailRight'>
 						<div className='movie__detailRightTop'>
 							<div className='movie__name'>
-								{currentMovieDetail?.original_title}
+								{currentMovieDetail?.original_title ||
+									currentMovieDetail?.name}
 							</div>
 							<div className='movie__tagline'>
 								{currentMovieDetail?.tagline}
@@ -178,7 +185,7 @@ const MovieDetails = ({ categorys }) => {
 											className='productionCompanyImg'>
 											<img
 												className='movie__productionCompany'
-												src={`${process.env.REACT_APP_BASEIMGURL_W500}${company.logo_path}`}
+												src={`${img_300}${company.logo_path}`}
 												alt='ProductionCompany'
 											/>
 											<span>{company.name}</span>

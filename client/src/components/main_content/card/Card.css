@@ -4,20 +4,12 @@
 	width: 300px;
 	height: 210px;
 	z-index: 0;
-	/* border: 1px solid #999; */
 	overflow: hidden;
 	cursor: pointer;
-	/* box-shadow: 0px 0px 10px 1px rgba(251, 75, 251, 0.91);
-	-webkit-box-shadow: 0px 0px 10px 1px
-		rgba(251, 75, 251, 0.91);
-	-moz-box-shadow: 0px 0px 10px 1px rgba(251, 75, 251, 0.91); */
-	transition: trasform 0.2s;
 }
 .card .poster {
 	position: relative;
 	overflow: hidden;
-	/* width: 100%;
-	height: 100%; */
 }
 .card .poster::before {
 	content: '';
@@ -61,6 +53,7 @@
 	font-weight: 800;
 	color: rgb(230, 62, 62);
 	padding: 0 0.5rem;
+	line-height: 20px;
 }
 .card__runtime {
 	display: flex;
@@ -68,36 +61,43 @@
 	font-size: 1.2rem;
 	color: rgba(255, 255, 255, 0.8);
 	padding: 0 0.5rem;
-	margin-bottom: 2rem;
+}
+.card__language {
+	margin-left: 0.5rem;
+	margin-bottom: 1.5rem;
+	background-color: #1e1e1e;
+	width: fit-content;
+	height: fit-content;
+	font-size: 0.85rem;
+	padding: 0.2rem;
+	color: rgba(255, 255, 255, 0.8);
+	border-radius: 5px;
+}
+.card__language span {
+	text-transform: uppercase;
+	color: rgb(230, 62, 62);
 }
 .card__rating {
 	position: absolute;
-	right: 0;
+	right: -2%;
 	top: 0;
-	/* display: flex; */
+	z-index: 2;
 }
-.card__rating b {
+.card__rating .rate__movie {
 	position: absolute;
 	left: 0;
-	left: 70%;
-	bottom: 35%;
-	font-size: 0.9rem;
+	left: 65%;
+	bottom: 36%;
+	font-size: 0.8rem;
 	color: rgba(255, 255, 255, 0.8);
-	/* padding: 0 0.5rem; */
-	z-index: 99;
+	z-index: 2;
 }
-.circle__chart {
-	/* position: absolute;
-	right: 0;
-	top: 0; */
-	position: relative;
+.card__rating .rate__movie span {
+	font-size: 0.5rem;
+	position: absolute;
+	top: 10%;
 }
-.circle__chart__background {
-	background-color: transparent !important;
-}
-.circle__chart__circle {
-	background-color: transparent !important;
-}
+
 .card__description {
 	font-style: italic;
 	font-size: 0.85rem;
