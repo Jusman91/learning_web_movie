@@ -1,4 +1,4 @@
-.container__main__content {
+.container__trailers {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -7,19 +7,19 @@
 	margin-top: 4rem;
 	margin-bottom: 0.7rem;
 }
-.main__content__header {
+.trailers__header {
 	text-align: center;
 	line-height: 20px;
 	margin-bottom: 1rem;
 }
-.main__content__header h2 {
+.trailers__header h2 {
 	text-transform: uppercase;
 	font-weight: 500;
 }
-.main__content__header span {
+.trailers__header span {
 	text-transform: capitalize;
 }
-.content__list {
+.trailers__list {
 	position: relative;
 	width: 430px;
 	height: 50px;
@@ -28,19 +28,20 @@
 	align-items: center;
 	border-radius: 10px;
 }
-.content__list ul {
+.trailers__list ul {
 	position: relative;
 	display: flex;
+	justify-content: center;
 	width: 370px;
 }
-.content__list ul li {
+.trailers__list ul li {
 	position: relative;
 	list-style: none;
 	width: 120px;
 	height: 50px;
 	z-index: 1;
 }
-.content__list ul li div {
+.trailers__list ul li div {
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -50,7 +51,7 @@
 	text-align: center;
 	font-weight: 500;
 }
-.content__list ul li div .list__icon {
+.trailers__list ul li div .trailers__list__icon {
 	position: relative;
 	display: block;
 	font-size: 1.2rem;
@@ -58,11 +59,15 @@
 	transition: 0.5s;
 	color: rgba(255, 255, 255, 0.7);
 }
-.content__list ul li.list__active div .list__icon {
+.trailers__list
+	ul
+	li.trailers__list__active
+	div
+	.trailers__list__icon {
 	transform: translateY(-7px);
 	color: rgb(21, 137, 255);
 }
-.content__list ul li div .list__text {
+.trailers__list ul li div .trailers__list__text {
 	position: absolute;
 	font-size: 0.8rem;
 	font-weight: 600;
@@ -71,20 +76,25 @@
 	opacity: 0;
 	transform: translateY(0);
 }
-.content__list ul li.list__active div .list__text {
+.trailers__list
+	ul
+	li.trailers__list__active
+	div
+	.trailers__list__text {
 	transform: translateY(13px);
 	opacity: 1;
 }
-.indicator {
+.trailers__indicator {
 	position: absolute;
-	width: 120px;
+	left: 16%;
+	width: 130px;
 	height: 50px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	transition: 0.5s;
 }
-.indicator::before {
+.trailers__indicator::before {
 	content: '';
 	position: absolute;
 	bottom: 4px;
@@ -94,18 +104,23 @@
 	border-radius: 10px;
 	box-shadow: 0 15px 35px rgba(21, 137, 255, 0.9);
 }
-.content__list
+.trailers__list
 	ul
-	li:nth-child(2).list__active
-	~ .indicator {
+	li:nth-child(2).trailers__list__active
+	~ .trailers__indicator {
 	transform: translateX(calc(120px * 1));
 }
-.content__list
-	ul
-	li:nth-child(3).list__active
-	~ .indicator {
-	transform: translateX(calc(120px * 2));
-}
+
 .container__slider {
-	margin: 0 2rem;
+	position: relative;
+	margin: 0 2.7rem;
+	height: fit-content;
+}
+.trailers {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 3;
 }

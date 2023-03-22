@@ -83,6 +83,7 @@
 	top: 0;
 	z-index: 2;
 }
+
 .card__rating .rate__movie {
 	position: absolute;
 	left: 0;
@@ -104,4 +105,34 @@
 	font-weight: 600;
 	padding: 0 0.5rem;
 	color: rgb(21, 21, 21);
+}
+
+/* styling for trailers */
+.trailers__card {
+	position: relative;
+	width: 410px;
+}
+.trailers__card .trailers__poster img {
+	width: 100%;
+	height: 360px;
+	object-fit: cover;
+	object-position: top;
+	border-radius: 20px;
+	overflow: hidden;
+}
+.trailers__details {
+	text-align: center;
+	width: 100%;
+}
+.btn__play__trailers .play__icon {
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	font-size: 4rem;
+	color: rgba(21, 137, 255, 0.7);
+	cursor: pointer;
+	z-index: 2;
 }

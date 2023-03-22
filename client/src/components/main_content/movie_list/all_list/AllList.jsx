@@ -8,7 +8,7 @@ import AliceCarousel from 'react-alice-carousel';
 import Card from '../../card/Card';
 import './AllList.css';
 
-const AllList = ({ mediaType, listCategory }) => {
+const AllList = ({ mediaType, listCategory, latest }) => {
 	const [movieList, setMovieList] = useState([]);
 	const [categorys, setCategorys] = useState('top_rated');
 
@@ -51,44 +51,80 @@ const AllList = ({ mediaType, listCategory }) => {
 		<>
 			<div className='container__main__content'>
 				<div className='main__content__header'>
-					<h1>{mediaType}</h1>
-					<span>Choose Your Favorite Movies</span>
+					<h2>{mediaType}</h2>
+					<span>Choose Your Favorite {mediaType}</span>
 				</div>
 				<div className='content__list'>
 					<ul>
 						<li
-							onClick={() => handleCategorys('top_rated')}>
-							<span>
-								<GiStarMedal />
-							</span>
-							<span>Top Rated</span>
+							onClick={() => handleCategorys('top_rated')}
+							className={
+								categorys === 'top_rated'
+									? 'list__active'
+									: ''
+							}>
+							<div>
+								<span className='list__icon'>
+									<GiStarMedal />
+								</span>
+								<span className='list__text'>
+									Top Rated
+								</span>
+							</div>
 						</li>
-						<li onClick={() => handleCategorys('popular')}>
-							<span>
-								<AiTwotoneLike />
-							</span>
-							<span>Popular</span>
+						<li
+							onClick={() => handleCategorys('popular')}
+							className={
+								categorys === 'popular'
+									? 'list__active'
+									: ''
+							}>
+							<div>
+								<span className='list__icon'>
+									<AiTwotoneLike />
+								</span>
+								<span className='list__text'>Popular</span>
+							</div>
 						</li>
 						{mediaType === 'movie' && (
 							<li
-								onClick={() => handleCategorys('upcoming')}>
-								<span>
-									<MdUpcoming />
-								</span>
-								<span>{listCategory}</span>
+								onClick={() => handleCategorys('upcoming')}
+								className={
+									categorys === 'upcoming'
+										? 'list__active'
+										: ''
+								}>
+								<div>
+									<span className='list__icon'>
+										<MdUpcoming />
+									</span>
+									<span className='list__text'>
+										{listCategory}
+									</span>
+								</div>
 							</li>
 						)}
 						{mediaType === 'tv' && (
 							<li
 								onClick={() =>
 									handleCategorys('airing_today')
+								}
+								className={
+									categorys === 'airing_today'
+										? 'list__active'
+										: ''
 								}>
-								<span>
-									<RiSlideshow2Fill />
-								</span>
-								<span>{listCategory}</span>
+								<div>
+									<span className='list__icon'>
+										<RiSlideshow2Fill />
+									</span>
+									<span className='list__text'>
+										{listCategory}
+									</span>
+								</div>
 							</li>
 						)}
+						<div className='indicator'></div>
 					</ul>
 				</div>
 			</div>
