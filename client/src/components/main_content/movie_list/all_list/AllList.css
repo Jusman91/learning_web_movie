@@ -107,5 +107,6 @@
 	transform: translateX(calc(120px * 2));
 }
 .container__slider {
+	position: relative;
 	margin: 0 2rem;
 }

@@ -32,7 +32,7 @@ const Card = ({ movie, link, trailers, selectMovie }) => {
 							</div>
 							<div className='card__description'>
 								{movie.overview &&
-									movie.overview.slice(0, 130) + '...'}
+									movie.overview.slice(0, 135) + '...'}
 							</div>
 						</div>
 						<div className='card__rating'>
@@ -45,7 +45,7 @@ const Card = ({ movie, link, trailers, selectMovie }) => {
 									stroke='#2f3439'
 									strokeWidth='3'
 									fill='none'
-									cx='18'
+									cx='13'
 									cy='15'
 									r='14'></circle>
 								<circle
@@ -67,7 +67,7 @@ const Card = ({ movie, link, trailers, selectMovie }) => {
 									strokeDasharray={`${parseInt(
 										movie.vote_average,
 									)}0,100`}
-									cx='18'
+									cx='13'
 									cy='15'
 									r='14'></circle>
 							</svg>

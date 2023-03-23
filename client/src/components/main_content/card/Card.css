@@ -1,15 +1,18 @@
 .card {
 	position: relative;
-	border-radius: 20px;
-	width: 300px;
-	height: 210px;
-	z-index: 0;
-	overflow: hidden;
-	cursor: pointer;
 }
 .card .poster {
 	position: relative;
 	overflow: hidden;
+	border-radius: 20px;
+	margin: 5px;
+}
+.card .poster img {
+	width: 100%;
+	height: 210px;
+	object-fit: cover;
+	object-position: top;
+	transition: 0.5s;
 }
 .card .poster::before {
 	content: '';
@@ -28,10 +31,7 @@
 .card:hover .poster::before {
 	bottom: 0px;
 }
-.card .poster img {
-	width: 100%;
-	transition: 0.5s;
-}
+
 .card:hover .poster img {
 	transform: translateY(-50px);
 	filter: blur(5px);
@@ -80,14 +80,14 @@
 .card__rating {
 	position: absolute;
 	right: -2%;
-	top: 0;
+	top: 2%;
 	z-index: 2;
 }
 
 .card__rating .rate__movie {
 	position: absolute;
 	left: 0;
-	left: 65%;
+	left: 57%;
 	bottom: 36%;
 	font-size: 0.8rem;
 	color: rgba(255, 255, 255, 0.8);
@@ -110,7 +110,11 @@
 /* styling for trailers */
 .trailers__card {
 	position: relative;
-	width: 410px;
+	overflow: hidden;
+}
+.trailers__card .trailers__poster {
+	position: relative;
+	margin: 5px;
 }
 .trailers__card .trailers__poster img {
 	width: 100%;
@@ -118,7 +122,6 @@
 	object-fit: cover;
 	object-position: top;
 	border-radius: 20px;
-	overflow: hidden;
 }
 .trailers__details {
 	text-align: center;

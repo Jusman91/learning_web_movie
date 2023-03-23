@@ -111,10 +111,20 @@
 	transform: translateX(calc(120px * 1));
 }
 
-.container__slider {
+.container__slider__trailer {
 	position: relative;
 	margin: 0 2.7rem;
 	height: fit-content;
+}
+.close__trailer {
+	position: absolute;
+	right: -1%;
+	top: -4%;
+	background-color: rgba(21, 137, 255, 0.3);
+	border-radius: 50%;
+	font-size: 2rem;
+	z-index: 5;
+	cursor: pointer;
 }
 .trailers {
 	position: absolute;

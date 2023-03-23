@@ -67,22 +67,10 @@ const Trending = ({ mediaType }) => {
 						<HeroContainer key={index} poster={movie} />
 					))}
 			</AliceCarousel>
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'space-between',
-					margin: '2rem 2rem 1rem 2rem',
-				}}>
+			<div>
 				<Genres />
 			</div>
-			<div
-				style={{
-					margin: '0 6rem',
-					display: 'flex',
-					justifyContent: 'space-between',
-					flexWrap: 'wrap',
-					gap: '2rem',
-				}}>
+			<div>
 				{data &&
 					data?.map((movie) => (
 						<Card

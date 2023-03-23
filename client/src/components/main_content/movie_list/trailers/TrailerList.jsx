@@ -1,16 +1,16 @@
 import axios from 'axios';
 import './TrailerList.css';
 import { SiAirplayvideo } from 'react-icons/si';
-import { MdOutlinePlayCircleFilled } from 'react-icons/md';
+import {
+	MdOutlinePlayCircleFilled,
+	MdClose,
+} from 'react-icons/md';
 import YouTube from 'react-youtube';
 import { useEffect, useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import Card from '../../card/Card';
-import GetTrailers from './GetTrailers';
-import { useNavigate } from 'react-router-dom';
 
 const TrailerList = () => {
-	const navigate = useNavigate();
 	const [dataTrailers, setDataTrailers] = useState([]);
 	const [mediaType, setMediaType] = useState('movie');
 	const [categorys, setCategorys] = useState('now_playing');
@@ -20,11 +20,6 @@ const TrailerList = () => {
 	const handleSet = (cate, media) => {
 		setMediaType(media);
 		setCategorys(cate);
-	};
-
-	const handlePlayTrailer = (trailer, navigateTo) => {
-		setPlayTrailer(trailer);
-		navigate(navigateTo);
 	};
 
 	const responsive = {
@@ -70,19 +65,29 @@ const TrailerList = () => {
 		const trailers = await fetchTrailers(video.id);
 		console.log('data trailers', trailers);
 		setSelectMovie(trailers);
+		setPlayTrailer(true);
 	};
 
 	const randerTrailer = () => {
-		const trailer = selectMovie.videos.results[0];
+		const trailer = selectMovie.videos.results.find(
+			(v) => v.name === 'Official Trailer',
+		);
+
+		const key = trailer
+			? trailer.key
+			: selectMovie.videos.results[0];
 
 		return (
 			<YouTube
-				videoId={trailer.key}
+				videoId={key}
 				className={'trailers'}
 				opts={{
 					width: '100%',
 					height: '100%',
-					playerVars: { autoplay: 1, controls: 0 },
+					playerVars: {
+						autoplay: 1,
+						controls: 1,
+					},
 				}}
 			/>
 		);
@@ -141,11 +146,26 @@ const TrailerList = () => {
 					</ul>
 				</div>
 			</div>
-			<div className='container__slider'>
-				{selectMovie.videos ? randerTrailer() : null}
-				{/* {palayTrailer === true ? <GetTrailers /> : null} */}
+			<div className='container__slider__trailer'>
+				{selectMovie.videos && palayTrailer
+					? randerTrailer()
+					: null}
+				{palayTrailer ? (
+					<MdClose
+						type='button'
+						onClick={() => setPlayTrailer(false)}
+						className='close__trailer'
+					/>
+				) : null}
+
 				{dataTrailers && dataTrailers.length > 0 ? (
 					<AliceCarousel
+						autoPlay={true}
+						autoPlayInterval={3000}
+						infinite={true}
+						touchMoveDefaultEvents={false}
+						touchTracking={false}
+						mouseTracking
 						disableDotsControls
 						disableButtonsControls
 						responsive={responsive}>
@@ -155,20 +175,12 @@ const TrailerList = () => {
 									key={index}
 									trailers={movie}
 									selectMovie={selectTrailers}
-									// onClick={() =>
-									// 	handlePlayTrailer(
-									// 		true,
-									// 		`/trailers/${movie.id}/${mediaType}`,
-									// 	)
-									// }
-									// link={`/trailers/${movie.id}/${mediaType}`}
 								/>
 							))}
 					</AliceCarousel>
 				) : (
 					<h2>Movies Not Found</h2>
 				)}
-				<h1>{selectMovie.title}</h1>
 			</div>
 		</>
 	);

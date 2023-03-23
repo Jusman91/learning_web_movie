@@ -1,4 +1,3 @@
-import './App.css';
 import NavBar from './components/header/navbar/NavBar';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './routes/home/Home';
@@ -7,8 +6,6 @@ import Login from './components/login/Login';
 import TrendingMovies from './routes/trending/TrendingMovies';
 import TrendingTv from './routes/trending/TrendingTv';
 import SearchAll from './routes/search/SearchResults';
-import GetTrailers from './components/main_content/movie_list/trailers/GetTrailers';
-import TrailerList from './components/main_content/movie_list/trailers/TrailerList';
 
 function App() {
   const user = true
@@ -21,7 +18,6 @@ function App() {
           <Route path='login' element={user ? <Navigate to='/' /> : <Login />} />
           <Route path='/' element={<Home />} />
           <Route path='details/:id/:mediatype' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
-          {/* <Route path='trailers/:id/:mediatype' element={<TrailerList />} /> */}
           <Route path='movies' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
           <Route path='tv' element={user ? <TrendingTv /> : <Navigate to='/login' />} />
           <Route path='search' element={user ? <SearchAll /> : <Navigate to='/login' />} />

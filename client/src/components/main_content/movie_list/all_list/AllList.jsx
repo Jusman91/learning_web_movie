@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { GiStarMedal } from 'react-icons/gi';
 import { AiTwotoneLike } from 'react-icons/ai';
+import {
+	IoIosArrowBack,
+	IoIosArrowForward,
+} from 'react-icons/io';
 import { MdUpcoming } from 'react-icons/md';
 import { RiSlideshow2Fill } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
@@ -28,6 +32,44 @@ const AllList = ({ mediaType, listCategory, latest }) => {
 		}
 	};
 
+	const renderNextButton = () => {
+		return (
+			<IoIosArrowForward
+				style={{
+					position: 'absolute',
+					right: '-2%',
+					top: '35%',
+					fontSize: '40px',
+					cursor: 'pointer',
+				}}
+			/>
+		);
+	};
+
+	const renderPrevButton = () => {
+		return (
+			<IoIosArrowBack
+				style={{
+					position: 'absolute',
+					left: '-2%',
+					top: '35%',
+					fontSize: '40px',
+					cursor: 'pointer',
+				}}
+			/>
+		);
+	};
+
+	const items = movieList.map((movie, index) => {
+		return (
+			<Card
+				key={index}
+				movie={movie}
+				link={`/details/${movie.id}/${mediaType}`}
+			/>
+		);
+	});
+
 	const responsive = {
 		0: {
 			items: 1,
@@ -38,9 +80,6 @@ const AllList = ({ mediaType, listCategory, latest }) => {
 		1024: {
 			items: 4,
 		},
-		// 1200: {
-		// 	items: 5,
-		// },
 	};
 
 	useEffect(() => {
@@ -131,19 +170,27 @@ const AllList = ({ mediaType, listCategory, latest }) => {
 			<div className='container__slider'>
 				{movieList && movieList.length > 0 ? (
 					<AliceCarousel
+						autoPlay={true}
+						autoPlayInterval={3000}
+						animationDuration={600}
+						infinite={true}
+						mouseTracking
 						disableDotsControls
-						disableButtonsControls
-						responsive={responsive}>
-						{movieList &&
-							movieList?.map((movie, index) => (
-								<Card
-									key={index}
-									movie={movie}
-									link={`/details/${movie.id}/${mediaType}`}
-								/>
-							))}
-					</AliceCarousel>
+						renderNextButton={renderNextButton}
+						renderPrevButton={renderPrevButton}
+						responsive={responsive}
+						items={items}
+					/>
 				) : (
+					// 	{movieList &&
+					// 		movieList?.map((movie, index) => (
+					// 			<Card
+					// 				key={index}
+					// 				movie={movie}
+					// 				link={`/details/${movie.id}/${mediaType}`}
+					// 			/>
+					// 		))}
+					// </AliceCarousel>
 					<h2>Movies Not Found</h2>
 				)}
 			</div>
