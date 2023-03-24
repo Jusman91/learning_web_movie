@@ -1,4 +1,5 @@
 .login {
+	width: 100%;
 	height: calc(95vh - 50px);
 	display: flex;
 	justify-content: center;

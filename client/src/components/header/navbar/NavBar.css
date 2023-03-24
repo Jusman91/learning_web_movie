@@ -1,5 +1,5 @@
 .container__navbar {
-	position: fixed;
+	position: sticky;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -93,7 +93,7 @@
 }
 .middle__nav ul li a.active__nav .icon {
 	transform: translateY(-8px);
-	color: #fd29ba;
+	color: rgb(21, 137, 255);
 }
 .middle__nav ul li a .text {
 	position: absolute;

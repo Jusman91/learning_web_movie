@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../card/Card.css';
 import { img_500 } from '../../../config/config';
-import { FaPlay } from 'react-icons/fa';
+import { IoPlay } from 'react-icons/io5';
 
 const Card = ({ movie, link, trailers, selectMovie }) => {
 	if (movie) {
@@ -92,7 +92,7 @@ const Card = ({ movie, link, trailers, selectMovie }) => {
 						/>
 					</div>
 					<div className='btn__play__trailers'>
-						<FaPlay
+						<IoPlay
 							onClick={() => selectMovie(trailers)}
 							className='play__icon'
 						/>

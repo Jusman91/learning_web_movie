@@ -170,10 +170,7 @@ const AllList = ({ mediaType, listCategory, latest }) => {
 			<div className='container__slider'>
 				{movieList && movieList.length > 0 ? (
 					<AliceCarousel
-						autoPlay={true}
-						autoPlayInterval={3000}
 						animationDuration={600}
-						infinite={true}
 						mouseTracking
 						disableDotsControls
 						renderNextButton={renderNextButton}

@@ -6,6 +6,7 @@ import Login from './components/login/Login';
 import TrendingMovies from './routes/trending/TrendingMovies';
 import TrendingTv from './routes/trending/TrendingTv';
 import SearchAll from './routes/search/SearchResults';
+import Footer from './components/footer/Footer';
 
 function App() {
   const user = true
@@ -24,6 +25,7 @@ function App() {
           <Route path='search/:type' element={user ? <SearchAll /> : <Navigate to='/login' />} />
           <Route path='/*' element={<h1>Error Page</h1>} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

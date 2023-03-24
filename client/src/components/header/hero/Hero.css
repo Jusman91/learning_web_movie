@@ -56,7 +56,6 @@
 /* componet hero style on home page */
 .container__hero {
 	position: relative;
-	margin-top: 4.5rem;
 	width: 100%;
 }
 .container__hero img {
@@ -77,6 +76,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	text-align: center;
 }
 .container__hero .overlay .text__hero h1 {
 	font-size: 2rem;
@@ -87,14 +87,7 @@
 	color: rgba(255, 255, 255, 0.85);
 	text-transform: uppercase;
 }
-@keyframes animate {
-	0% {
-		background-position: 0%;
-	}
-	100% {
-		background-position: 400%;
-	}
-}
+
 .container__hero .overlay .logo__text .logo__text__s {
 	position: absolute;
 	top: 30%;
@@ -133,4 +126,13 @@
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
 	animation: animate 60s linear infinite;
+}
+
+@keyframes animate {
+	0% {
+		background-position: 0%;
+	}
+	100% {
+		background-position: 400%;
+	}
 }
