@@ -22,7 +22,12 @@ const Accordion = ({ label, children }) => {
 					)}
 				</button>
 				<div className='genre__item'>
-					{isOpen && <div>{children}</div>}
+					{isOpen && (
+						<>
+							<div>{children}</div>
+							<div>{children}</div>
+						</>
+					)}
 				</div>
 			</div>
 		</>

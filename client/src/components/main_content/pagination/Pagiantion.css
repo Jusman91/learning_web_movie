@@ -2,30 +2,32 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 1rem;
+	margin: 1rem 8rem;
+	padding: 0.5rem 0;
+	background-color: #242424;
+	border-radius: 8px;
 }
 .page__item {
 	list-style: none;
+	margin: 0.25rem;
+	padding: 0.25rem 1rem;
+	border: 1px solid #303030;
+	border-radius: 8px;
+	color: rgba(255, 255, 255, 0.8);
+	background-color: #363636;
 	cursor: pointer;
-	border-radius: 50%;
-	background-color: #000;
-	color: skyblue;
-	font-weight: bold;
-	text-align: center;
-	padding-left: 7px;
-	padding-right: 7px;
-	padding-top: 7px;
-	height: 40px;
-	width: 40px;
-	margin: 5px;
-	box-shadow: 0 3px 6px rgb(251, 75, 251, 0.16),
-		0 3px 6px rgba(251, 75, 251, 0.23);
+}
+.page__item:hover {
+	border-color: #47a7ff;
+	color: #52a6f0;
 }
 .page__link {
 	text-decoration: none;
-	font-size: 1.1rem;
 }
 .active__pagination {
-	background-color: rgb(251, 75, 251);
-	color: #fff;
+	background-color: #1589ff;
+	border-color: #47a3ff;
+	color: rgba(255, 255, 255, 0.8);
+	font-weight: 600;
+	box-shadow: 0 8px 16px rgba(21, 137, 255, 0.212);
 }

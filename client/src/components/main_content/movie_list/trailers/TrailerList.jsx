@@ -63,7 +63,6 @@ const TrailerList = () => {
 
 	const selectTrailers = async (video) => {
 		const trailers = await fetchTrailers(video.id);
-		console.log('data trailers', trailers);
 		setSelectMovie(trailers);
 		setPlayTrailer(true);
 	};
@@ -75,7 +74,7 @@ const TrailerList = () => {
 
 		const key = trailer
 			? trailer.key
-			: selectMovie.videos.results[0];
+			: selectMovie.videos.results[0].key;
 
 		return (
 			<YouTube

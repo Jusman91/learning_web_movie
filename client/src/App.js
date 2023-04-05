@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path='login' element={user ? <Navigate to='/' /> : <Login />} />
           <Route path='/' element={<Home />} />
-          <Route path='details/:id/:mediatype' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
+          <Route path='/details/:movieid/:mediatype' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
           <Route path='movies' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
           <Route path='tv' element={user ? <TrendingTv /> : <Navigate to='/login' />} />
           <Route path='search' element={user ? <SearchAll /> : <Navigate to='/login' />} />

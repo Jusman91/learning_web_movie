@@ -1,0 +1,43 @@
+.container__trending {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.close__tranding__trailer {
+	position: absolute;
+	top: -1%;
+	right: 4.5%;
+	font-size: 2rem;
+	z-index: 10;
+	cursor: pointer;
+}
+.trailers {
+	width: 100%;
+	position: absolute;
+	left: 5%;
+	z-index: 9;
+}
+.close__tranding__trailer:hover {
+	color: rgb(21, 137, 255);
+}
+.trending__hero {
+	width: 100%;
+}
+.container__trending__movies {
+	position: relative;
+	width: 100%;
+	margin-top: 2rem;
+}
+.container__trending__movies .trending__title {
+	text-align: center;
+	line-height: 30px;
+	margin-bottom: 1rem;
+}
+.wrapper__trending__movies {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0 8rem;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}

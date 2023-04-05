@@ -14,12 +14,15 @@ import {
 const MovieDetails = ({ categorys }) => {
 	const [playTrailer, setPlayTrailer] = useState(false);
 	const [currentMovieDetail, setMovie] = useState();
-	const { id, mediatype } = useParams();
+	// const { id, mediatype } = useParams();
+	const params = useParams();
+	const id = params.movieid || '';
+	const _media_type = params.mediatype || '';
 
 	const getData = async () => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${mediatype}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos`,
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos`,
 			);
 			const results = response.data;
 			setMovie(results);
