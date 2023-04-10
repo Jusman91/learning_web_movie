@@ -26,15 +26,12 @@ const TrailerList = () => {
 		0: {
 			items: 1,
 		},
-		512: {
+		676: {
 			items: 2,
 		},
-		1024: {
+		900: {
 			items: 3,
 		},
-		// 1200: {
-		// 	items: 5,
-		// },
 	};
 
 	const fetchData = async () => {
@@ -79,7 +76,7 @@ const TrailerList = () => {
 		return (
 			<YouTube
 				videoId={key}
-				className={'trailers'}
+				className={'trailer'}
 				opts={{
 					width: '100%',
 					height: '100%',

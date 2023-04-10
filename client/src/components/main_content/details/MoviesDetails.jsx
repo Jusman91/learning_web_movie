@@ -3,7 +3,13 @@ import YouTube from 'react-youtube';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { BsStarFill } from 'react-icons/bs';
+import {
+	MdList,
+	MdFavorite,
+	MdBookmark,
+	MdStar,
+	MdOutlinePlayCircle,
+} from 'react-icons/md';
 import { FiExternalLink } from 'react-icons/fi';
 import {
 	img_1280,
@@ -11,7 +17,7 @@ import {
 	img_500,
 } from '../../../config/config';
 
-const MovieDetails = ({ categorys }) => {
+const MovieDetails = () => {
 	const [playTrailer, setPlayTrailer] = useState(false);
 	const [currentMovieDetail, setMovie] = useState();
 	// const { id, mediatype } = useParams();
@@ -26,7 +32,6 @@ const MovieDetails = ({ categorys }) => {
 			);
 			const results = response.data;
 			setMovie(results);
-			console.log(results);
 		} catch (err) {
 			console.error(err, '<==== get data gagal ====>');
 		}
@@ -37,6 +42,14 @@ const MovieDetails = ({ categorys }) => {
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const rating = currentMovieDetail?.vote_average * 10;
+	const runtime = currentMovieDetail?.runtime;
+	const hours = Math.floor(runtime / 60);
+	const minutes = runtime % 60;
+	const toHoursAndMinutes = () => {
+		return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
+	};
 	console.log(currentMovieDetail);
 	return (
 		<>
@@ -70,11 +83,11 @@ const MovieDetails = ({ categorys }) => {
 						/>
 					) : null}
 
-					<button
+					{/* <button
 						className='trailer__btn'
 						onClick={() => setPlayTrailer(true)}>
 						Play Trailer
-					</button>
+					</button> */}
 					{playTrailer ? (
 						<button
 							className='trailer__btn trailer__btn__close'
@@ -85,57 +98,126 @@ const MovieDetails = ({ categorys }) => {
 				</div>
 				<div className='movie__detail'>
 					<div className='movie__detailLeft'>
-						<div className='movie__posterBox'>
-							<img
-								src={`${img_500}${currentMovieDetail?.poster_path}`}
-								alt='poster'
-							/>
-						</div>
+						<img
+							src={`${img_500}${currentMovieDetail?.poster_path}`}
+							alt='poster'
+						/>
 					</div>
 					<div className='movie__detailRight'>
-						<div className='movie__detailRightTop'>
-							<div className='movie__name'>
+						<div className='top__part'>
+							<h3 className='movie__name'>
 								{currentMovieDetail?.original_title ||
 									currentMovieDetail?.name}
-							</div>
-							<div className='movie__tagline'>
+							</h3>
+							<span className='movie__tagline'>
 								{currentMovieDetail?.tagline}
-							</div>
-							<div className='movie__rating'>
-								<span className='movie__voteAverage'>
-									{currentMovieDetail?.vote_average}
-								</span>
-								<div className='moivie__icon'>
-									<BsStarFill />
-								</div>
-								<span className='movie__voteCount'>
-									{'(' +
-										currentMovieDetail?.vote_count +
-										')'}{' '}
+							</span>
+						</div>
+						<div className='middle__part'>
+							<div className='middle__part__items_1'>
+								<div className='movie__voteCount'>
+									<span>
+										{'(' +
+											currentMovieDetail?.vote_count +
+											')'}{' '}
+									</span>
 									votes
-								</span>
+								</div>
+								<div className='movie__status'>
+									Status:{' '}
+									<span>{currentMovieDetail?.status}</span>
+								</div>
+								<div className='movie__runtime'>
+									Runetime:{' '}
+									<span>{toHoursAndMinutes()}</span>
+								</div>
+								<div className='movie__releaseDate'>
+									Release date:{' '}
+									<span>
+										{currentMovieDetail?.release_date}
+									</span>
+								</div>
 							</div>
-							<div className='movie__runtime'>
-								{currentMovieDetail?.runtime} mins
+							<div className='middle__part__items_2'>
+								<div className='movie__genres'>
+									{currentMovieDetail?.genres?.map(
+										(genre, index) => (
+											<>
+												<span
+													key={index.id}
+													className='movie__genre'
+													id={genre.id}>
+													{genre.name}
+												</span>
+											</>
+										),
+									)}
+								</div>
 							</div>
-							<div className='movie__releaseDate'>
-								Release date:{' '}
-								{currentMovieDetail?.release_date}
-							</div>
-							<div className='movie__genres'>
-								{currentMovieDetail?.genres?.map(
-									(genre, index) => (
-										<>
-											<span
-												key={index.id}
-												className='movie__genre'
-												id={genre.id}>
-												{genre.name}
-											</span>
-										</>
-									),
-								)}
-							</div>
+							<ul className='middle__part__items_3'>
+								<li>
+									<div className='movie__rating__percent'>
+										<svg>
+											<circle
+												cx='19'
+												cy='20'
+												r='20'></circle>
+											<circle
+												style={{
+													stroke: `${
+														rating >= 80
+															? '#57e32c'
+															: rating <= 79 && rating >= 68
+															? '#b7dd29'
+															: rating <= 67 && rating >= 56
+															? '#ffe234'
+															: rating <= 55 && rating >= 45
+															? '#ffa534'
+															: rating <= 44 && rating >= 0
+															? '#ff4545'
+															: ''
+													}`,
+													strokeDashoffset: `calc(130 - (130 * ${Math.round(
+														rating,
+													)}) / 100)`,
+												}}
+												cx='19'
+												cy='20'
+												r='20'></circle>
+										</svg>
+										<div className='movie__rating__number'>
+											<h5>{Math.round(rating)}</h5>
+											<span>%</span>
+										</div>
+									</div>
+								</li>
+								<li>
+									<span>
+										<MdList />
+									</span>
+								</li>
+								<li>
+									<span>
+										<MdFavorite />
+									</span>
+								</li>
+								<li>
+									<span>
+										<MdBookmark />
+									</span>
+								</li>
+								<li>
+									<span>
+										<MdStar />
+									</span>
+								</li>
+								<li onClick={() => setPlayTrailer(true)}>
+									<span>
+										<MdOutlinePlayCircle />
+									</span>
+									Play Trailer
+								</li>
+							</ul>
 						</div>
 						<div className='movie__detailRightBottom'>
 							<div className='synopsisText'>Synopsis</div>

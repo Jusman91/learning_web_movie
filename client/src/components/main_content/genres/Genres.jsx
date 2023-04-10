@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { SiOpenmined } from 'react-icons/si';
 import { BsFillXCircleFill } from 'react-icons/bs';
-import Accordion from '../../elements/Accordion';
 import '../genres/Genres.css';
 
 const Genres = ({
@@ -13,16 +12,11 @@ const Genres = ({
 	type,
 	setPage,
 }) => {
-	// const [genres, setGenres] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
 	const [listActive, setListActive] = useState(false);
 
 	const toggleListGenres = () =>
 		setIsOpen((prevIsOpen) => !prevIsOpen);
-
-	// const toggleListActive = () => {
-	// 	setListActive((prevListActive) => !prevListActive);
-	// };
 
 	const handleAdd = (genre) => {
 		setSelectedGenres([...selectedGenres, genre]);
@@ -58,6 +52,7 @@ const Genres = ({
 		return () => {
 			setGenres({});
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<>

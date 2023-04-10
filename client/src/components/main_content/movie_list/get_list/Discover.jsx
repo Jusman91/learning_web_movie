@@ -1,5 +1,5 @@
 import axios from 'axios';
-import './Trending.css';
+import './Discover.css';
 import { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import AliceCarousel from 'react-alice-carousel';
@@ -60,13 +60,13 @@ const Trending = ({ mediaType }) => {
 		return (
 			<YouTube
 				videoId={key}
-				className={'trailers'}
+				className={'trailer'}
 				opts={{
-					width: '90%',
+					width: '100%',
 					height: '100%',
 					playerVars: {
 						autoplay: 1,
-						controls: 0,
+						controls: 1,
 						origin: 'http://localhost:3000',
 					},
 				}}
@@ -117,6 +117,7 @@ const Trending = ({ mediaType }) => {
 									key={index}
 									poster={movie}
 									selectTrailers={playTrailers}
+									mediaType={mediaType}
 								/>
 							))}
 					</AliceCarousel>

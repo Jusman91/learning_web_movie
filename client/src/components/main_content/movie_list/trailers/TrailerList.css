@@ -32,6 +32,7 @@
 	position: relative;
 	display: flex;
 	justify-content: center;
+	gap: 4rem;
 	width: 370px;
 }
 .trailers__list ul li {
@@ -50,6 +51,7 @@
 	width: 100%;
 	text-align: center;
 	font-weight: 500;
+	cursor: pointer;
 }
 .trailers__list ul li div .trailers__list__icon {
 	position: relative;
@@ -87,7 +89,7 @@
 .trailers__indicator {
 	position: absolute;
 	left: 16%;
-	width: 130px;
+	width: 194px;
 	height: 50px;
 	display: flex;
 	justify-content: center;
@@ -97,9 +99,10 @@
 .trailers__indicator::before {
 	content: '';
 	position: absolute;
-	bottom: 4px;
-	width: 80%;
-	height: 18px;
+	bottom: 3px;
+	left: -35px;
+	width: 70%;
+	height: 22px;
 	background: rgb(21, 137, 255);
 	border-radius: 10px;
 	box-shadow: 0 15px 35px rgba(21, 137, 255, 0.9);
@@ -108,13 +111,12 @@
 	ul
 	li:nth-child(2).trailers__list__active
 	~ .trailers__indicator {
-	transform: translateX(calc(120px * 1));
+	transform: translateX(calc(184px * 1));
 }
 
 .container__slider__trailer {
 	position: relative;
-	margin: 0 2.7rem;
-	height: fit-content;
+	margin: 0 4rem;
 }
 .close__trailer {
 	position: absolute;
@@ -123,14 +125,14 @@
 	background-color: rgba(21, 137, 255, 0.3);
 	border-radius: 50%;
 	font-size: 2rem;
-	z-index: 5;
+	z-index: 9;
 	cursor: pointer;
 }
-.trailers {
+.trailer {
 	position: absolute;
 	left: 0;
-	right: 0;
 	top: 0;
+	right: 0;
 	bottom: 0;
 	z-index: 3;
 }

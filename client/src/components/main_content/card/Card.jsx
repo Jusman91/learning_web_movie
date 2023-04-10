@@ -42,44 +42,34 @@ const Card = ({
 									movie.overview.slice(0, 135) + '...'}
 							</div>
 						</div>
-						<div className='card__rating'>
-							<svg
-								viewBox='-15 0 30 30'
-								width='100'
-								height='40'
-								xmlns='http://www.w3.org/2000/svg'>
+						<div className='rating__percent'>
+							<svg>
+								<circle cx='19' cy='20' r='20'></circle>
 								<circle
-									stroke='#2f3439'
-									strokeWidth='3'
-									fill='none'
-									cx='13'
-									cy='15'
-									r='14'></circle>
-								<circle
-									stroke={
-										rating >= 80
-											? '#57e32c'
-											: rating <= 79 && rating >= 68
-											? '#b7dd29'
-											: rating <= 67 && rating >= 56
-											? '#ffe234'
-											: rating <= 55 && rating >= 45
-											? '#ffa534'
-											: rating <= 44 && rating >= 0
-											? '#ff4545'
-											: ''
-									}
-									strokeWidth='3'
-									fill='rgba(25, 25, 25, 0.8)'
-									strokeDasharray={`${parseInt(
-										movie.vote_average,
-									)}0,100`}
-									cx='13'
-									cy='15'
-									r='14'></circle>
+									style={{
+										stroke: `${
+											rating >= 80
+												? '#57e32c'
+												: rating <= 79 && rating >= 68
+												? '#b7dd29'
+												: rating <= 67 && rating >= 56
+												? '#ffe234'
+												: rating <= 55 && rating >= 45
+												? '#ffa534'
+												: rating <= 44 && rating >= 0
+												? '#ff4545'
+												: ''
+										}`,
+										strokeDashoffset: `calc(130 - (130 * ${Math.round(
+											rating,
+										)}) / 100)`,
+									}}
+									cx='19'
+									cy='20'
+									r='20'></circle>
 							</svg>
-							<div className='rate__movie'>
-								{Math.round(rating)}
+							<div className='rating__number'>
+								<h5>{Math.round(rating)}</h5>
 								<span>%</span>
 							</div>
 						</div>
@@ -131,7 +121,7 @@ const Card = ({
 								alt='poster'
 							/>
 						</div>
-						<div className='percent'>
+						<div className='rating__percent'>
 							<svg>
 								<circle cx='20' cy='20' r='20'></circle>
 								<circle
@@ -145,7 +135,7 @@ const Card = ({
 												? '#ffe234'
 												: rating <= 55 && rating >= 45
 												? '#ffa534'
-												: rating <= 44 && rating >= 0
+												: rating <= 44 && rating >= 1
 												? '#ff4545'
 												: ''
 										}`,
@@ -157,7 +147,7 @@ const Card = ({
 									cy='20'
 									r='20'></circle>
 							</svg>
-							<div className='number'>
+							<div className='rating__number'>
 								<h5>{Math.round(rating)}</h5>
 								<span>%</span>
 							</div>
