@@ -3,6 +3,8 @@ import YouTube from 'react-youtube';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
+
 import {
 	MdList,
 	MdFavorite,
@@ -16,14 +18,91 @@ import {
 	img_300,
 	img_500,
 } from '../../../config/config';
+import AliceCarousel from 'react-alice-carousel';
+import Card from '../card/Card';
+import {
+	IoIosArrowBack,
+	IoIosArrowForward,
+} from 'react-icons/io';
 
 const MovieDetails = () => {
 	const [playTrailer, setPlayTrailer] = useState(false);
 	const [currentMovieDetail, setMovie] = useState();
-	// const { id, mediatype } = useParams();
+	const [crew, setCrew] = useState([]);
+	const [cast, setCast] = useState([]);
+	const [similarMovies, setSimilarMovies] = useState([]);
+	const [movieRecommendations, setMovieRecommendations] =
+		useState([]);
 	const params = useParams();
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
+	const rating = currentMovieDetail?.vote_average * 10;
+	const toHoursAndMinutes = (totalMinutes) => {
+		const hours = Math.floor(totalMinutes / 60);
+		const minutes = totalMinutes % 60;
+		return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
+	};
+
+	const responsive = {
+		0: {
+			items: 1,
+		},
+		512: {
+			items: 3,
+		},
+		1024: {
+			items: 6,
+		},
+	};
+	const similarResponsive = {
+		0: {
+			items: 1,
+		},
+		512: {
+			items: 3,
+		},
+		1024: {
+			items: 4,
+		},
+	};
+
+	const renderNextButton = () => {
+		return (
+			<IoIosArrowForward
+				style={{
+					position: 'absolute',
+					right: '-2%',
+					top: '35%',
+					fontSize: '40px',
+					cursor: 'pointer',
+				}}
+			/>
+		);
+	};
+
+	const renderPrevButton = () => {
+		return (
+			<IoIosArrowBack
+				style={{
+					position: 'absolute',
+					left: '-2%',
+					top: '35%',
+					fontSize: '40px',
+					cursor: 'pointer',
+				}}
+			/>
+		);
+	};
+
+	const director = crew?.filter(
+		(f) => f.job === 'Director',
+	);
+	const writer = crew?.filter(
+		(f) =>
+			f.job === 'Story' ||
+			f.job === 'Screenplay' ||
+			f.job === 'writer',
+	);
 
 	const getData = async () => {
 		try {
@@ -37,20 +116,67 @@ const MovieDetails = () => {
 		}
 	};
 
+	const getCredits = async () => {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/credits?api_key=${process.env.REACT_APP_APIKEY}`,
+			);
+			console.log(response);
+			const crewResults = response.data.crew;
+			const castResults = response.data.cast;
+			setCrew(crewResults);
+			setCast(castResults);
+		} catch (err) {
+			console.error(err, '<==== get credits gagal ====>');
+		}
+	};
+
+	const getSimilarMovies = async () => {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/similar?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
+			);
+			console.log(response);
+			const results = response.data.results;
+			setSimilarMovies(results);
+		} catch (err) {
+			console.error(err, '<==== get similar gagal ====>');
+		}
+	};
+	const getMovieRecommendations = async () => {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/recommendations?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
+			);
+			console.log(response);
+			const results = response.data.results;
+			setMovieRecommendations(results);
+		} catch (err) {
+			console.error(err, '<==== get similar gagal ====>');
+		}
+	};
+
 	useEffect(() => {
 		getData();
+		getCredits();
+		getSimilarMovies();
+		getMovieRecommendations();
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [id, _media_type]);
 
-	const rating = currentMovieDetail?.vote_average * 10;
-	const runtime = currentMovieDetail?.runtime;
-	const hours = Math.floor(runtime / 60);
-	const minutes = runtime % 60;
-	const toHoursAndMinutes = () => {
-		return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
-	};
 	console.log(currentMovieDetail);
+
+	function numberWithCommas(x) {
+		return x
+			.toString()
+			.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	}
+
+	const languageNames = new Intl.DisplayNames(['en'], {
+		type: 'language',
+	});
+
 	return (
 		<>
 			<div className='movie'>
@@ -82,12 +208,6 @@ const MovieDetails = () => {
 							}}
 						/>
 					) : null}
-
-					{/* <button
-						className='trailer__btn'
-						onClick={() => setPlayTrailer(true)}>
-						Play Trailer
-					</button> */}
 					{playTrailer ? (
 						<button
 							className='trailer__btn trailer__btn__close'
@@ -96,6 +216,7 @@ const MovieDetails = () => {
 						</button>
 					) : null}
 				</div>
+				<div className='movie__intro__overlay'></div>
 				<div className='movie__detail'>
 					<div className='movie__detailLeft'>
 						<img
@@ -106,8 +227,12 @@ const MovieDetails = () => {
 					<div className='movie__detailRight'>
 						<div className='top__part'>
 							<h3 className='movie__name'>
-								{currentMovieDetail?.original_title ||
-									currentMovieDetail?.name}
+								{`${
+									currentMovieDetail?.title ||
+									currentMovieDetail?.name
+								} (${dayjs(
+									currentMovieDetail?.release_date,
+								).format('YYYY')})`}
 							</h3>
 							<span className='movie__tagline'>
 								{currentMovieDetail?.tagline}
@@ -116,40 +241,77 @@ const MovieDetails = () => {
 						<div className='middle__part'>
 							<div className='middle__part__items_1'>
 								<div className='movie__voteCount'>
+									<div>Original Language: </div>
 									<span>
-										{'(' +
-											currentMovieDetail?.vote_count +
-											')'}{' '}
+										{languageNames?.of(
+											currentMovieDetail?.original_language ||
+												'en',
+										)}
 									</span>
-									votes
 								</div>
 								<div className='movie__status'>
-									Status:{' '}
+									<div>Status: </div>
 									<span>{currentMovieDetail?.status}</span>
 								</div>
-								<div className='movie__runtime'>
-									Runetime:{' '}
-									<span>{toHoursAndMinutes()}</span>
-								</div>
+								{currentMovieDetail?.runtime?.length >
+									0 && (
+									<div className='movie__runtime'>
+										<div>Runtime: </div>
+										<span>
+											{toHoursAndMinutes(
+												currentMovieDetail?.runtime,
+											)}
+										</span>
+									</div>
+								)}
 								<div className='movie__releaseDate'>
-									Release date:{' '}
+									<div>Release date: </div>
 									<span>
-										{currentMovieDetail?.release_date}
+										{dayjs(
+											currentMovieDetail?.release_date ||
+												currentMovieDetail?.first_air_date,
+										).format('MMM D, YYYY')}
 									</span>
+								</div>
+								<div>
+									<div>Budget: </div>
+									{currentMovieDetail?.budget ? (
+										<span>
+											{numberWithCommas(
+												`${'$'}${
+													currentMovieDetail?.budget
+												}${'.00'}`,
+											)}
+										</span>
+									) : (
+										<span>_</span>
+									)}
+								</div>
+								<div>
+									<div>Revenue: </div>
+									{currentMovieDetail?.revenue ? (
+										<span>
+											{numberWithCommas(
+												`${'$'}${
+													currentMovieDetail?.revenue
+												}${'.00'}`,
+											)}
+										</span>
+									) : (
+										<span>_</span>
+									)}
 								</div>
 							</div>
 							<div className='middle__part__items_2'>
 								<div className='movie__genres'>
 									{currentMovieDetail?.genres?.map(
 										(genre, index) => (
-											<>
-												<span
-													key={index.id}
-													className='movie__genre'
-													id={genre.id}>
-													{genre.name}
-												</span>
-											</>
+											<span
+												key={index}
+												className='movie__genre'
+												id={genre.id}>
+												{genre.name}
+											</span>
 										),
 									)}
 								</div>
@@ -218,6 +380,47 @@ const MovieDetails = () => {
 									Play Trailer
 								</li>
 							</ul>
+							<div className='middle__part__items_4'>
+								{director?.length > 0 && (
+									<div>
+										Director:{' '}
+										{director.map((d, i) => (
+											<span key={i}>
+												{d.name}
+												{director.length - 1 !== i && ', '}
+											</span>
+										))}
+									</div>
+								)}
+								{writer?.length > 0 && (
+									<div>
+										Writer:{' '}
+										{writer.map((d, i) => (
+											<span key={i}>
+												{d.name}
+												{writer.length - 1 !== i && ', '}
+											</span>
+										))}
+									</div>
+								)}
+								{currentMovieDetail?.created_by?.length >
+									0 && (
+									<div>
+										Creator:{' '}
+										{currentMovieDetail?.created_by?.map(
+											(d, i) => (
+												<span key={i}>
+													{d.name}
+													{currentMovieDetail?.created_by
+														?.length -
+														1 !==
+														i && ', '}
+												</span>
+											),
+										)}
+									</div>
+								)}
+							</div>
 						</div>
 						<div className='movie__detailRightBottom'>
 							<div className='synopsisText'>Synopsis</div>
@@ -225,6 +428,68 @@ const MovieDetails = () => {
 						</div>
 					</div>
 				</div>
+				<div className='wrap_cast'>
+					<h3>Cast</h3>
+					<AliceCarousel
+						disableDotsControls
+						disableButtonsControls
+						mouseTracking={true}
+						responsive={responsive}>
+						{cast &&
+							cast?.map((c, index) => (
+								<div key={index} className='cast_profile'>
+									<img
+										src={`${img_500}${c.profile_path}`}
+										alt='Profile'
+									/>
+									<div className='character'>
+										<span>{c.name}</span>
+										<span>{c.character}</span>
+									</div>
+								</div>
+							))}
+					</AliceCarousel>
+				</div>
+				{similarMovies && similarMovies.length > 0 ? (
+					<div className='wrap_similar_movies'>
+						<h3>Similar Movies</h3>
+						<AliceCarousel
+							disableDotsControls
+							renderNextButton={renderNextButton}
+							renderPrevButton={renderPrevButton}
+							responsive={similarResponsive}>
+							{similarMovies &&
+								similarMovies?.map((m, i) => (
+									<Card
+										key={i}
+										movie={m}
+										link={`/details/${m.id}/${_media_type}`}
+									/>
+								))}
+						</AliceCarousel>
+					</div>
+				) : null}
+				{movieRecommendations &&
+				movieRecommendations.length > 0 ? (
+					<div className='wrap_recommendations'>
+						<h3>Recommendations</h3>
+						<AliceCarousel
+							disableDotsControls
+							renderNextButton={renderNextButton}
+							renderPrevButton={renderPrevButton}
+							responsive={similarResponsive}>
+							{movieRecommendations &&
+								movieRecommendations?.map((m, i) => (
+									<Card
+										key={i}
+										movie={m}
+										link={`/details/${m.id}/${_media_type}`}
+									/>
+								))}
+						</AliceCarousel>
+					</div>
+				) : null}
+				{}
 				<div className='movie__link'>
 					<div className='movie__heading'>Useful Link</div>
 					{currentMovieDetail &&
@@ -263,11 +528,9 @@ const MovieDetails = () => {
 					{currentMovieDetail &&
 						currentMovieDetail.production_companies.map(
 							(company, index) => (
-								<>
+								<div key={index}>
 									{company.logo_path && (
-										<span
-											key={index.id}
-											className='productionCompanyImg'>
+										<span className='productionCompanyImg'>
 											<img
 												className='movie__productionCompany'
 												src={`${img_300}${company.logo_path}`}
@@ -276,7 +539,7 @@ const MovieDetails = () => {
 											<span>{company.name}</span>
 										</span>
 									)}
-								</>
+								</div>
 							),
 						)}
 				</div>

@@ -10,9 +10,9 @@ import { RiSlideshow2Fill } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import Card from '../../card/Card';
-import './AllList.css';
+import './HomeList.css';
 
-const AllList = ({ mediaType, listCategory, latest }) => {
+const HomeList = ({ mediaType, listCategory, latest }) => {
 	const [movieList, setMovieList] = useState([]);
 	const [categorys, setCategorys] = useState('top_rated');
 
@@ -179,15 +179,6 @@ const AllList = ({ mediaType, listCategory, latest }) => {
 						items={items}
 					/>
 				) : (
-					// 	{movieList &&
-					// 		movieList?.map((movie, index) => (
-					// 			<Card
-					// 				key={index}
-					// 				movie={movie}
-					// 				link={`/details/${movie.id}/${mediaType}`}
-					// 			/>
-					// 		))}
-					// </AliceCarousel>
 					<h2>Movies Not Found</h2>
 				)}
 			</div>
@@ -195,4 +186,4 @@ const AllList = ({ mediaType, listCategory, latest }) => {
 	);
 };
 
-export default AllList;
+export default HomeList;

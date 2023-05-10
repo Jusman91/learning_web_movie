@@ -1,5 +1,5 @@
 import axios from 'axios';
-import './Discover.css';
+import './Trending.css';
 import { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import AliceCarousel from 'react-alice-carousel';
@@ -89,6 +89,7 @@ const Trending = ({ mediaType }) => {
 	const handleClick = (number) => {
 		setPage(number);
 	};
+	console.log(data);
 	return (
 		<>
 			<div className='container__trending'>
@@ -124,8 +125,8 @@ const Trending = ({ mediaType }) => {
 				</div>
 				<div className='container__trending__movies'>
 					<div className='trending__title'>
-						<h1>Trending Movies</h1>
-						<span>Find Your Genres Movies</span>
+						<h2>trending {mediaType}</h2>
+						<span>find your genres {mediaType}</span>
 					</div>
 					<Genres
 						type={mediaType}

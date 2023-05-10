@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Hero from "../../components/header/hero/HeroContainer"
-import AllList from "../../components/main_content/movie_list/all_list/AllList"
 import TrailerList from "../../components/main_content/movie_list/trailers/TrailerList"
+import HomeList from "../../components/main_content/movie_list/get_list/HomeList"
 
 const Home = () => {
   useEffect(() => {
@@ -10,9 +10,9 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <AllList mediaType={'movie'} listCategory={'Up Coming'} />
+      <HomeList mediaType={'movie'} listCategory={'Up Coming'} />
       <TrailerList />
-      <AllList mediaType={'tv'} listCategory={'Airing Today'} />
+      <HomeList mediaType={'tv'} listCategory={'Airing Today'} />
     </>
   )
 }

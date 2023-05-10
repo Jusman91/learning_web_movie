@@ -31,7 +31,6 @@
 .card:hover .poster::before {
 	bottom: 0px;
 }
-
 .card:hover .poster img {
 	transform: translateY(-50px);
 	filter: blur(5px);
@@ -47,7 +46,6 @@
 .card:hover .card__details {
 	bottom: 10px;
 }
-
 .card .card__details .card__title {
 	font-size: 1.3rem;
 	font-weight: 800;
@@ -83,7 +81,6 @@
 	top: 2%;
 	z-index: 2;
 }
-
 .card__rating .rate__movie {
 	position: absolute;
 	left: 0;
@@ -98,7 +95,6 @@
 	position: absolute;
 	top: 10%;
 }
-
 .card__description {
 	font-style: italic;
 	font-size: 0.85rem;
@@ -181,7 +177,6 @@
 	right: 0;
 	width: 50px;
 	height: 50px;
-	/* background-color: aqua; */
 }
 .rating__percent svg {
 	position: relative;
@@ -202,7 +197,6 @@
 	stroke-dashoffset: 0;
 	stroke: rgba(25, 25, 25, 0.8);
 }
-
 .rating__percent .rating__number {
 	position: absolute;
 	color: #fff;

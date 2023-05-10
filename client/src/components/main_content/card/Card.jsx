@@ -39,7 +39,7 @@ const Card = ({
 							</div>
 							<div className='card__description'>
 								{movie.overview &&
-									movie.overview.slice(0, 135) + '...'}
+									movie.overview.slice(0, 120) + '...'}
 							</div>
 						</div>
 						<div className='rating__percent'>

@@ -17,7 +17,6 @@ const SearchMovies = () => {
 	return (
 		<>
 			<form
-				// onSubmit={handleSubmit}
 				className='movie__search'
 				name='query'
 				value={search}

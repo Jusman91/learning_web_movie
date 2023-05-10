@@ -34,11 +34,11 @@
 	text-align: center;
 	line-height: 30px;
 	margin-bottom: 1rem;
+	text-transform: capitalize;
 }
 .wrapper__trending__movies {
 	display: flex;
 	flex-wrap: wrap;
-	padding: 0 8rem;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
