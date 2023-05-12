@@ -10,6 +10,7 @@ const Card = ({
 	selectMovie,
 	trending,
 	mediaType,
+	search,
 }) => {
 	if (movie) {
 		const rating = movie.vote_average * 10;
@@ -154,6 +155,75 @@ const Card = ({
 						</div>
 					</div>
 				</Link>
+			</>
+		);
+	}
+	if (search) {
+		return (
+			<>
+				{(mediaType === 'movie' ||
+					mediaType === 'tv' ||
+					mediaType === 'person' ||
+					mediaType === 'collection' ||
+					mediaType === 'company') && (
+					<Link to={link} className='search_card'>
+						<img
+							src={`${img_500}${
+								search.poster_path ||
+								search.profile_path ||
+								search.logo_path
+							}`}
+							alt='poster'
+						/>
+
+						<div className='des'>
+							<div className='title'>
+								{(mediaType === 'movie' ||
+									mediaType === 'tv') && (
+									<>
+										<h4>
+											{search.original_title || search.name}
+										</h4>
+										<p>
+											{search.release_date ||
+												search.first_air_date}
+										</p>
+									</>
+								)}
+								{mediaType === 'person' && (
+									<ul>
+										{search.known_for_department}
+										{search.known_for?.map((item) => (
+											<li key={item.id}>
+												{item.original_title ||
+													item.original_name}
+											</li>
+										))}
+									</ul>
+								)}
+								{mediaType === 'company' && (
+									<ul>
+										<li>{search.name}</li>
+										<li>{search.origin_country}</li>
+									</ul>
+								)}
+							</div>
+							{(mediaType === 'movie' ||
+								mediaType === 'tv' ||
+								mediaType === 'collection') && (
+								<div className='synopsis'>
+									{search.overview &&
+										search.overview.slice(0, 175) + '...'}
+								</div>
+							)}
+						</div>
+					</Link>
+				)}
+				{mediaType === 'keyword' && (
+					<span className='search_keywords'>
+						{search.name}
+					</span>
+				)}
 			</>
 		);
 	}

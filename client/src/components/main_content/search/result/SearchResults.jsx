@@ -2,9 +2,17 @@ import { useEffect, useState } from 'react';
 import './SearchResults.css';
 import Card from '../../card/Card';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+	Link,
+	useLocation,
+	useNavigate,
+} from 'react-router-dom';
+import { img_500 } from '../../../../config/config';
+import Pagiantion from '../../pagination/Pagiantion';
 
 const SearchResults = () => {
+	const [page, setPage] = useState(1);
+	const [pageNum, setPageNum] = useState();
 	const [totalResultsMovie, setTotalResultsMovie] =
 		useState(0);
 	const [totalResultsTv, setTotalResultsTv] = useState(0);
@@ -29,15 +37,20 @@ const SearchResults = () => {
 	const navigate = useNavigate();
 	const [type, setType] = useState('movie');
 
+	const handlePages = (number) => {
+		setPage(number);
+	};
+
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const fetchSearchMulti = async () => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/search/${type}?api_key=${process.env.REACT_APP_APIKEY}&query=${query}`,
+				`${process.env.REACT_APP_BASEURL}/search/${type}?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&query=${query}&page=${page}&include_adult=false`,
 			);
 			const results = response.data.results;
 			console.log('movie', results);
 			setSearchMultiResult(results);
+			setPageNum(response.data.total_pages);
 			// setTotalResultsMovie(response.data.total_results);
 		} catch (err) {
 			console.error(
@@ -89,6 +102,7 @@ const SearchResults = () => {
 			);
 			// console.log('person', response.data.total_results);
 			const results = response.data.results;
+			console.log('results', results);
 			// setSearchPeopleResult(results);
 			setTotalResultsPeople(response.data.total_results);
 		} catch (err) {
@@ -109,6 +123,7 @@ const SearchResults = () => {
 			// 	response.data.total_results,
 			// );
 			const results = response.data.results;
+			console.log('collections', results);
 			// setSearchCollectionsResult(results);
 			setTotalResultsCollectios(
 				response.data.total_results,
@@ -128,6 +143,7 @@ const SearchResults = () => {
 			);
 			// console.log('companies', response.data.total_results);
 			const results = response.data.results;
+			console.log('companies', results);
 			// setSearchCompaniesResult(results);
 			setTotalResultsCompanies(response.data.total_results);
 		} catch (err) {
@@ -145,6 +161,7 @@ const SearchResults = () => {
 			);
 			// console.log('keywords', response.data.total_results);
 			const results = response.data.results;
+			console.log('keywords', results);
 			// setSearchKeywordsResult(results);
 			setTotalResultsKeywords(response.data.total_results);
 		} catch (err) {
@@ -155,25 +172,29 @@ const SearchResults = () => {
 		}
 	};
 
-	useEffect(() => {
-		fetchSearchMovie();
-		fetchSearchTv();
-		fetchSearchPeople();
-		fetchSearchCollections();
-		fetchSearchCompanies();
-		fetchSearchKeywords();
-	}, [
-		fetchSearchMovie,
-		fetchSearchTv,
-		fetchSearchPeople,
-		fetchSearchCollections,
-		fetchSearchCompanies,
-		fetchSearchKeywords,
-	]);
+	useEffect(
+		() => {
+			fetchSearchMovie();
+			fetchSearchTv();
+			fetchSearchPeople();
+			fetchSearchCollections();
+			fetchSearchCompanies();
+			fetchSearchKeywords();
+			fetchSearchMulti();
+		},
+		[
+			// fetchSearchMovie,
+			// fetchSearchTv,
+			// fetchSearchPeople,
+			// fetchSearchCollections,
+			// fetchSearchCompanies,
+			// fetchSearchKeywords,
+		],
+	);
 
 	useEffect(() => {
 		fetchSearchMulti();
-	}, [type]);
+	}, [type, query, page]);
 
 	const handleUpdateFetch = (value) => {
 		setType(value);
@@ -231,14 +252,15 @@ const SearchResults = () => {
 							</li>
 						</ul>
 					</div>
-					<div className='right'>
+					<div className='right__side'>
 						{type === 'movie' &&
 							searchMultiResult &&
 							searchMultiResult?.map((movie) => (
 								<Card
 									key={movie.id}
-									movie={movie}
-									link={`/details/${movie.id}/${'movie'}`}
+									search={movie}
+									mediaType={type}
+									link={`/details/${movie.id}/${type}`}
 								/>
 							))}
 						{type === 'tv' &&
@@ -246,46 +268,62 @@ const SearchResults = () => {
 							searchMultiResult?.map((movie) => (
 								<Card
 									key={movie.id}
-									movie={movie}
-									link={`/details/${movie.id}/${'tv'}`}
+									search={movie}
+									mediaType={type}
+									link={`/details/${movie.id}/${type}`}
 								/>
 							))}
-						{/* {showComponet === 'people' &&
-							searchPeopleResult &&
-							searchPeopleResult?.map((movie) => (
+						{type === 'person' &&
+							searchMultiResult &&
+							searchMultiResult?.map((person) => (
 								<Card
-									key={movie.id}
-									movie={movie}
-									link={`/details/${movie.id}/${movie.media_type}`}
+									key={person.id}
+									search={person}
+									mediaType={type}
+									link={`/details/${person.id}/${person.media_type}`}
 								/>
 							))}
-						{showComponet === 'collections' &&
-							searchCollectionsResult &&
-							searchCollectionsResult?.map((movie) => (
+						{type === 'collection' &&
+							searchMultiResult &&
+							searchMultiResult?.map((collections) => (
 								<Card
-									key={movie.id}
-									movie={movie}
-									link={`/details/${movie.id}/${movie.media_type}`}
+									key={collections.id}
+									search={collections}
+									mediaType={type}
+									link={`/details/${collections.id}/${collections.media_type}`}
 								/>
 							))}
-						{showComponet === 'companies' &&
-							searchCompaniesResult &&
-							searchCompaniesResult?.map((movie) => (
+						{type === 'company' &&
+							searchMultiResult &&
+							searchMultiResult?.map((company) => (
 								<Card
-									key={movie.id}
-									movie={movie}
-									link={`/details/${movie.id}/${movie.media_type}`}
+									key={company.id}
+									search={company}
+									mediaType={type}
+									link={`/details/${company.id}/${company.media_type}`}
 								/>
 							))}
-						{showComponet === 'keywords' &&
-							searchKeywordsResult &&
-							searchKeywordsResult?.map((movie) => (
+						{type === 'keyword' &&
+							searchMultiResult &&
+							searchMultiResult?.map((keywords) => (
 								<Card
-									key={movie.id}
-									movie={movie}
-									link={`/details/${movie.id}/${movie.media_type}`}
+									key={keywords.id}
+									search={keywords}
+									mediaType={type}
+									link={`/details/${keywords.id}/${keywords.media_type}`}
 								/>
-							))} */}
+							))}
+						<div className='wrap_pagination'>
+							{pageNum && pageNum > 1 ? (
+								<Pagiantion
+									handleClick={handlePages}
+									pageNum={pageNum}
+									activenum={page}
+								/>
+							) : (
+								''
+							)}
+						</div>
 					</div>
 				</div>
 			</section>
