@@ -6,6 +6,7 @@ import {
 	Link,
 	useLocation,
 	useNavigate,
+	useParams,
 } from 'react-router-dom';
 import { img_500 } from '../../../../config/config';
 import Pagiantion from '../../pagination/Pagiantion';
@@ -27,6 +28,7 @@ const SearchResults = () => {
 	const [totalResultsKeywords, setTotalResultsKeywords] =
 		useState(0);
 
+	const params = useParams();
 	const location = useLocation();
 	const query = new URLSearchParams(location.search).get(
 		'query',
@@ -36,8 +38,9 @@ const SearchResults = () => {
 		useState([]);
 	const navigate = useNavigate();
 	const [type, setType] = useState('movie');
+	const _media_type = params.type || '';
 
-	const handlePages = (number) => {
+	const handlePagination = (number) => {
 		setPage(number);
 	};
 
@@ -51,7 +54,6 @@ const SearchResults = () => {
 			console.log('movie', results);
 			setSearchMultiResult(results);
 			setPageNum(response.data.total_pages);
-			// setTotalResultsMovie(response.data.total_results);
 		} catch (err) {
 			console.error(
 				err,
@@ -65,9 +67,7 @@ const SearchResults = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/search/movie?api_key=${process.env.REACT_APP_APIKEY}&query=${query}`,
 			);
-			// console.log('movie', response.data.total_results);
 			const results = response.data.results;
-			// setSearchMovieResult(results);
 			setTotalResultsMovie(response.data.total_results);
 		} catch (err) {
 			console.error(
@@ -83,9 +83,7 @@ const SearchResults = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/search/tv?api_key=${process.env.REACT_APP_APIKEY}&query=${query}`,
 			);
-			// console.log('tv', response.data.total_results);
 			const results = response.data.results;
-			// setSearchTvResult(results);
 			setTotalResultsTv(response.data.total_results);
 		} catch (err) {
 			console.error(
@@ -100,10 +98,8 @@ const SearchResults = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/search/person?api_key=${process.env.REACT_APP_APIKEY}&query=${query}`,
 			);
-			// console.log('person', response.data.total_results);
 			const results = response.data.results;
-			console.log('results', results);
-			// setSearchPeopleResult(results);
+			console.log('person', results);
 			setTotalResultsPeople(response.data.total_results);
 		} catch (err) {
 			console.error(
@@ -118,13 +114,9 @@ const SearchResults = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/search/collection?api_key=${process.env.REACT_APP_APIKEY}&query=${query}`,
 			);
-			// console.log(
-			// 	'collections',
-			// 	response.data.total_results,
-			// );
+
 			const results = response.data.results;
 			console.log('collections', results);
-			// setSearchCollectionsResult(results);
 			setTotalResultsCollectios(
 				response.data.total_results,
 			);
@@ -141,10 +133,8 @@ const SearchResults = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/search/company?api_key=${process.env.REACT_APP_APIKEY}&query=${query}`,
 			);
-			// console.log('companies', response.data.total_results);
 			const results = response.data.results;
 			console.log('companies', results);
-			// setSearchCompaniesResult(results);
 			setTotalResultsCompanies(response.data.total_results);
 		} catch (err) {
 			console.error(
@@ -159,10 +149,8 @@ const SearchResults = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/search/keyword?api_key=${process.env.REACT_APP_APIKEY}&query=${query}`,
 			);
-			// console.log('keywords', response.data.total_results);
 			const results = response.data.results;
 			console.log('keywords', results);
-			// setSearchKeywordsResult(results);
 			setTotalResultsKeywords(response.data.total_results);
 		} catch (err) {
 			console.error(
@@ -172,25 +160,15 @@ const SearchResults = () => {
 		}
 	};
 
-	useEffect(
-		() => {
-			fetchSearchMovie();
-			fetchSearchTv();
-			fetchSearchPeople();
-			fetchSearchCollections();
-			fetchSearchCompanies();
-			fetchSearchKeywords();
-			fetchSearchMulti();
-		},
-		[
-			// fetchSearchMovie,
-			// fetchSearchTv,
-			// fetchSearchPeople,
-			// fetchSearchCollections,
-			// fetchSearchCompanies,
-			// fetchSearchKeywords,
-		],
-	);
+	useEffect(() => {
+		fetchSearchMovie();
+		fetchSearchTv();
+		fetchSearchPeople();
+		fetchSearchCollections();
+		fetchSearchCompanies();
+		fetchSearchKeywords();
+		fetchSearchMulti();
+	}, [query]);
 
 	useEffect(() => {
 		fetchSearchMulti();
@@ -198,7 +176,8 @@ const SearchResults = () => {
 
 	const handleUpdateFetch = (value) => {
 		setType(value);
-		navigate(`/search/${type}?query=${query}`);
+		setPage(1);
+		navigate(`/search/${value}?query=${query}`);
 	};
 
 	return (
@@ -206,28 +185,48 @@ const SearchResults = () => {
 			<section className='container__search__results'>
 				<div className='wrapper__search__results'>
 					<div className='left__side'>
-						<h2>Search Results</h2>
+						<h3>Search Results</h3>
 						<ul>
 							<li
-								className='list__results'
-								onClick={() => handleUpdateFetch('movie')}>
-								<span>Movie</span>
-								<span>{totalResultsMovie}</span>
-							</li>
-							<li
-								className='list__results'
+								style={{ zIndex: 6 }}
+								className={
+									type === 'tv'
+										? 'list__results active_type'
+										: 'list__results'
+								}
 								onClick={() => handleUpdateFetch('tv')}>
 								<span>Tv Show</span>
 								<span>{totalResultsTv}</span>
 							</li>
 							<li
-								className='list__results'
+								style={{ zIndex: 5 }}
+								className={
+									type === 'movie'
+										? 'list__results active_type'
+										: 'list__results'
+								}
+								onClick={() => handleUpdateFetch('movie')}>
+								<span>Movie</span>
+								<span>{totalResultsMovie}</span>
+							</li>
+							<li
+								style={{ zIndex: 4 }}
+								className={
+									type === 'person'
+										? 'list__results active_type'
+										: 'list__results'
+								}
 								onClick={() => handleUpdateFetch('person')}>
 								<span>People</span>
 								<span>{totalResultsPeople}</span>
 							</li>
 							<li
-								className='list__results'
+								style={{ zIndex: 3 }}
+								className={
+									type === 'collection'
+										? 'list__results active_type'
+										: 'list__results'
+								}
 								onClick={() =>
 									handleUpdateFetch('collection')
 								}>
@@ -235,7 +234,12 @@ const SearchResults = () => {
 								<span>{totalResultsCollectios}</span>
 							</li>
 							<li
-								className='list__results'
+								style={{ zIndex: 2 }}
+								className={
+									type === 'company'
+										? 'list__results active_type'
+										: 'list__results'
+								}
 								onClick={() =>
 									handleUpdateFetch('company')
 								}>
@@ -243,7 +247,12 @@ const SearchResults = () => {
 								<span>{totalResultsCompanies}</span>
 							</li>
 							<li
-								className='list__results'
+								style={{ zIndex: 1 }}
+								className={
+									type === 'keyword'
+										? 'list__results active_type'
+										: 'list__results'
+								}
 								onClick={() =>
 									handleUpdateFetch('keyword')
 								}>
@@ -280,7 +289,6 @@ const SearchResults = () => {
 									key={person.id}
 									search={person}
 									mediaType={type}
-									link={`/details/${person.id}/${person.media_type}`}
 								/>
 							))}
 						{type === 'collection' &&
@@ -290,7 +298,6 @@ const SearchResults = () => {
 									key={collections.id}
 									search={collections}
 									mediaType={type}
-									link={`/details/${collections.id}/${collections.media_type}`}
 								/>
 							))}
 						{type === 'company' &&
@@ -300,7 +307,6 @@ const SearchResults = () => {
 									key={company.id}
 									search={company}
 									mediaType={type}
-									link={`/details/${company.id}/${company.media_type}`}
 								/>
 							))}
 						{type === 'keyword' &&
@@ -310,13 +316,12 @@ const SearchResults = () => {
 									key={keywords.id}
 									search={keywords}
 									mediaType={type}
-									link={`/details/${keywords.id}/${keywords.media_type}`}
 								/>
 							))}
 						<div className='wrap_pagination'>
 							{pageNum && pageNum > 1 ? (
 								<Pagiantion
-									handleClick={handlePages}
+									handleClick={handlePagination}
 									pageNum={pageNum}
 									activenum={page}
 								/>

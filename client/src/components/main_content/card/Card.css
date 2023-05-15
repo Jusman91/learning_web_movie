@@ -215,7 +215,10 @@
 }
 
 /* styling card for page search */
-.search_card {
+.container_card {
+	width: 100%;
+}
+.container_card .wrap_card {
 	display: flex;
 	width: 100%;
 	height: 130px;
@@ -223,33 +226,40 @@
 	box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
 	color: #fff;
 	text-decoration: none;
+	overflow: hidden;
 }
-.search_card img {
+.wrap_card .wrap_poster {
+	min-width: 100px;
 	width: 100px;
+	height: 130px;
+}
+.wrap_card img {
+	min-width: 100%;
+	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
-.search_card .des {
+.wrap_card .des {
 	padding: 1rem;
 	align-self: center;
 }
-.search_card .des .title {
+.wrap_card .des .title {
 	margin-bottom: 1.25rem;
 }
-.search_card .des .title p {
+.wrap_card .des .title p {
 	font-size: 0.75rem;
 	color: rgba(255, 255, 255, 0.6);
 }
-.search_card .des ul {
+.wrap_card ul {
 	font-size: 0.85rem;
 }
-.search_card .des ul li {
+.wrap_card ul li {
 	list-style: none;
 }
-.search_card .des .synopsis {
+.wrap_card .des .synopsis {
 	font-size: 0.75rem;
 }
-.search_keywords {
+.keywords {
 	width: 100%;
 	padding: 0.5rem;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.2);

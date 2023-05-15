@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import '../card/Card.css';
-import { img_500 } from '../../../config/config';
+import {
+	img_500,
+	unavailable,
+} from '../../../config/config';
 import { IoPlay } from 'react-icons/io5';
 
 const Card = ({
@@ -160,71 +163,112 @@ const Card = ({
 	}
 	if (search) {
 		return (
-			<>
-				{(mediaType === 'movie' ||
-					mediaType === 'tv' ||
-					mediaType === 'person' ||
-					mediaType === 'collection' ||
-					mediaType === 'company') && (
-					<Link to={link} className='search_card'>
-						<img
-							src={`${img_500}${
-								search.poster_path ||
-								search.profile_path ||
-								search.logo_path
-							}`}
-							alt='poster'
-						/>
-
+			<div className='container_card'>
+				{(mediaType === 'movie' || mediaType === 'tv') && (
+					<Link to={link} className='wrap_card'>
+						<div className='wrap_poster'>
+							<img
+								src={
+									search.poster_path
+										? `${img_500}/${search.poster_path}`
+										: unavailable
+								}
+								alt='poster'
+							/>
+						</div>
 						<div className='des'>
 							<div className='title'>
-								{(mediaType === 'movie' ||
-									mediaType === 'tv') && (
-									<>
-										<h4>
-											{search.original_title || search.name}
-										</h4>
-										<p>
-											{search.release_date ||
-												search.first_air_date}
-										</p>
-									</>
-								)}
-								{mediaType === 'person' && (
-									<ul>
-										{search.known_for_department}
-										{search.known_for?.map((item) => (
-											<li key={item.id}>
-												{item.original_title ||
-													item.original_name}
-											</li>
-										))}
-									</ul>
-								)}
-								{mediaType === 'company' && (
-									<ul>
-										<li>{search.name}</li>
-										<li>{search.origin_country}</li>
-									</ul>
-								)}
+								<h4>
+									{search.original_title || search.name}
+								</h4>
+								<p>
+									{search.release_date ||
+										search.first_air_date}
+								</p>
 							</div>
-							{(mediaType === 'movie' ||
-								mediaType === 'tv' ||
-								mediaType === 'collection') && (
-								<div className='synopsis'>
-									{search.overview &&
-										search.overview.slice(0, 175) + '...'}
-								</div>
-							)}
+							<div className='synopsis'>
+								{search.overview &&
+									search.overview.slice(0, 175) + '...'}
+							</div>
 						</div>
 					</Link>
 				)}
-				{mediaType === 'keyword' && (
-					<span className='search_keywords'>
-						{search.name}
-					</span>
+				{mediaType === 'person' && (
+					<div className='wrap_card'>
+						<div className='wrap_poster'>
+							<img
+								src={
+									search.profile_path
+										? `${img_500}/${search.profile_path}`
+										: unavailable
+								}
+								alt='poster'
+							/>
+						</div>
+						<div className='des'>
+							<ul>
+								{search.known_for_department}
+								{search.known_for?.map((item) => (
+									<li key={item.id}>
+										{item.original_title ||
+											item.original_name}
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
 				)}
-			</>
+				{mediaType === 'company' && (
+					<div className='wrap_card'>
+						<div className='wrap_poster'>
+							<img
+								src={
+									search.logo_path
+										? `${img_500}/${search.logo_path}`
+										: unavailable
+								}
+								alt='poster'
+							/>
+						</div>
+						<div className='des'>
+							<ul>
+								<li>{search.name}</li>
+								<li>{search.origin_country}</li>
+							</ul>
+						</div>
+					</div>
+				)}
+				{mediaType === 'collection' && (
+					<div className='wrap_card'>
+						<div className='wrap_poster'>
+							<img
+								src={
+									search.poster_path
+										? `${img_500}/${search.poster_path}`
+										: unavailable
+								}
+								alt='poster'
+							/>
+						</div>
+						<div className='des'>
+							<div className='title'>
+								<h4>
+									{search.original_title || search.name}
+								</h4>
+							</div>
+							<div className='synopsis'>
+								{search.overview &&
+									search.overview.slice(0, 175) + '...'}
+							</div>
+						</div>
+					</div>
+				)}
+				{mediaType === 'keyword' && (
+					<div className='keywords'>
+						<span>{search.name}</span>
+					</div>
+				)}
+			</div>
 		);
 	}
 };

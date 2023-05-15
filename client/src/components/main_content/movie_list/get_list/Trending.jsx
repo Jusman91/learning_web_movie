@@ -9,8 +9,10 @@ import Genres from '../../genres/Genres';
 import Pagination from '../../pagination/Pagiantion';
 import YouTube from 'react-youtube';
 import UseGenres from '../../../../hooks/UseGenres';
+import Loading from '../../../loading/Loading';
 
 const Trending = ({ mediaType }) => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [data, setData] = useState([]);
 	const [page, setPage] = useState(1);
 	const [pageNum, setPageNum] = useState();
@@ -21,6 +23,7 @@ const Trending = ({ mediaType }) => {
 	const genreforURL = UseGenres(selectedGenres);
 
 	const getData = async () => {
+		setIsLoading(true);
 		try {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/discover/${mediaType}?api_key=${process.env.REACT_APP_APIKEY}&page=${page}&with_genres=&language=en-US&with_genres=${genreforURL}`,
@@ -32,6 +35,9 @@ const Trending = ({ mediaType }) => {
 		} catch (err) {
 			console.error(err, 'Data Trending Gagal');
 		}
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 1500);
 	};
 
 	const getTrailers = async (id) => {
@@ -92,71 +98,75 @@ const Trending = ({ mediaType }) => {
 	console.log(data);
 	return (
 		<>
-			<div className='container__trending'>
-				<div className='trending__hero'>
-					{selectMovie.videos && palayTrailer
-						? randerTrailer()
-						: null}
-					{palayTrailer ? (
-						<MdClose
-							type='button'
-							onClick={() => setPlayTrailer(false)}
-							className='close__tranding__trailer'
-						/>
-					) : null}
-					<AliceCarousel
-						disableDotsControls
-						disableButtonsControls
-						autoPlay={true}
-						autoPlayInterval={3000}
-						animationDuration={1000}
-						infinite={true}
-						mouseTracking={true}>
-						{data &&
-							data?.map((movie, index) => (
-								<HeroContainer
-									key={index}
-									poster={movie}
-									selectTrailers={playTrailers}
-									mediaType={mediaType}
-								/>
-							))}
-					</AliceCarousel>
-				</div>
-				<div className='container__trending__movies'>
-					<div className='trending__title'>
-						<h2>trending {mediaType}</h2>
-						<span>find your genres {mediaType}</span>
+			{isLoading ? (
+				<Loading type='component' />
+			) : (
+				<div className='container__trending'>
+					<div className='trending__hero'>
+						{selectMovie.videos && palayTrailer
+							? randerTrailer()
+							: null}
+						{palayTrailer ? (
+							<MdClose
+								type='button'
+								onClick={() => setPlayTrailer(false)}
+								className='close__tranding__trailer'
+							/>
+						) : null}
+						<AliceCarousel
+							disableDotsControls
+							disableButtonsControls
+							autoPlay={true}
+							autoPlayInterval={3000}
+							animationDuration={1000}
+							infinite={true}
+							mouseTracking={true}>
+							{data &&
+								data?.map((movie, index) => (
+									<HeroContainer
+										key={index}
+										poster={movie}
+										selectTrailers={playTrailers}
+										mediaType={mediaType}
+									/>
+								))}
+						</AliceCarousel>
 					</div>
-					<Genres
-						type={mediaType}
-						selectedGenres={selectedGenres}
-						setSelectedGenres={setSelectedGenres}
-						genres={genres}
-						setGenres={setGenres}
-						setPage={setPage}
-					/>
-					<div className='wrapper__trending__movies'>
-						{data &&
-							data?.map((movie) => (
-								<Card
-									key={movie.id}
-									trending={movie}
-									mediaType={mediaType}
-								/>
-							))}
-					</div>
-					{pageNum && pageNum > 1 ? (
-						<Pagination
-							handleClick={handleClick}
-							pageNum={pageNum}
-							activenum={page}
+					<div className='container__trending__movies'>
+						<div className='trending__title'>
+							<h2>trending {mediaType}</h2>
+							<span>find your genres {mediaType}</span>
+						</div>
+						<Genres
+							type={mediaType}
+							selectedGenres={selectedGenres}
+							setSelectedGenres={setSelectedGenres}
+							genres={genres}
+							setGenres={setGenres}
+							setPage={setPage}
 						/>
-					) : (
-						''
-					)}
+						<div className='wrapper__trending__movies'>
+							{data &&
+								data?.map((movie) => (
+									<Card
+										key={movie.id}
+										trending={movie}
+										mediaType={mediaType}
+									/>
+								))}
+						</div>
+						{pageNum && pageNum > 1 ? (
+							<Pagination
+								handleClick={handleClick}
+								pageNum={pageNum}
+								activenum={page}
+							/>
+						) : (
+							''
+						)}
+					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 };

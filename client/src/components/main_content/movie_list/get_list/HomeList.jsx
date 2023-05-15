@@ -12,7 +12,7 @@ import AliceCarousel from 'react-alice-carousel';
 import Card from '../../card/Card';
 import './HomeList.css';
 
-const HomeList = ({ mediaType, listCategory, latest }) => {
+const HomeList = ({ mediaType, listCategory }) => {
 	const [movieList, setMovieList] = useState([]);
 	const [categorys, setCategorys] = useState('top_rated');
 

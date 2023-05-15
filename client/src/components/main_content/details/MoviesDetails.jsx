@@ -24,10 +24,12 @@ import {
 	IoIosArrowBack,
 	IoIosArrowForward,
 } from 'react-icons/io';
+import Loading from '../../loading/Loading';
 
 const MovieDetails = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [playTrailer, setPlayTrailer] = useState(false);
-	const [currentMovieDetail, setMovie] = useState();
+	const [currentMovieDetail, setMovie] = useState({});
 	const [crew, setCrew] = useState([]);
 	const [cast, setCast] = useState([]);
 	const [similarMovies, setSimilarMovies] = useState([]);
@@ -105,6 +107,7 @@ const MovieDetails = () => {
 	);
 
 	const getData = async () => {
+		setIsLoading(true);
 		try {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos`,
@@ -114,6 +117,9 @@ const MovieDetails = () => {
 		} catch (err) {
 			console.error(err, '<==== get data gagal ====>');
 		}
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
 	};
 
 	const getCredits = async () => {
@@ -161,11 +167,12 @@ const MovieDetails = () => {
 		getCredits();
 		getSimilarMovies();
 		getMovieRecommendations();
+
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, _media_type]);
 
-	console.log(currentMovieDetail);
+	console.log('ddata', currentMovieDetail);
 
 	function numberWithCommas(x) {
 		return x
@@ -179,371 +186,385 @@ const MovieDetails = () => {
 
 	return (
 		<>
-			<div className='movie'>
-				<div className='movie__intro'>
-					<img
-						className='movie__backdrop'
-						src={`${img_1280}${currentMovieDetail?.backdrop_path}`}
-						alt='poster'
-					/>
-
-					{playTrailer ? (
-						<YouTube
-							className='trailer'
-							videoId={
-								currentMovieDetail?.videos.results.find(
-									(vid) => vid.name === 'Official Trailer',
-								)
-									? currentMovieDetail?.videos.results.find(
-											(vid) =>
-												vid.name === 'Official Trailer',
-									  ).key
-									: currentMovieDetail?.videos.results[0]
-											.key
-							}
-							opts={{
-								width: '100%',
-								height: '100%',
-								playerVars: { autoplay: 1, controls: 0 },
-							}}
-						/>
-					) : null}
-					{playTrailer ? (
-						<button
-							className='trailer__btn trailer__btn__close'
-							onClick={() => setPlayTrailer(false)}>
-							Close Trailer
-						</button>
-					) : null}
-				</div>
-				<div className='movie__intro__overlay'></div>
-				<div className='movie__detail'>
-					<div className='movie__detailLeft'>
+			{isLoading ? (
+				<Loading />
+			) : (
+				<div className='movie'>
+					<div className='movie__intro'>
 						<img
-							src={`${img_500}${currentMovieDetail?.poster_path}`}
+							className='movie__backdrop'
+							src={`${img_1280}${currentMovieDetail?.backdrop_path}`}
 							alt='poster'
 						/>
+
+						{playTrailer ? (
+							<YouTube
+								className='trailer'
+								videoId={
+									currentMovieDetail?.videos.results.find(
+										(vid) =>
+											vid.name === 'Official Trailer',
+									)
+										? currentMovieDetail?.videos.results.find(
+												(vid) =>
+													vid.name === 'Official Trailer',
+										  ).key
+										: currentMovieDetail?.videos.results[0]
+												.key
+								}
+								opts={{
+									width: '100%',
+									height: '100%',
+									playerVars: { autoplay: 1, controls: 0 },
+								}}
+							/>
+						) : null}
+						{playTrailer ? (
+							<button
+								className='trailer__btn trailer__btn__close'
+								onClick={() => setPlayTrailer(false)}>
+								Close Trailer
+							</button>
+						) : null}
 					</div>
-					<div className='movie__detailRight'>
-						<div className='top__part'>
-							<h3 className='movie__name'>
-								{`${
-									currentMovieDetail?.title ||
-									currentMovieDetail?.name
-								} (${dayjs(
-									currentMovieDetail?.release_date,
-								).format('YYYY')})`}
-							</h3>
-							<span className='movie__tagline'>
-								{currentMovieDetail?.tagline}
-							</span>
+					<div className='movie__intro__overlay'></div>
+					<div className='movie__detail'>
+						<div className='movie__detailLeft'>
+							<img
+								src={`${img_500}${currentMovieDetail?.poster_path}`}
+								alt='poster'
+							/>
 						</div>
-						<div className='middle__part'>
-							<div className='middle__part__items_1'>
-								<div className='movie__voteCount'>
-									<div>Original Language: </div>
-									<span>
-										{languageNames?.of(
-											currentMovieDetail?.original_language ||
-												'en',
-										)}
-									</span>
-								</div>
-								<div className='movie__status'>
-									<div>Status: </div>
-									<span>{currentMovieDetail?.status}</span>
-								</div>
-								{currentMovieDetail?.runtime?.length >
-									0 && (
-									<div className='movie__runtime'>
-										<div>Runtime: </div>
+						<div className='movie__detailRight'>
+							<div className='top__part'>
+								<h3 className='movie__name'>
+									{`${
+										currentMovieDetail?.title ||
+										currentMovieDetail?.name
+									} (${dayjs(
+										currentMovieDetail?.release_date,
+									).format('YYYY')})`}
+								</h3>
+								<span className='movie__tagline'>
+									{currentMovieDetail?.tagline}
+								</span>
+							</div>
+							<div className='middle__part'>
+								<div className='middle__part__items_1'>
+									<div className='movie__voteCount'>
+										<div>Original Language: </div>
 										<span>
-											{toHoursAndMinutes(
-												currentMovieDetail?.runtime,
+											{languageNames?.of(
+												currentMovieDetail?.original_language ||
+													'en',
 											)}
 										</span>
 									</div>
-								)}
-								<div className='movie__releaseDate'>
-									<div>Release date: </div>
-									<span>
-										{dayjs(
-											currentMovieDetail?.release_date ||
-												currentMovieDetail?.first_air_date,
-										).format('MMM D, YYYY')}
-									</span>
-								</div>
-								<div>
-									<div>Budget: </div>
-									{currentMovieDetail?.budget ? (
+									<div className='movie__status'>
+										<div>Status: </div>
 										<span>
-											{numberWithCommas(
-												`${'$'}${
-													currentMovieDetail?.budget
-												}${'.00'}`,
-											)}
+											{currentMovieDetail?.status}
 										</span>
-									) : (
-										<span>_</span>
-									)}
-								</div>
-								<div>
-									<div>Revenue: </div>
-									{currentMovieDetail?.revenue ? (
-										<span>
-											{numberWithCommas(
-												`${'$'}${
-													currentMovieDetail?.revenue
-												}${'.00'}`,
-											)}
-										</span>
-									) : (
-										<span>_</span>
-									)}
-								</div>
-							</div>
-							<div className='middle__part__items_2'>
-								<div className='movie__genres'>
-									{currentMovieDetail?.genres?.map(
-										(genre, index) => (
-											<span
-												key={index}
-												className='movie__genre'
-												id={genre.id}>
-												{genre.name}
+									</div>
+									{currentMovieDetail?.runtime?.length >
+										0 && (
+										<div className='movie__runtime'>
+											<div>Runtime: </div>
+											<span>
+												{toHoursAndMinutes(
+													currentMovieDetail?.runtime,
+												)}
 											</span>
-										),
-									)}
-								</div>
-							</div>
-							<ul className='middle__part__items_3'>
-								<li>
-									<div className='movie__rating__percent'>
-										<svg>
-											<circle
-												cx='19'
-												cy='20'
-												r='20'></circle>
-											<circle
-												style={{
-													stroke: `${
-														rating >= 80
-															? '#57e32c'
-															: rating <= 79 && rating >= 68
-															? '#b7dd29'
-															: rating <= 67 && rating >= 56
-															? '#ffe234'
-															: rating <= 55 && rating >= 45
-															? '#ffa534'
-															: rating <= 44 && rating >= 0
-															? '#ff4545'
-															: ''
-													}`,
-													strokeDashoffset: `calc(130 - (130 * ${Math.round(
-														rating,
-													)}) / 100)`,
-												}}
-												cx='19'
-												cy='20'
-												r='20'></circle>
-										</svg>
-										<div className='movie__rating__number'>
-											<h5>{Math.round(rating)}</h5>
-											<span>%</span>
 										</div>
+									)}
+									<div className='movie__releaseDate'>
+										<div>Release date: </div>
+										<span>
+											{dayjs(
+												currentMovieDetail?.release_date ||
+													currentMovieDetail?.first_air_date,
+											).format('MMM D, YYYY')}
+										</span>
 									</div>
-								</li>
-								<li>
-									<span>
-										<MdList />
-									</span>
-								</li>
-								<li>
-									<span>
-										<MdFavorite />
-									</span>
-								</li>
-								<li>
-									<span>
-										<MdBookmark />
-									</span>
-								</li>
-								<li>
-									<span>
-										<MdStar />
-									</span>
-								</li>
-								<li onClick={() => setPlayTrailer(true)}>
-									<span>
-										<MdOutlinePlayCircle />
-									</span>
-									Play Trailer
-								</li>
-							</ul>
-							<div className='middle__part__items_4'>
-								{director?.length > 0 && (
 									<div>
-										Director:{' '}
-										{director.map((d, i) => (
-											<span key={i}>
-												{d.name}
-												{director.length - 1 !== i && ', '}
+										<div>Budget: </div>
+										{currentMovieDetail?.budget ? (
+											<span>
+												{numberWithCommas(
+													`${'$'}${
+														currentMovieDetail?.budget
+													}${'.00'}`,
+												)}
 											</span>
-										))}
+										) : (
+											<span>_</span>
+										)}
 									</div>
-								)}
-								{writer?.length > 0 && (
 									<div>
-										Writer:{' '}
-										{writer.map((d, i) => (
-											<span key={i}>
-												{d.name}
-												{writer.length - 1 !== i && ', '}
+										<div>Revenue: </div>
+										{currentMovieDetail?.revenue ? (
+											<span>
+												{numberWithCommas(
+													`${'$'}${
+														currentMovieDetail?.revenue
+													}${'.00'}`,
+												)}
 											</span>
-										))}
+										) : (
+											<span>_</span>
+										)}
 									</div>
-								)}
-								{currentMovieDetail?.created_by?.length >
-									0 && (
-									<div>
-										Creator:{' '}
-										{currentMovieDetail?.created_by?.map(
-											(d, i) => (
-												<span key={i}>
-													{d.name}
-													{currentMovieDetail?.created_by
-														?.length -
-														1 !==
-														i && ', '}
+								</div>
+								<div className='middle__part__items_2'>
+									<div className='movie__genres'>
+										{currentMovieDetail?.genres?.map(
+											(genre, index) => (
+												<span
+													key={index}
+													className='movie__genre'
+													id={genre.id}>
+													{genre.name}
 												</span>
 											),
 										)}
 									</div>
-								)}
-							</div>
-						</div>
-						<div className='movie__detailRightBottom'>
-							<div className='synopsisText'>Synopsis</div>
-							<span>{currentMovieDetail?.overview}</span>
-						</div>
-					</div>
-				</div>
-				<div className='wrap_cast'>
-					<h3>Cast</h3>
-					<AliceCarousel
-						disableDotsControls
-						disableButtonsControls
-						mouseTracking={true}
-						responsive={responsive}>
-						{cast &&
-							cast?.map((c, index) => (
-								<div key={index} className='cast_profile'>
-									<img
-										src={`${img_500}${c.profile_path}`}
-										alt='Profile'
-									/>
-									<div className='character'>
-										<span>{c.name}</span>
-										<span>{c.character}</span>
-									</div>
 								</div>
-							))}
-					</AliceCarousel>
-				</div>
-				{similarMovies && similarMovies.length > 0 ? (
-					<div className='wrap_similar_movies'>
-						<h3>Similar Movies</h3>
-						<AliceCarousel
-							disableDotsControls
-							renderNextButton={renderNextButton}
-							renderPrevButton={renderPrevButton}
-							responsive={similarResponsive}>
-							{similarMovies &&
-								similarMovies?.map((m, i) => (
-									<Card
-										key={i}
-										movie={m}
-										link={`/details/${m.id}/${_media_type}`}
-									/>
-								))}
-						</AliceCarousel>
-					</div>
-				) : null}
-				{movieRecommendations &&
-				movieRecommendations.length > 0 ? (
-					<div className='wrap_recommendations'>
-						<h3>Recommendations</h3>
-						<AliceCarousel
-							disableDotsControls
-							renderNextButton={renderNextButton}
-							renderPrevButton={renderPrevButton}
-							responsive={similarResponsive}>
-							{movieRecommendations &&
-								movieRecommendations?.map((m, i) => (
-									<Card
-										key={i}
-										movie={m}
-										link={`/details/${m.id}/${_media_type}`}
-									/>
-								))}
-						</AliceCarousel>
-					</div>
-				) : null}
-				{}
-				<div className='movie__link'>
-					<div className='movie__heading'>Useful Link</div>
-					{currentMovieDetail &&
-						currentMovieDetail.homepage && (
-							<a
-								rel='noopener noreferrer'
-								href={currentMovieDetail.homepage}
-								target='_blank'
-								style={{ textDecoration: 'none' }}>
-								<p>
-									<span className='movie__homeBtn movie__btn'>
-										Homepage <FiExternalLink />
-									</span>
-								</p>
-							</a>
-						)}
-					{currentMovieDetail &&
-						currentMovieDetail.imdb_id && (
-							<a
-								rel='noopener noreferrer'
-								href={`https://www.imdb.com/title/${currentMovieDetail.imdb_id}`}
-								target='_blank'
-								style={{ textDecoration: 'none' }}>
-								<p>
-									<span className='movie__imdbBtn movie__btn'>
-										IMDb <FiExternalLink />
-									</span>
-								</p>
-							</a>
-						)}
-				</div>
-				<div className='movie__production__heading'>
-					Production Companies
-				</div>
-				<div className='movie__production'>
-					{currentMovieDetail &&
-						currentMovieDetail.production_companies.map(
-							(company, index) => (
-								<div key={index}>
-									{company.logo_path && (
-										<span className='productionCompanyImg'>
-											<img
-												className='movie__productionCompany'
-												src={`${img_300}${company.logo_path}`}
-												alt='ProductionCompany'
-											/>
-											<span>{company.name}</span>
+								<ul className='middle__part__items_3'>
+									<li>
+										<div className='movie__rating__percent'>
+											<svg>
+												<circle
+													cx='19'
+													cy='20'
+													r='20'></circle>
+												<circle
+													style={{
+														stroke: `${
+															rating >= 80
+																? '#57e32c'
+																: rating <= 79 &&
+																  rating >= 68
+																? '#b7dd29'
+																: rating <= 67 &&
+																  rating >= 56
+																? '#ffe234'
+																: rating <= 55 &&
+																  rating >= 45
+																? '#ffa534'
+																: rating <= 44 &&
+																  rating >= 0
+																? '#ff4545'
+																: ''
+														}`,
+														strokeDashoffset: `calc(130 - (130 * ${Math.round(
+															rating,
+														)}) / 100)`,
+													}}
+													cx='19'
+													cy='20'
+													r='20'></circle>
+											</svg>
+											<div className='movie__rating__number'>
+												<h5>{Math.round(rating)}</h5>
+												<span>%</span>
+											</div>
+										</div>
+									</li>
+									<li>
+										<span>
+											<MdList />
 										</span>
+									</li>
+									<li>
+										<span>
+											<MdFavorite />
+										</span>
+									</li>
+									<li>
+										<span>
+											<MdBookmark />
+										</span>
+									</li>
+									<li>
+										<span>
+											<MdStar />
+										</span>
+									</li>
+									<li onClick={() => setPlayTrailer(true)}>
+										<span>
+											<MdOutlinePlayCircle />
+										</span>
+										Play Trailer
+									</li>
+								</ul>
+								<div className='middle__part__items_4'>
+									{director?.length > 0 && (
+										<div>
+											Director:{' '}
+											{director.map((d, i) => (
+												<span key={i}>
+													{d.name}
+													{director.length - 1 !== i &&
+														', '}
+												</span>
+											))}
+										</div>
+									)}
+									{writer?.length > 0 && (
+										<div>
+											Writer:{' '}
+											{writer.map((d, i) => (
+												<span key={i}>
+													{d.name}
+													{writer.length - 1 !== i && ', '}
+												</span>
+											))}
+										</div>
+									)}
+									{currentMovieDetail?.created_by?.length >
+										0 && (
+										<div>
+											Creator:{' '}
+											{currentMovieDetail?.created_by?.map(
+												(d, i) => (
+													<span key={i}>
+														{d.name}
+														{currentMovieDetail?.created_by
+															?.length -
+															1 !==
+															i && ', '}
+													</span>
+												),
+											)}
+										</div>
 									)}
 								</div>
-							),
-						)}
+							</div>
+							<div className='movie__detailRightBottom'>
+								<div className='synopsisText'>Synopsis</div>
+								<span>{currentMovieDetail?.overview}</span>
+							</div>
+						</div>
+					</div>
+					<div className='wrap_cast'>
+						<h3>Cast</h3>
+						<AliceCarousel
+							disableDotsControls
+							disableButtonsControls
+							mouseTracking={true}
+							responsive={responsive}>
+							{cast &&
+								cast?.map((c, index) => (
+									<div key={index} className='cast_profile'>
+										<img
+											src={`${img_500}${c.profile_path}`}
+											alt='Profile'
+										/>
+										<div className='character'>
+											<span>{c.name}</span>
+											<span>{c.character}</span>
+										</div>
+									</div>
+								))}
+						</AliceCarousel>
+					</div>
+					{similarMovies && similarMovies.length > 0 ? (
+						<div className='wrap_similar_movies'>
+							<h3>Similar Movies</h3>
+							<AliceCarousel
+								disableDotsControls
+								renderNextButton={renderNextButton}
+								renderPrevButton={renderPrevButton}
+								responsive={similarResponsive}>
+								{similarMovies &&
+									similarMovies?.map((m, i) => (
+										<Card
+											key={i}
+											movie={m}
+											link={`/details/${m.id}/${_media_type}`}
+										/>
+									))}
+							</AliceCarousel>
+						</div>
+					) : null}
+					{movieRecommendations &&
+					movieRecommendations.length > 0 ? (
+						<div className='wrap_recommendations'>
+							<h3>Recommendations</h3>
+							<AliceCarousel
+								disableDotsControls
+								renderNextButton={renderNextButton}
+								renderPrevButton={renderPrevButton}
+								responsive={similarResponsive}>
+								{movieRecommendations &&
+									movieRecommendations?.map((m, i) => (
+										<Card
+											key={i}
+											movie={m}
+											link={`/details/${m.id}/${_media_type}`}
+										/>
+									))}
+							</AliceCarousel>
+						</div>
+					) : null}
+					{}
+					<div className='movie__link'>
+						<div className='movie__heading'>
+							Useful Link
+						</div>
+						{currentMovieDetail &&
+							currentMovieDetail.homepage && (
+								<a
+									rel='noopener noreferrer'
+									href={currentMovieDetail.homepage}
+									target='_blank'
+									style={{ textDecoration: 'none' }}>
+									<p>
+										<span className='movie__homeBtn movie__btn'>
+											Homepage <FiExternalLink />
+										</span>
+									</p>
+								</a>
+							)}
+						{currentMovieDetail &&
+							currentMovieDetail.imdb_id && (
+								<a
+									rel='noopener noreferrer'
+									href={`https://www.imdb.com/title/${currentMovieDetail.imdb_id}`}
+									target='_blank'
+									style={{ textDecoration: 'none' }}>
+									<p>
+										<span className='movie__imdbBtn movie__btn'>
+											IMDb <FiExternalLink />
+										</span>
+									</p>
+								</a>
+							)}
+					</div>
+					<div className='movie__production__heading'>
+						Production Companies
+					</div>
+					<div className='movie__production'>
+						{currentMovieDetail &&
+							currentMovieDetail.production_companies?.map(
+								(company, index) => (
+									<div key={index}>
+										{company.logo_path && (
+											<span className='productionCompanyImg'>
+												<img
+													className='movie__productionCompany'
+													src={`${img_300}${company.logo_path}`}
+													alt='ProductionCompany'
+												/>
+												<span>{company.name}</span>
+											</span>
+										)}
+									</div>
+								),
+							)}
+					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 };

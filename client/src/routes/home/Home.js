@@ -4,9 +4,11 @@ import TrailerList from "../../components/main_content/movie_list/trailers/Trail
 import HomeList from "../../components/main_content/movie_list/get_list/HomeList"
 
 const Home = () => {
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
+
   return (
     <>
       <Hero />

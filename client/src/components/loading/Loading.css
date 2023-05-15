@@ -1,0 +1,46 @@
+.custom {
+	width: 100%;
+	height: calc(100vh - 90px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.custom .imgLoading {
+	width: 100px;
+	height: 100px;
+	margin-bottom: 1rem;
+}
+.custom .imgLoading img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	animation: rotate 1.5s ease infinite alternate;
+}
+.custom .balls {
+	display: flex;
+	gap: 2rem;
+}
+.custom .balls .ball {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #fff;
+	animation: bouncing 0.5s ease infinite alternate;
+}
+.custom .balls .ball2 {
+	animation-delay: 0.1s;
+}
+.custom .balls .ball3 {
+	animation-delay: 0.2s;
+}
+@keyframes rotate {
+	to {
+		transform: rotateY(180deg);
+	}
+}
+@keyframes bouncing {
+	to {
+		transform: translateY(-10px);
+	}
+}

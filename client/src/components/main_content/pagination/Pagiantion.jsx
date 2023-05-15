@@ -18,8 +18,8 @@ const Pagiantion = (props) => {
 				nextLabel={'>>'}
 				breakLabel={'...'}
 				pageCount={pageNum}
-				marginPagesDisplayed={3}
-				pageRangeDisplayed={3}
+				marginPagesDisplayed={1}
+				pageRangeDisplayed={1}
 				onPageChange={handlePageClick}
 				containerClassName={'container__pagination'}
 				previousClassName={'page__item'}
