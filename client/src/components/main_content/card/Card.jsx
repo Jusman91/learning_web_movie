@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import '../card/Card.css';
 import {
+	img_300,
 	img_500,
+	noProfile,
 	unavailable,
 } from '../../../config/config';
 import { IoPlay } from 'react-icons/io5';
@@ -23,7 +25,11 @@ const Card = ({
 					<div className='card'>
 						<div className='poster'>
 							<img
-								src={`${img_500}${movie.poster_path}`}
+								src={
+									movie.poster_path
+										? `${img_500}/${movie.poster_path}`
+										: unavailable
+								}
 								alt='poster'
 							/>
 						</div>
@@ -88,7 +94,11 @@ const Card = ({
 				<div className='trailers__card'>
 					<div className='trailers__poster'>
 						<img
-							src={`${img_500}${trailers.poster_path}`}
+							src={
+								trailers.poster_path
+									? `${img_500}/${trailers.poster_path}`
+									: unavailable
+							}
 							alt='poster'
 						/>
 					</div>
@@ -121,7 +131,11 @@ const Card = ({
 					<div className='trending__card'>
 						<div className='trending__poster'>
 							<img
-								src={`${img_500}${trending.poster_path}`}
+								src={
+									trending.poster_path
+										? `${img_500}/${trending.poster_path}`
+										: unavailable
+								}
 								alt='poster'
 							/>
 						</div>
@@ -199,19 +213,23 @@ const Card = ({
 							<img
 								src={
 									search.profile_path
-										? `${img_500}/${search.profile_path}`
-										: unavailable
+										? `${img_300}/${search.profile_path}`
+										: noProfile
 								}
 								alt='poster'
 							/>
 						</div>
 						<div className='des'>
+							<span>{search.name}</span>
 							<ul>
 								{search.known_for_department}
-								{search.known_for?.map((item) => (
-									<li key={item.id}>
+								{' • '}
+								{search.known_for?.map((item, i) => (
+									<li key={i}>
 										{item.original_title ||
 											item.original_name}
+										{search.known_for?.length - 1 !== i &&
+											', '}
 									</li>
 								))}
 							</ul>
@@ -233,6 +251,7 @@ const Card = ({
 						<div className='des'>
 							<ul>
 								<li>{search.name}</li>
+								{search.origin_country && ','}
 								<li>{search.origin_country}</li>
 							</ul>
 						</div>

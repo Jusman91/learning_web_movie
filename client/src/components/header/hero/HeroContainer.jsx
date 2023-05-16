@@ -5,7 +5,11 @@ import {
 } from 'react-icons/hi';
 import heroImg from '../../../asset/hero/hero.jpg';
 import '../hero/Hero.css';
-import { img_1280, img_500 } from '../../../config/config';
+import {
+	img_1280,
+	img_500,
+	unavailable,
+} from '../../../config/config';
 
 const HeroContainer = ({
 	poster,
@@ -21,7 +25,11 @@ const HeroContainer = ({
 			<>
 				<div className='posterImage'>
 					<img
-						src={`${img_1280}${poster.backdrop_path}`}
+						src={
+							poster.backdrop_path
+								? `${img_1280}/${poster.backdrop_path}`
+								: unavailable
+						}
 						alt='poster'
 					/>
 				</div>
@@ -89,7 +97,11 @@ const HeroContainer = ({
 						<div className='overlay__right'>
 							<div className='__items'>
 								<img
-									src={`${img_500}${poster.poster_path}`}
+									src={
+										poster.poster_path
+											? `${img_500}/${poster.poster_path}`
+											: unavailable
+									}
 									alt='poster'
 								/>
 							</div>

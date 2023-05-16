@@ -2,7 +2,7 @@ import '../details/MovieDetails.css';
 import YouTube from 'react-youtube';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import {
@@ -17,6 +17,8 @@ import {
 	img_1280,
 	img_300,
 	img_500,
+	noProfile,
+	unavailable,
 } from '../../../config/config';
 import AliceCarousel from 'react-alice-carousel';
 import Card from '../card/Card';
@@ -119,7 +121,7 @@ const MovieDetails = () => {
 		}
 		setTimeout(() => {
 			setIsLoading(false);
-		}, 2000);
+		}, 1500);
 	};
 
 	const getCredits = async () => {
@@ -187,13 +189,17 @@ const MovieDetails = () => {
 	return (
 		<>
 			{isLoading ? (
-				<Loading />
+				<Loading type='component' />
 			) : (
 				<div className='movie'>
 					<div className='movie__intro'>
 						<img
 							className='movie__backdrop'
-							src={`${img_1280}${currentMovieDetail?.backdrop_path}`}
+							src={
+								currentMovieDetail?.backdrop_path
+									? `${img_1280}/${currentMovieDetail?.backdrop_path}`
+									: unavailable
+							}
 							alt='poster'
 						/>
 
@@ -231,7 +237,11 @@ const MovieDetails = () => {
 					<div className='movie__detail'>
 						<div className='movie__detailLeft'>
 							<img
-								src={`${img_500}${currentMovieDetail?.poster_path}`}
+								src={
+									currentMovieDetail?.poster_path
+										? `${img_500}/${currentMovieDetail?.poster_path}`
+										: unavailable
+								}
 								alt='poster'
 							/>
 						</div>
@@ -266,13 +276,23 @@ const MovieDetails = () => {
 											{currentMovieDetail?.status}
 										</span>
 									</div>
-									{currentMovieDetail?.runtime?.length >
-										0 && (
+									{currentMovieDetail?.runtime && (
 										<div className='movie__runtime'>
-											<div>Runtime: </div>
+											<div>Duration: </div>
 											<span>
 												{toHoursAndMinutes(
 													currentMovieDetail?.runtime,
+												)}
+											</span>
+										</div>
+									)}
+									{currentMovieDetail?.episode_run_time
+										?.length > 0 && (
+										<div className='movie__runtime'>
+											<div>Duration: </div>
+											<span>
+												{toHoursAndMinutes(
+													currentMovieDetail?.episode_run_time,
 												)}
 											</span>
 										</div>
@@ -447,17 +467,21 @@ const MovieDetails = () => {
 						</div>
 					</div>
 					<div className='wrap_cast'>
-						<h3>Cast</h3>
+						<h3>Top Billed Cast</h3>
 						<AliceCarousel
 							disableDotsControls
 							disableButtonsControls
 							mouseTracking={true}
 							responsive={responsive}>
 							{cast &&
-								cast?.map((c, index) => (
+								cast?.slice(0, 6).map((c, index) => (
 									<div key={index} className='cast_profile'>
 										<img
-											src={`${img_500}${c.profile_path}`}
+											src={
+												c.profile_path
+													? `${img_500}${c.profile_path}`
+													: noProfile
+											}
 											alt='Profile'
 										/>
 										<div className='character'>
@@ -467,6 +491,9 @@ const MovieDetails = () => {
 									</div>
 								))}
 						</AliceCarousel>
+						<Link className='full_castcrew'>
+							<h4> View more Cast & Crew ⇨</h4>
+						</Link>
 					</div>
 					{similarMovies && similarMovies.length > 0 ? (
 						<div className='wrap_similar_movies'>

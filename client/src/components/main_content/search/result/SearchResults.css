@@ -2,6 +2,13 @@
 	position: relative;
 	width: 100%;
 }
+.container__search__results .notFound {
+	width: 100%;
+	height: calc(100vh - 90px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 .wrapper__search__results {
 	margin: 2rem 2rem 0 4rem;
 	display: grid;
