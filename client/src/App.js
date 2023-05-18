@@ -9,6 +9,8 @@ import TrendingMovies from './routes/trending/TrendingMovies';
 import TrendingTv from './routes/trending/TrendingTv';
 import { useEffect, useState } from 'react';
 import Loading from './components/loading/Loading';
+import TvSeason from './routes/season/TvSeason';
+import Credits from './routes/credits/Credits'
 
 function App() {
   const user = true
@@ -27,7 +29,9 @@ function App() {
           <Routes>
             <Route path='login' element={user ? <Navigate to='/' /> : <Login />} />
             <Route path='/' element={<Home />} />
-            <Route path='/details/:movieid/:mediatype' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
+            <Route path='/details/:mediatype/:movieid' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
+            <Route path='/details/:mediatype/:movieid/season' element={<TvSeason />} />
+            <Route path='/details/:mediatype/:movieid/cast' element={<Credits />} />
             <Route path='movies' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
             <Route path='tv' element={user ? <TrendingTv /> : <Navigate to='/login' />} />
             <Route path='search' element={user ? <SearchAll /> : <Navigate to='/login' />}>

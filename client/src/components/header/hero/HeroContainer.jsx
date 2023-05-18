@@ -77,8 +77,9 @@ const HeroContainer = ({
 								</div>
 							</div>
 							<div className='posterImage__description'>
-								{poster.overview &&
-									poster.overview.slice(0, 300) + '...'}
+								{poster.overview.length > 0
+									? poster.overview.slice(0, 300) + '...'
+									: "We don't have an overview translated in English. Help us expand our database by adding one."}
 							</div>
 							<div className='posterImage__icons'>
 								<Link

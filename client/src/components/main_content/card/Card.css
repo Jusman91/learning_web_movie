@@ -227,21 +227,48 @@
 	text-decoration: none;
 	overflow: hidden;
 }
+.container_card .wrap_card.cardSeason {
+	height: 150px;
+}
+.container_card .wrap_card.cardCastCrew {
+	height: 80px;
+}
 .wrap_card .wrap_poster {
-	min-width: 100px;
 	width: 100px;
 	height: 130px;
+}
+.wrap_card .wrap_poster.posterSeason {
+	width: 100px;
+	height: 100%;
+}
+.wrap_card .wrap_poster.profile {
+	width: 70px;
+	height: 100%;
 }
 .wrap_card img {
 	min-width: 100%;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	object-position: top;
 }
 .wrap_card .des {
 	padding: 1rem;
 	align-self: center;
 }
+.wrap_card.cardSeason .des {
+	font-size: 1.25rem;
+}
+.wrap_card.cardCastCrew .character {
+	padding: 1.5rem;
+	font-size: 0.9rem;
+	align-self: center;
+}
+.wrap_card.cardCastCrew .character div:nth-child(2) {
+	font-size: 0.75rem;
+	color: rgba(255, 255, 255, 0.6);
+}
+
 .wrap_card .des .title {
 	margin-bottom: 1.25rem;
 }

@@ -281,7 +281,6 @@ const SearchResults = () => {
 												key={movie.id}
 												search={movie}
 												mediaType={type}
-												link={`/details/${movie.id}/${type}`}
 											/>
 										))}
 									{type === 'tv' &&
@@ -291,7 +290,6 @@ const SearchResults = () => {
 												key={movie.id}
 												search={movie}
 												mediaType={type}
-												link={`/details/${movie.id}/${type}`}
 											/>
 										))}
 									{type === 'person' &&

@@ -134,6 +134,8 @@ const MovieDetails = () => {
 			const castResults = response.data.cast;
 			setCrew(crewResults);
 			setCast(castResults);
+			console.log('CREW', crewResults);
+			console.log('CAST', castResults);
 		} catch (err) {
 			console.error(err, '<==== get credits gagal ====>');
 		}
@@ -185,7 +187,8 @@ const MovieDetails = () => {
 	const languageNames = new Intl.DisplayNames(['en'], {
 		type: 'language',
 	});
-
+	const season = currentMovieDetail?.seasons?.slice(-1);
+	console.log('season', season);
 	return (
 		<>
 			{isLoading ? (
@@ -462,7 +465,11 @@ const MovieDetails = () => {
 							</div>
 							<div className='movie__detailRightBottom'>
 								<div className='synopsisText'>Synopsis</div>
-								<span>{currentMovieDetail?.overview}</span>
+								<span>
+									{currentMovieDetail?.overview.length > 0
+										? currentMovieDetail?.overview
+										: "We don't have an overview translated in English. Help us expand our database by adding one."}
+								</span>
 							</div>
 						</div>
 					</div>
@@ -491,10 +498,32 @@ const MovieDetails = () => {
 									</div>
 								))}
 						</AliceCarousel>
-						<Link className='full_castcrew'>
+						<Link
+							to={`/details/${_media_type}/${id}/cast`}
+							className='full_castcrew'>
 							<h4> View more Cast & Crew ⇨</h4>
 						</Link>
 					</div>
+					{season && (
+						<div className='wrap_current_season'>
+							<h3>Current Season</h3>
+							{season.map((item, index) => (
+								<div
+									key={index}
+									className='wrapper_card_season'>
+									<Card
+										season={item}
+										title={currentMovieDetail?.name}
+									/>
+								</div>
+							))}
+							<Link
+								to={`/details/${_media_type}/${id}/season`}
+								className='all_seasons'>
+								<h4>View All Seasons ⇨</h4>
+							</Link>
+						</div>
+					)}
 					{similarMovies && similarMovies.length > 0 ? (
 						<div className='wrap_similar_movies'>
 							<h3>Similar Movies</h3>

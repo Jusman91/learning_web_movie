@@ -7,6 +7,7 @@ import {
 	unavailable,
 } from '../../../config/config';
 import { IoPlay } from 'react-icons/io5';
+import dayjs from 'dayjs';
 
 const Card = ({
 	movie,
@@ -16,6 +17,9 @@ const Card = ({
 	trending,
 	mediaType,
 	search,
+	season,
+	title,
+	castCrew,
 }) => {
 	if (movie) {
 		const rating = movie.vote_average * 10;
@@ -48,8 +52,9 @@ const Card = ({
 								<span>{movie.original_language}</span>
 							</div>
 							<div className='card__description'>
-								{movie.overview &&
-									movie.overview.slice(0, 120) + '...'}
+								{movie.overview?.length > 0
+									? movie.overview.slice(0, 120) + '...'
+									: "We don't have an overview translated in English. Help us expand our database by adding one."}
 							</div>
 						</div>
 						<div className='rating__percent'>
@@ -125,9 +130,12 @@ const Card = ({
 			: trending.type
 			? trending.type
 			: mediaType;
+		let name = trending.original_title || trending.name;
+		name = name.replace(/\s+/g, '-').toLowerCase();
+		const url = `/details/${media_type}/${`${id}${'-'}${name}`}`;
 		return (
 			<>
-				<Link to={`/details/${id}/${media_type}`}>
+				<Link to={url}>
 					<div className='trending__card'>
 						<div className='trending__poster'>
 							<img
@@ -176,10 +184,14 @@ const Card = ({
 		);
 	}
 	if (search) {
+		const id = search.id;
+		let name = search.original_title || search.name;
+		name = name.replace(/\s+/g, '-').toLowerCase();
+		const url = `/details/${mediaType}/${`${id}${'-'}${name}`}`;
 		return (
 			<div className='container_card'>
 				{(mediaType === 'movie' || mediaType === 'tv') && (
-					<Link to={link} className='wrap_card'>
+					<Link to={url} className='wrap_card'>
 						<div className='wrap_poster'>
 							<img
 								src={
@@ -201,8 +213,9 @@ const Card = ({
 								</p>
 							</div>
 							<div className='synopsis'>
-								{search.overview &&
-									search.overview.slice(0, 175) + '...'}
+								{search.overview?.length > 0
+									? search.overview.slice(0, 175) + '...'
+									: "We don't have an overview translated in English. Help us expand our database by adding one."}
 							</div>
 						</div>
 					</Link>
@@ -276,8 +289,9 @@ const Card = ({
 								</h4>
 							</div>
 							<div className='synopsis'>
-								{search.overview &&
-									search.overview.slice(0, 175) + '...'}
+								{search.overview?.length > 0
+									? search.overview.slice(0, 175) + '...'
+									: "We don't have an overview translated in English. Help us expand our database by adding one."}
 							</div>
 						</div>
 					</div>
@@ -287,6 +301,74 @@ const Card = ({
 						<span>{search.name}</span>
 					</div>
 				)}
+			</div>
+		);
+	}
+	if (season) {
+		return (
+			<div className='container_card'>
+				<div className='wrap_card cardSeason'>
+					<Link to={link}>
+						<div className='wrap_poster posterSeason'>
+							<img
+								src={
+									season.poster_path
+										? `${img_500}/${season.poster_path}`
+										: unavailable
+								}
+								alt='poster'
+							/>
+						</div>
+					</Link>
+					<div className='des'>
+						<div className='title'>
+							<Link
+								to={link}
+								style={{
+									textDecoration: 'none',
+									color: '#fff',
+								}}>
+								<h4>{`Season ${season.season_number}`}</h4>
+							</Link>
+							<p>
+								{dayjs(season.air_date).format('YYYY')}
+								{' | '}
+								{`${season.episode_count} Episode`}
+							</p>
+						</div>
+						<div className='synopsis'>
+							{`Season ${
+								season.season_number
+							} of ${title} premiered on ${dayjs(
+								season.air_date,
+							).format('MMM D, YYYY')}`}
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+	if (castCrew) {
+		return (
+			<div className='container_card'>
+				<div className='wrap_card cardCastCrew'>
+					<Link to={link}>
+						<div className='wrap_poster profile'>
+							<img
+								src={
+									castCrew.profile_path
+										? `${img_500}/${castCrew.profile_path}`
+										: unavailable
+								}
+								alt='Profile'
+							/>
+						</div>
+					</Link>
+					<div className='character'>
+						<div>{castCrew.name}</div>
+						<div>{castCrew.character}</div>
+					</div>
+				</div>
 			</div>
 		);
 	}

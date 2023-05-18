@@ -1,0 +1,73 @@
+.container_cast__crew {
+	width: 100%;
+	margin-top: 2rem;
+}
+.container_cast__crew .header_content {
+	width: 100%;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	padding: 0 2.5rem;
+	background-color: #282828;
+}
+.container_cast__crew .header_content img {
+	width: 60px;
+	height: 80%;
+	object-fit: cover;
+	object-position: top;
+}
+.container_cast__crew .header_content .cast__crew_title h1 {
+	font-size: 1.85rem;
+}
+.container_cast__crew
+	.header_content
+	.cast__crew_title
+	h1
+	span {
+	color: rgba(255, 255, 255, 0.5);
+	font-weight: 300;
+}
+.container_cast__crew .header_content .cast__crew_title a {
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.5);
+}
+.container_cast__crew
+	.header_content
+	.cast__crew_title
+	a:hover {
+	color: #fff;
+}
+.container_cast__crew .content_cast__crew {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 2rem;
+	padding: 2rem;
+}
+.container_cast__crew .content_cast__crew .cast {
+	flex: 1;
+}
+.container_cast__crew .content_cast__crew .crew {
+	flex: 1;
+}
+.container_cast__crew .content_cast__crew .cast h3,
+.container_cast__crew .content_cast__crew .crew h3 {
+	margin-bottom: 1rem;
+}
+.container_cast__crew .content_cast__crew .cast h3 span,
+.container_cast__crew .content_cast__crew .crew h3 span {
+	color: rgba(255, 255, 255, 0.5);
+}
+.container_cast__crew
+	.content_cast__crew
+	.cast
+	.wrapper_profile,
+.container_cast__crew
+	.content_cast__crew
+	.crew
+	.wrapper_profile {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}

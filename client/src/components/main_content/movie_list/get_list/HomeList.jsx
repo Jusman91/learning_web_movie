@@ -61,13 +61,12 @@ const HomeList = ({ mediaType, listCategory }) => {
 	};
 
 	const items = movieList.map((movie, index) => {
-		return (
-			<Card
-				key={index}
-				movie={movie}
-				link={`/details/${movie.id}/${mediaType}`}
-			/>
-		);
+		let name = movie.original_title || movie.name;
+		name = name.replace(/\s+/g, '-').toLowerCase();
+		const url = `/details/${mediaType}/${`${
+			movie.id
+		}${'-'}${name}`}`;
+		return <Card key={index} movie={movie} link={url} />;
 	});
 
 	const responsive = {
