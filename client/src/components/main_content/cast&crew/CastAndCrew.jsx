@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import './CastAndCrew.css';
 import Card from '../card/Card';
 import Loading from '../../loading/Loading';
+import Pagiantion from '../pagination/Pagiantion';
 
 const CastAndCrew = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,94 @@ const CastAndCrew = () => {
 	const params = useParams();
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
+	const [departmentsActive, setDepartmentsActive] =
+		useState('Art');
+	const Departments = [
+		'Art',
+		'Camera',
+		'Costume & Make-Up',
+		'Directing',
+		'Editing',
+		'Lighting',
+		'Production',
+		'Sound',
+		'Visual Effects',
+		'Writing',
+	];
+
+	const [filterCrew, setFilterCrew] = useState();
+	const [activePage, setActivePage] = useState(
+		'active__pagination',
+	);
+
+	const filterResult = (value) => {
+		const art = crew.filter((c) => c.department === value);
+		const camera = crew.filter(
+			(c) => c.department === value,
+		);
+		const costumeMakeUp = crew.filter(
+			(c) => c.department === value,
+		);
+		const _crew = crew.filter(
+			(c) => c.department === value,
+		);
+		const directing = crew.filter(
+			(c) => c.department === value,
+		);
+		const editing = crew.filter(
+			(c) => c.department === value,
+		);
+		const lighting = crew.filter(
+			(c) => c.department === value,
+		);
+		const production = crew.filter(
+			(c) => c.department === value,
+		);
+		const sound = crew.filter(
+			(c) => c.department === value,
+		);
+		const visualEffects = crew.filter(
+			(c) => c.department === value,
+		);
+		const writing = crew.filter(
+			(c) => c.department === value,
+		);
+		setFilterCrew(art);
+		setFilterCrew(camera);
+		setFilterCrew(costumeMakeUp);
+		setFilterCrew(_crew);
+		setFilterCrew(directing);
+		setFilterCrew(editing);
+		setFilterCrew(lighting);
+		setFilterCrew(production);
+		setFilterCrew(sound);
+		setFilterCrew(visualEffects);
+		setFilterCrew(writing);
+		setDepartmentsActive(value);
+	};
+
+	const itemsPerPage = 10;
+	const [itemOffsetCast, setItemOffsetCast] = useState(0);
+	const [itemOffsetCrew, setItemOffsetCrew] = useState(0);
+	const endOffsetCast = itemOffsetCast + itemsPerPage;
+	const endOffsetCrew = itemOffsetCrew + itemsPerPage;
+
+	const currentItemsCast = cast.slice(
+		itemOffsetCast,
+		endOffsetCast,
+	);
+
+	const currentItemsCrew = filterCrew?.slice(
+		itemOffsetCrew,
+		endOffsetCrew,
+	);
+
+	const pageCountCast = Math.ceil(
+		cast.length / itemsPerPage,
+	);
+	const pageCountCrew = Math.ceil(
+		filterCrew?.length / itemsPerPage,
+	);
 
 	const getData = async () => {
 		try {
@@ -41,11 +130,30 @@ const CastAndCrew = () => {
 			const castResults = response.data.cast;
 			setCrew(crewResults);
 			setCast(castResults);
+			setFilterCrew(
+				crewResults?.filter((c) => c.department === 'Art'),
+			);
 			console.log('CREW', crewResults);
 			console.log('CAST', castResults);
 		} catch (err) {
 			console.error(err, '<==== get credits gagal ====>');
 		}
+	};
+	const handlePageCast = (event) => {
+		const newOffset =
+			(event.selected * itemsPerPage) % cast.length;
+		console.log(
+			`User requested page number ${event.selected}, which is offset ${newOffset}`,
+		);
+		setItemOffsetCast(newOffset);
+	};
+	const handlePageCrew = (event) => {
+		const newOffset =
+			(event.selected * itemsPerPage) % filterCrew.length;
+		console.log(
+			`User requested page number ${event.selected}, which is offset ${newOffset}`,
+		);
+		setItemOffsetCrew(newOffset);
 	};
 
 	useEffect(() => {
@@ -88,28 +196,61 @@ const CastAndCrew = () => {
 					<div className='content_cast__crew'>
 						<div className='cast'>
 							<h3>
-								Series Cast <span>{cast.length} </span>
+								{_media_type === 'movie'
+									? 'Cast'
+									: 'Series Cast'}{' '}
+								<span>{cast.length} </span>
 							</h3>
 							<div className='wrapper_profile'>
 								{cast &&
-									cast.map((item, index) => (
+									currentItemsCast.map((item, index) => (
 										<Card key={index} castCrew={item} />
 									))}
 							</div>
+							{
+								<Pagiantion
+									credits={handlePageCast}
+									pageNum={pageCountCast}
+									activenum={1}
+								/>
+							}
 						</div>
 						<div className='crew'>
 							<h3>
-								Series Crew <span>{crew.length}</span>
+								{_media_type === 'movie'
+									? 'Crew'
+									: 'Series Crew'}{' '}
+								<span>{crew.length}</span>
 							</h3>
+							<ul>
+								{Departments?.map((item, index) => (
+									<li
+										className={
+											departmentsActive === item
+												? 'list_departments list_departments_active'
+												: 'list_departments'
+										}
+										onClick={() => filterResult(item)}
+										key={index}>
+										{item}
+									</li>
+								))}
+							</ul>
 							{crew && crew.length > 0 ? (
 								<div className='wrapper_profile'>
-									{crew &&
-										crew.map((item, index) => (
-											<Card key={index} castCrew={item} />
-										))}
+									{currentItemsCrew?.map((item, index) => (
+										<Card key={index} castCrew={item} />
+									))}
 								</div>
 							) : (
 								"There are no crew records added to Les Mystères de l'amour."
+							)}
+							{filterCrew?.length > 10 && (
+								<Pagiantion
+									credits={handlePageCrew}
+									pageNum={pageCountCrew}
+									activenum={1}
+								/>
 							)}
 						</div>
 					</div>

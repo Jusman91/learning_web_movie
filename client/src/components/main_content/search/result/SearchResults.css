@@ -9,15 +9,13 @@
 	justify-content: center;
 	align-items: center;
 }
-.wrapper__search__results {
-	margin: 2rem 2rem 0 4rem;
+.container__search__results .wrapper__search__results {
+	padding: 2rem 2rem 0 4rem;
 	display: grid;
 	grid-template-columns: 270px auto;
 	gap: 4rem;
 }
-.wrapper__search__results .left__side {
-	width: 100%;
-}
+
 .wrapper__search__results .left__side h3 {
 	position: relative;
 	background-color: rgba(21, 137, 255, 0.7);
@@ -117,7 +115,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
-	align-items: flex-start;
 }
 .wrapper__search__results .right__side .wrap_pagination {
 	width: 100%;

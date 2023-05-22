@@ -59,6 +59,32 @@
 .container_cast__crew .content_cast__crew .crew h3 span {
 	color: rgba(255, 255, 255, 0.5);
 }
+.container_cast__crew .content_cast__crew .crew ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+.container_cast__crew
+	.content_cast__crew
+	.crew
+	ul
+	.list_departments {
+	font-size: 0.85rem;
+	border: 1px solid #1589ff;
+	border-radius: 5px;
+	padding: 0.2rem 0.5rem;
+}
+.container_cast__crew
+	.content_cast__crew
+	.crew
+	ul
+	.list_departments.list_departments_active {
+	background-color: #1589ff;
+	color: #fff;
+	border: 1px solid #fff;
+}
 .container_cast__crew
 	.content_cast__crew
 	.cast

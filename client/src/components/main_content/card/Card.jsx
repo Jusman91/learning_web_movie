@@ -213,9 +213,11 @@ const Card = ({
 								</p>
 							</div>
 							<div className='synopsis'>
-								{search.overview?.length > 0
-									? search.overview.slice(0, 175) + '...'
-									: "We don't have an overview translated in English. Help us expand our database by adding one."}
+								<p>
+									{search.overview?.length > 0
+										? search.overview?.slice(0, 130) + '...'
+										: "We don't have an overview translated in English. Help us expand our database by adding one."}
+								</p>
 							</div>
 						</div>
 					</Link>

@@ -186,170 +186,164 @@ const SearchResults = () => {
 			{isLoading ? (
 				<Loading type='component' />
 			) : (
-				<>
-					<section className='container__search__results'>
-						{query && query.length > 2 ? (
-							<div className='wrapper__search__results'>
-								<div className='left__side'>
-									<h3>Search Results</h3>
-									<ul>
-										<li
-											style={{ zIndex: 6 }}
-											className={
-												type === 'tv'
-													? 'list__results active_type'
-													: 'list__results'
-											}
-											onClick={() =>
-												handleUpdateFetch('tv')
-											}>
-											<span>Tv Show</span>
-											<span>{totalResultsTv}</span>
-										</li>
-										<li
-											style={{ zIndex: 5 }}
-											className={
-												type === 'movie'
-													? 'list__results active_type'
-													: 'list__results'
-											}
-											onClick={() =>
-												handleUpdateFetch('movie')
-											}>
-											<span>Movie</span>
-											<span>{totalResultsMovie}</span>
-										</li>
-										<li
-											style={{ zIndex: 4 }}
-											className={
-												type === 'person'
-													? 'list__results active_type'
-													: 'list__results'
-											}
-											onClick={() =>
-												handleUpdateFetch('person')
-											}>
-											<span>People</span>
-											<span>{totalResultsPeople}</span>
-										</li>
-										<li
-											style={{ zIndex: 3 }}
-											className={
-												type === 'collection'
-													? 'list__results active_type'
-													: 'list__results'
-											}
-											onClick={() =>
-												handleUpdateFetch('collection')
-											}>
-											<span>Collectios</span>
-											<span>{totalResultsCollectios}</span>
-										</li>
-										<li
-											style={{ zIndex: 2 }}
-											className={
-												type === 'company'
-													? 'list__results active_type'
-													: 'list__results'
-											}
-											onClick={() =>
-												handleUpdateFetch('company')
-											}>
-											<span>Companies</span>
-											<span>{totalResultsCompanies}</span>
-										</li>
-										<li
-											style={{ zIndex: 1 }}
-											className={
-												type === 'keyword'
-													? 'list__results active_type'
-													: 'list__results'
-											}
-											onClick={() =>
-												handleUpdateFetch('keyword')
-											}>
-											<span>Keywords</span>
-											<span>{totalResultsKeywords}</span>
-										</li>
-									</ul>
-								</div>
-								<div className='right__side'>
-									{type === 'movie' &&
-										searchMultiResult &&
-										searchMultiResult?.map((movie) => (
-											<Card
-												key={movie.id}
-												search={movie}
-												mediaType={type}
-											/>
-										))}
-									{type === 'tv' &&
-										searchMultiResult &&
-										searchMultiResult?.map((movie) => (
-											<Card
-												key={movie.id}
-												search={movie}
-												mediaType={type}
-											/>
-										))}
-									{type === 'person' &&
-										searchMultiResult &&
-										searchMultiResult?.map((person) => (
-											<Card
-												key={person.id}
-												search={person}
-												mediaType={type}
-											/>
-										))}
-									{type === 'collection' &&
-										searchMultiResult &&
-										searchMultiResult?.map(
-											(collections) => (
-												<Card
-													key={collections.id}
-													search={collections}
-													mediaType={type}
-												/>
-											),
-										)}
-									{type === 'company' &&
-										searchMultiResult &&
-										searchMultiResult?.map((company) => (
-											<Card
-												key={company.id}
-												search={company}
-												mediaType={type}
-											/>
-										))}
-									{type === 'keyword' &&
-										searchMultiResult &&
-										searchMultiResult?.map((keywords) => (
-											<Card
-												key={keywords.id}
-												search={keywords}
-												mediaType={type}
-											/>
-										))}
-									<div className='wrap_pagination'>
-										{pageNum && pageNum > 1 ? (
-											<Pagiantion
-												handleClick={handlePagination}
-												pageNum={pageNum}
-												activenum={page}
-											/>
-										) : (
-											''
-										)}
-									</div>
+				<section className='container__search__results'>
+					{query && query.length > 2 ? (
+						<div className='wrapper__search__results'>
+							<div className='left__side'>
+								<h3>Search Results</h3>
+								<ul>
+									<li
+										style={{ zIndex: 6 }}
+										className={
+											type === 'tv'
+												? 'list__results active_type'
+												: 'list__results'
+										}
+										onClick={() => handleUpdateFetch('tv')}>
+										<span>Tv Show</span>
+										<span>{totalResultsTv}</span>
+									</li>
+									<li
+										style={{ zIndex: 5 }}
+										className={
+											type === 'movie'
+												? 'list__results active_type'
+												: 'list__results'
+										}
+										onClick={() =>
+											handleUpdateFetch('movie')
+										}>
+										<span>Movie</span>
+										<span>{totalResultsMovie}</span>
+									</li>
+									<li
+										style={{ zIndex: 4 }}
+										className={
+											type === 'person'
+												? 'list__results active_type'
+												: 'list__results'
+										}
+										onClick={() =>
+											handleUpdateFetch('person')
+										}>
+										<span>People</span>
+										<span>{totalResultsPeople}</span>
+									</li>
+									<li
+										style={{ zIndex: 3 }}
+										className={
+											type === 'collection'
+												? 'list__results active_type'
+												: 'list__results'
+										}
+										onClick={() =>
+											handleUpdateFetch('collection')
+										}>
+										<span>Collectios</span>
+										<span>{totalResultsCollectios}</span>
+									</li>
+									<li
+										style={{ zIndex: 2 }}
+										className={
+											type === 'company'
+												? 'list__results active_type'
+												: 'list__results'
+										}
+										onClick={() =>
+											handleUpdateFetch('company')
+										}>
+										<span>Companies</span>
+										<span>{totalResultsCompanies}</span>
+									</li>
+									<li
+										style={{ zIndex: 1 }}
+										className={
+											type === 'keyword'
+												? 'list__results active_type'
+												: 'list__results'
+										}
+										onClick={() =>
+											handleUpdateFetch('keyword')
+										}>
+										<span>Keywords</span>
+										<span>{totalResultsKeywords}</span>
+									</li>
+								</ul>
+							</div>
+							<div className='right__side'>
+								{type === 'movie' &&
+									searchMultiResult &&
+									searchMultiResult?.map((movie) => (
+										<Card
+											key={movie.id}
+											search={movie}
+											mediaType={type}
+										/>
+									))}
+								{type === 'tv' &&
+									searchMultiResult &&
+									searchMultiResult?.map((movie) => (
+										<Card
+											key={movie.id}
+											search={movie}
+											mediaType={type}
+										/>
+									))}
+								{type === 'person' &&
+									searchMultiResult &&
+									searchMultiResult?.map((person) => (
+										<Card
+											key={person.id}
+											search={person}
+											mediaType={type}
+										/>
+									))}
+								{type === 'collection' &&
+									searchMultiResult &&
+									searchMultiResult?.map((collections) => (
+										<Card
+											key={collections.id}
+											search={collections}
+											mediaType={type}
+										/>
+									))}
+								{type === 'company' &&
+									searchMultiResult &&
+									searchMultiResult?.map((company) => (
+										<Card
+											key={company.id}
+											search={company}
+											mediaType={type}
+										/>
+									))}
+								{type === 'keyword' &&
+									searchMultiResult &&
+									searchMultiResult?.map((keywords) => (
+										<Card
+											key={keywords.id}
+											search={keywords}
+											mediaType={type}
+										/>
+									))}
+								<div className='wrap_pagination'>
+									{pageNum && pageNum > 1 ? (
+										<Pagiantion
+											handleClick={handlePagination}
+											pageNum={pageNum}
+											activenum={page}
+										/>
+									) : (
+										''
+									)}
 								</div>
 							</div>
-						) : (
-							<div className='notFound'>
-								<h2>Keyword Not Exist</h2>
-							</div>
-						)}
-					</section>
-				</>
+						</div>
+					) : (
+						<div className='notFound'>
+							<h2>Keyword Not Exist</h2>
+						</div>
+					)}
+				</section>
 			)}
 		</>
 	);

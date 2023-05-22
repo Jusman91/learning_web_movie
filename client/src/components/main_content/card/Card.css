@@ -245,8 +245,8 @@
 	width: 70px;
 	height: 100%;
 }
-.wrap_card img {
-	min-width: 100%;
+.wrap_card .wrap_poster img {
+	min-width: 100px;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -255,6 +255,7 @@
 .wrap_card .des {
 	padding: 1rem;
 	align-self: center;
+	width: 100%;
 }
 .wrap_card.cardSeason .des {
 	font-size: 1.25rem;
@@ -285,8 +286,8 @@
 	list-style: none;
 	padding-left: 0.3rem;
 }
-.wrap_card .des .synopsis {
-	font-size: 0.75rem;
+.wrap_card .des .synopsis p {
+	font-size: 0.85rem;
 }
 .keywords {
 	width: 100%;

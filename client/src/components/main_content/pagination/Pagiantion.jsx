@@ -1,8 +1,13 @@
 import ReactPaginate from 'react-paginate';
 import './Pagiantion.css';
 
-const Pagiantion = (props) => {
-	const { pageNum, activenum, handleClick } = props;
+const Pagiantion = ({
+	pageNum,
+	activenum,
+	handleClick,
+	credits,
+	activePagination,
+}) => {
 	const forcePageActive = parseInt(activenum) - 1;
 	const handlePageClick = (e) => {
 		console.log(e.selected + 1);
@@ -20,7 +25,7 @@ const Pagiantion = (props) => {
 				pageCount={pageNum}
 				marginPagesDisplayed={1}
 				pageRangeDisplayed={1}
-				onPageChange={handlePageClick}
+				onPageChange={credits ? credits : handlePageClick}
 				containerClassName={'container__pagination'}
 				previousClassName={'page__item'}
 				pageClassName={'page__item'}
