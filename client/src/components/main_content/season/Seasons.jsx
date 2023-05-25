@@ -37,7 +37,7 @@ const Seasons = () => {
 		}, 1000);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, _media_type]);
-
+	console.log(currentTvShowDetails);
 	return (
 		<>
 			{isLoading ? (
@@ -72,6 +72,7 @@ const Seasons = () => {
 									key={index}
 									season={item}
 									title={currentTvShowDetails.name}
+									link={`/details/${_media_type}/${id}/season/${item.season_number}`}
 								/>
 							),
 						)}

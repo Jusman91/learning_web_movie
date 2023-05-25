@@ -213,11 +213,9 @@ const Card = ({
 								</p>
 							</div>
 							<div className='synopsis'>
-								<p>
-									{search.overview?.length > 0
-										? search.overview?.slice(0, 130) + '...'
-										: "We don't have an overview translated in English. Help us expand our database by adding one."}
-								</p>
+								{search.overview?.length > 0
+									? search.overview?.slice(0, 130) + '...'
+									: "We don't have an overview translated in English. Help us expand our database by adding one."}
 							</div>
 						</div>
 					</Link>
@@ -307,6 +305,9 @@ const Card = ({
 		);
 	}
 	if (season) {
+		const id = season.id;
+		let seasonnumber = season.season_number;
+		const url = `/details/${mediaType}/${id}${seasonnumber}`;
 		return (
 			<div className='container_card'>
 				<div className='wrap_card cardSeason'>
@@ -323,14 +324,14 @@ const Card = ({
 						</div>
 					</Link>
 					<div className='des'>
-						<div className='title'>
+						<div className='title titleSeason'>
 							<Link
 								to={link}
 								style={{
 									textDecoration: 'none',
 									color: '#fff',
 								}}>
-								<h4>{`Season ${season.season_number}`}</h4>
+								<h4>{season.name}</h4>
 							</Link>
 							<p>
 								{dayjs(season.air_date).format('YYYY')}
@@ -339,11 +340,15 @@ const Card = ({
 							</p>
 						</div>
 						<div className='synopsis'>
-							{`Season ${
-								season.season_number
-							} of ${title} premiered on ${dayjs(
-								season.air_date,
-							).format('MMM D, YYYY')}`}
+							<p>
+								{`Season ${
+									season.season_number
+								} of ${title} premiered on ${dayjs(
+									season.air_date,
+								).format('MMM D, YYYY')}`}
+							</p>
+							<br />
+							<p>{season.overview}</p>
 						</div>
 					</div>
 				</div>
@@ -360,7 +365,7 @@ const Card = ({
 								src={
 									castCrew.profile_path
 										? `${img_500}/${castCrew.profile_path}`
-										: unavailable
+										: noProfile
 								}
 								alt='Profile'
 							/>

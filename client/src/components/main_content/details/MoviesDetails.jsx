@@ -466,7 +466,7 @@ const MovieDetails = () => {
 							<div className='movie__detailRightBottom'>
 								<div className='synopsisText'>Synopsis</div>
 								<span>
-									{currentMovieDetail?.overview.length > 0
+									{currentMovieDetail?.overview?.length > 0
 										? currentMovieDetail?.overview
 										: "We don't have an overview translated in English. Help us expand our database by adding one."}
 								</span>
