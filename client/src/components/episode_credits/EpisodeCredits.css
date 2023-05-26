@@ -1,0 +1,29 @@
+.wrapper_parts {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 2rem;
+	padding: 2rem;
+}
+.wrapper_parts .part_cast,
+.wrapper_parts .part_guestStars {
+	flex: 1;
+}
+.wrapper_parts .part_cast h3,
+.wrapper_parts .part_guestStars h3 {
+	margin-bottom: 1rem;
+}
+.wrapper_parts .part_cast h3 span,
+.wrapper_parts .part_guestStars h3 span {
+	color: rgba(255, 255, 255, 0.5);
+}
+.wrapper_parts .part_cast .wrapper_profile,
+.wrapper_parts .part_guestStars .wrapper_profile {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	/* display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 1rem; */
+}

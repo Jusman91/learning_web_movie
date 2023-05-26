@@ -4,6 +4,9 @@
 .content_detailsTvSeason h3 {
 	margin-bottom: 1rem;
 }
+.content_detailsTvSeason h3 span {
+	color: rgba(255, 255, 255, 0.5);
+}
 .content_detailsTvSeason .wrapper_cardDetailsTvSeason {
 	display: flex;
 	flex-wrap: wrap;

@@ -19,9 +19,9 @@ const DetailsTvSeason = () => {
 	const [dataTvSeason, setDataTvSeason] = useState([]);
 	const [dataTvEpisode, setDataTvEpisode] = useState([]);
 	const [episodes, setEpisodes] = useState([]);
-	const [episdoeNum, setEpisodeNum] = useState([]);
+	const [episodeNum, setEpisodeNum] = useState([1]);
 	const [crew, setCrew] = useState([]);
-	const [gusetStart, setGusetStart] = useState([]);
+	const [guestStars, setGuestStars] = useState([]);
 	const [episodesImages, setEpisodesImages] = useState([]);
 	const params = useParams();
 	const navigate = useNavigate();
@@ -52,14 +52,15 @@ const DetailsTvSeason = () => {
 	const getDataTvEpisode = async (value) => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/season/${season_number}/episode/${episdoeNum}?api_key=${process.env.REACT_APP_APIKEY}`,
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/season/${season_number}/episode/${episodeNum}?api_key=${process.env.REACT_APP_APIKEY}`,
 			);
 			const results = response.data;
 			const crew = results.crew;
-			const guestStart = results.guest_stars;
-			setDataTvEpisode(results);
+			const guestStars = results.guest_stars;
+			// setDataTvEpisode(results);
 			setCrew(crew);
-			setGusetStart(guestStart);
+			setGuestStars(guestStars);
+			console.log('epsidaofdahifd', results);
 		} catch (err) {
 			console.error(err, 'GetDataTvSeason failed');
 		}
@@ -67,11 +68,11 @@ const DetailsTvSeason = () => {
 	const getDataTvEpisodeImages = async (value) => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/season/${season_number}/episode/${episdoeNum}/images?api_key=${process.env.REACT_APP_APIKEY}`,
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/season/${season_number}/episode/${episodeNum}/images?api_key=${process.env.REACT_APP_APIKEY}`,
 			);
 			const results = response.data;
 			const stills = results.stills;
-			console.log(results);
+			console.log('img epsode', results);
 			setEpisodesImages(stills);
 		} catch (err) {
 			console.error(err, 'GetDataTvSeason failed');
@@ -94,37 +95,44 @@ const DetailsTvSeason = () => {
 		getDataTvEpisode();
 		getDataTvEpisodeImages();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [episdoeNum]);
-	console.log('DataEpisode', dataTvEpisode);
-	console.log('crew', crew);
-	console.log('guest start', gusetStart);
+	}, [episodeNum]);
+	console.log('TV season', dataTvSeason);
+	// console.log('DataEpisode', dataTvEpisode);
+	// console.log('crew', crew);
+	// console.log('guest start', guestStars);
 	return (
 		<section className='container_season'>
-			<div className='header_content'>
-				<img
-					src={
-						dataTvSeason.poster_path
-							? `${img_500}/${dataTvSeason.poster_path}`
-							: unavailable
-					}
-					alt='Poster'
-				/>
-				<div className='season_title'>
-					<h1>
-						{dataTvSeason.name}{' '}
-						<span>{`${' ('}${dayjs(
-							dataTvSeason.air_date,
-						).format('YYYY')}${')'}`}</span>
-					</h1>
-					<Link to={`/details/${_media_type}/${id}/season`}>
-						← Back to season list
-					</Link>
+			{dataTvSeason && (
+				<div className='header_content'>
+					<img
+						src={
+							dataTvSeason.poster_path
+								? `${img_500}/${dataTvSeason.poster_path}`
+								: unavailable
+						}
+						alt='Poster'
+					/>
+					<div className='season_title'>
+						<h1>
+							{dataTvSeason.name}{' '}
+							<span>{`${' ('}${dayjs(
+								dataTvSeason.air_date,
+							).format('YYYY')}${')'}`}</span>
+						</h1>
+						<Link
+							to={`/details/${_media_type}/${id}/season`}>
+							← Back to season list
+						</Link>
+					</div>
 				</div>
-			</div>
+			)}
 			<div className='content_detailsTvSeason'>
-				<h3>
-					Episodes <span>{episodes.length}</span>
-				</h3>
+				{episodes && episodes.length > 0 && (
+					<h3>
+						Episodes <span>{episodes.length}</span>
+					</h3>
+				)}
+
 				{episodes &&
 					episodes.map((episode, i) => (
 						<div
@@ -133,7 +141,7 @@ const DetailsTvSeason = () => {
 							<CardDetailsTvSeason episodes={episode} />
 							<div
 								className={
-									episdoeNum === episode.episode_number
+									episodeNum === episode.episode_number
 										? 'wrapper_btn_expand hidden'
 										: 'wrapper_btn_expand'
 								}>
@@ -149,7 +157,7 @@ const DetailsTvSeason = () => {
 									Expand {episode.episode_number}
 								</button>
 							</div>
-							{episdoeNum === episode.episode_number && (
+							{episodeNum === episode.episode_number && (
 								<div className='expanded_wrapper'>
 									<ul className='episode_shortcut_bar'>
 										<li title='Videos'>Videos</li>
@@ -194,15 +202,18 @@ const DetailsTvSeason = () => {
 												<h3>
 													Guest Start{' '}
 													<span>
-														{gusetStart &&
-															gusetStart.length}
+														{guestStars &&
+															guestStars.length}
 													</span>
 												</h3>
-												<Link>Full Cast & Crew</Link>
+												<Link
+													to={`/details/${_media_type}/${id}/season/${season_number}/episode/${episodeNum}/cast`}>
+													Full Cast & Crew
+												</Link>
 											</div>
 											<div className='people_credits'>
-												{gusetStart &&
-													gusetStart.map((g, i) => (
+												{guestStars &&
+													guestStars.map((g, i) => (
 														<Card key={i} castCrew={g} />
 													))}
 											</div>
@@ -220,6 +231,7 @@ const DetailsTvSeason = () => {
 											{episodesImages.length > 0 &&
 												episodesImages.map((epImg, i) => (
 													<img
+														key={i}
 														src={`${img_500}/${epImg.file_path}`}
 														alt={
 															episode.name ||

@@ -12,6 +12,7 @@ import Loading from './components/loading/Loading';
 import TvSeason from './routes/season/TvSeason';
 import Credits from './routes/credits/Credits'
 import DetailsTvSeason from './components/main_content/season/details/DetailsTvSeason';
+import EpisodeCredits from './components/episode_credits/EpisodeCredits';
 
 function App() {
   const user = true
@@ -34,7 +35,10 @@ function App() {
             <Route path='/details/:mediatype/:movieid/season' element={<TvSeason />} />
             <Route path='/details/:mediatype/:movieid/season/:seasonnumber' element={<DetailsTvSeason />}>
               <Route path=':episode/:episodenumber' element={<DetailsTvSeason />} />
+
+
             </Route>
+            <Route path='/details/:mediatype/:movieid/season/:seasonnumber/episode/:episodenumber/cast' element={<EpisodeCredits />} />
             <Route path='/details/:mediatype/:movieid/cast' element={<Credits />} />
             <Route path='movies' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
             <Route path='tv' element={user ? <TrendingTv /> : <Navigate to='/login' />} />
