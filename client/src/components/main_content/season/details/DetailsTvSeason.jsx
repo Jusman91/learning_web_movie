@@ -90,162 +90,174 @@ const DetailsTvSeason = () => {
 	useEffect(() => {
 		getDataTvSeason();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [_media_type, id, season_number]);
+	}, []);
 	useEffect(() => {
 		getDataTvEpisode();
 		getDataTvEpisodeImages();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [episodeNum]);
+	}, [_media_type, id, season_number, episodeNum]);
 	console.log('TV season', dataTvSeason);
 	// console.log('DataEpisode', dataTvEpisode);
 	// console.log('crew', crew);
 	// console.log('guest start', guestStars);
 	return (
 		<section className='container_season'>
-			{dataTvSeason && (
-				<div className='header_content'>
-					<img
-						src={
-							dataTvSeason.poster_path
-								? `${img_500}/${dataTvSeason.poster_path}`
-								: unavailable
-						}
-						alt='Poster'
-					/>
-					<div className='season_title'>
-						<h1>
-							{dataTvSeason.name}{' '}
-							<span>{`${' ('}${dayjs(
-								dataTvSeason.air_date,
-							).format('YYYY')}${')'}`}</span>
-						</h1>
-						<Link
-							to={`/details/${_media_type}/${id}/season`}>
-							← Back to season list
-						</Link>
-					</div>
-				</div>
-			)}
-			<div className='content_detailsTvSeason'>
-				{episodes && episodes.length > 0 && (
-					<h3>
-						Episodes <span>{episodes.length}</span>
-					</h3>
-				)}
-
-				{episodes &&
-					episodes.map((episode, i) => (
-						<div
-							key={i}
-							className='wrapper_cardDetailsTvSeason'>
-							<CardDetailsTvSeason episodes={episode} />
-							<div
-								className={
-									episodeNum === episode.episode_number
-										? 'wrapper_btn_expand hidden'
-										: 'wrapper_btn_expand'
-								}>
-								<button
-									type='button'
-									className='btn_expand'
-									onClick={() =>
-										handleExpand(episode.episode_number)
-									}>
-									<span>
-										<BsFillArrowDownCircleFill />
-									</span>
-									Expand {episode.episode_number}
-								</button>
-							</div>
-							{episodeNum === episode.episode_number && (
-								<div className='expanded_wrapper'>
-									<ul className='episode_shortcut_bar'>
-										<li title='Videos'>Videos</li>
-										<li title='Images'>Images</li>
-										<li title='Changes'>Changes</li>
-										<li title='Report'>Report</li>
-									</ul>
-
-									<div className='expanded_info'>
-										<div className='crew'>
-											<h3>
-												Crew <span>{crew.length}</span>
-											</h3>
-											<p>
-												<strong>Directed by: </strong>
-												{director?.length > 0
-													? director.map((d, i) => (
-															<Link key={i}>
-																{d.name}
-																{director.length - 1 !==
-																	i && ', '}
-															</Link>
-													  ))
-													: 'No director has been added.'}
-											</p>
-
-											<p>
-												<strong>Written by: </strong>
-												{writer?.length > 0
-													? writer.map((w, i) => (
-															<Link key={i}>
-																{w.name}
-																{writer.length - 1 !== i &&
-																	', '}
-															</Link>
-													  ))
-													: 'No writer has been added.'}
-											</p>
-										</div>
-										<div className='guest_starts'>
-											<div className='wrapper_title'>
-												<h3>
-													Guest Start{' '}
-													<span>
-														{guestStars &&
-															guestStars.length}
-													</span>
-												</h3>
-												<Link
-													to={`/details/${_media_type}/${id}/season/${season_number}/episode/${episodeNum}/cast`}>
-													Full Cast & Crew
-												</Link>
-											</div>
-											<div className='people_credits'>
-												{guestStars &&
-													guestStars.map((g, i) => (
-														<Card key={i} castCrew={g} />
-													))}
-											</div>
-										</div>
-									</div>
-									<div className='expanded_info_epsImg'>
-										<div className='wrapper_title'>
-											<h3>
-												Episode Images{' '}
-												<span>{episodesImages.length}</span>
-											</h3>
-											<Link>View All Episode Images</Link>
-										</div>
-										<div className='episide_images'>
-											{episodesImages.length > 0 &&
-												episodesImages.map((epImg, i) => (
-													<img
-														key={i}
-														src={`${img_500}/${epImg.file_path}`}
-														alt={
-															episode.name ||
-															episode.original_title
-														}
-													/>
-												))}
-										</div>
-									</div>
-								</div>
-							)}
+			{dataTvSeason && episodes.length > 0 && (
+				<>
+					<div className='header_content'>
+						<img
+							src={
+								dataTvSeason.poster_path
+									? `${img_500}/${dataTvSeason.poster_path}`
+									: unavailable
+							}
+							alt='Poster'
+						/>
+						<div className='season_title'>
+							<h1>
+								{dataTvSeason.name}{' '}
+								<span>{`${' ('}${dayjs(
+									dataTvSeason.air_date,
+								).format('YYYY')}${')'}`}</span>
+							</h1>
+							<Link
+								to={`/details/${_media_type}/${id}/season`}>
+								← Back to season list
+							</Link>
 						</div>
-					))}
-			</div>
+					</div>
+
+					<div className='content_detailsTvSeason'>
+						<h3>
+							Episodes <span>{episodes.length}</span>
+						</h3>
+
+						{episodes &&
+							episodes.map((episode, i) => (
+								<div
+									key={i}
+									className='wrapper_cardDetailsTvSeason'>
+									<CardDetailsTvSeason episodes={episode} />
+									<div
+										className={
+											episodeNum === episode.episode_number
+												? 'wrapper_btn_expand hidden'
+												: 'wrapper_btn_expand'
+										}>
+										<button
+											type='button'
+											className='btn_expand'
+											onClick={() =>
+												handleExpand(episode.episode_number)
+											}>
+											<span>
+												<BsFillArrowDownCircleFill />
+											</span>
+											Expand {episode.episode_number}
+										</button>
+									</div>
+									{episodeNum ===
+										episode.episode_number && (
+										<div className='expanded_wrapper'>
+											<ul className='episode_shortcut_bar'>
+												<li title='Videos'>Videos</li>
+												<li title='Images'>Images</li>
+												<li title='Changes'>Changes</li>
+												<li title='Report'>Report</li>
+											</ul>
+
+											<div className='expanded_info'>
+												<div className='crew'>
+													<h3>
+														Crew <span>{crew.length}</span>
+													</h3>
+													<p>
+														<strong>Directed by: </strong>
+														{director?.length > 0
+															? director.map((d, i) => (
+																	<Link key={i}>
+																		{d.name}
+																		{director.length - 1 !==
+																			i && ', '}
+																	</Link>
+															  ))
+															: 'No director has been added.'}
+													</p>
+
+													<p>
+														<strong>Written by: </strong>
+														{writer?.length > 0
+															? writer.map((w, i) => (
+																	<Link key={i}>
+																		{w.name}
+																		{writer.length - 1 !==
+																			i && ', '}
+																	</Link>
+															  ))
+															: 'No writer has been added.'}
+													</p>
+												</div>
+												<div className='guest_starts'>
+													<div className='wrapper_title'>
+														<h3>
+															Guest Start{' '}
+															<span>
+																{guestStars &&
+																	guestStars.length}
+															</span>
+														</h3>
+														<Link
+															to={`/details/${_media_type}/${id}/season/${season_number}/episode/${episodeNum}/cast`}>
+															Full Cast & Crew
+														</Link>
+													</div>
+													<div className='people_credits'>
+														{guestStars &&
+															guestStars.map((g, i) => (
+																<Card
+																	key={i}
+																	castCrew={g}
+																	link={`/person/${g.id}`}
+																/>
+															))}
+													</div>
+												</div>
+											</div>
+											<div className='expanded_info_epsImg'>
+												<div className='wrapper_title'>
+													<h3>
+														Episode Images{' '}
+														<span>
+															{episodesImages.length}
+														</span>
+													</h3>
+													<Link>
+														View All Episode Images
+													</Link>
+												</div>
+												<div className='episide_images'>
+													{episodesImages.length > 0 &&
+														episodesImages.map(
+															(epImg, i) => (
+																<img
+																	key={i}
+																	src={`${img_500}/${epImg.file_path}`}
+																	alt={
+																		episode.name ||
+																		episode.original_title
+																	}
+																/>
+															),
+														)}
+												</div>
+											</div>
+										</div>
+									)}
+								</div>
+							))}
+					</div>
+				</>
+			)}
 		</section>
 	);
 };

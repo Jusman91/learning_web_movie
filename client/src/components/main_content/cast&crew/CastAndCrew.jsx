@@ -139,6 +139,18 @@ const CastAndCrew = () => {
 			console.error(err, '<==== get credits gagal ====>');
 		}
 	};
+
+	const getAggregateCreditsTv = async () => {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASEURL}/tv/${id}/aggregate_credits?api_key=${process.env.REACT_APP_APIKEY}`,
+			);
+			console.log(response);
+		} catch (err) {
+			console.error(err, 'aggregateCreditsTv failed');
+		}
+	};
+
 	const handlePageCast = (event) => {
 		const newOffset =
 			(event.selected * itemsPerPage) % cast.length;
@@ -159,6 +171,7 @@ const CastAndCrew = () => {
 	useEffect(() => {
 		getData();
 		getCredits();
+		getAggregateCreditsTv();
 		window.scrollTo(0, 0);
 		setTimeout(() => {
 			setIsLoading(false);
@@ -239,7 +252,11 @@ const CastAndCrew = () => {
 							{crew && crew.length > 0 ? (
 								<div className='wrapper_profile'>
 									{currentItemsCrew?.map((item, index) => (
-										<Card key={index} castCrew={item} />
+										<Card
+											key={index}
+											castCrew={item}
+											link={`/person/${item.id}`}
+										/>
 									))}
 								</div>
 							) : (

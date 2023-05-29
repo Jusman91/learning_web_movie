@@ -263,6 +263,14 @@
 	font-size: 0.9rem;
 	align-self: center;
 }
+.wrap_card.cardCastCrew .character a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: 500;
+}
+.wrap_card.cardCastCrew .character a:hover {
+	color: rgb(21, 137, 255);
+}
 .wrap_card.cardCastCrew .character div:nth-child(2) {
 	font-size: 0.75rem;
 	color: rgba(255, 255, 255, 0.6);

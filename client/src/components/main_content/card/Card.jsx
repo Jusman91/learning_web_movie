@@ -372,7 +372,7 @@ const Card = ({
 						</div>
 					</Link>
 					<div className='character'>
-						<div>{castCrew.name}</div>
+						<Link to={link}>{castCrew.name}</Link>
 						<div>{castCrew.character}</div>
 					</div>
 				</div>

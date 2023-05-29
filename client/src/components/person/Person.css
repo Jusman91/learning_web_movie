@@ -1,0 +1,224 @@
+.conatainer_details_person {
+	width: 100%;
+	padding: 2.5rem;
+}
+.conatainer_details_person .content_wrapper {
+	display: grid;
+	grid-template-columns: 300px auto;
+}
+.conatainer_details_person
+	.content_wrapper
+	.left_side
+	.image_content {
+	width: 100%;
+	height: 450px;
+}
+.conatainer_details_person
+	.content_wrapper
+	.left_side
+	.image_content
+	img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 10px;
+	overflow: hidden;
+}
+.conatainer_details_person
+	.content_wrapper
+	.left_side
+	.personal_info {
+	margin-top: 2rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.left_side
+	.personal_info
+	h3 {
+	margin-bottom: 0.5rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.left_side
+	.personal_info
+	p {
+	font-size: 0.85rem;
+	margin-bottom: 1.25rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.left_side
+	.personal_info
+	p
+	span {
+	opacity: 0.5;
+}
+.conatainer_details_person .content_wrapper .right_side {
+	padding: 0 2rem;
+	padding-right: 0;
+	overflow: hidden;
+	width: 100%;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.title,
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.biography {
+	margin-bottom: 2rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.title
+	h2 {
+	font-size: 2rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.biography
+	p,
+.cardKnownFor p {
+	opacity: 0.7;
+	font-size: 0.85rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.knownFor
+	.flex_nowrap {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.knownFor
+	.flex_nowrap
+	.cardKnownFor {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.wrapper_credits
+	.credits_list {
+	width: 100%;
+	margin-top: 1.25rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.wrapper_credits
+	.credits_list
+	.header_option {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
+}
+
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.wrapper_credits
+	.credits_list
+	.header_option
+	.filter {
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(21, 137, 255);
+	font-size: 1rem;
+	cursor: pointer;
+	color: #fff;
+	padding: 0 0.5rem;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.wrapper_credits
+	.credits_list
+	.header_option
+	.filter
+	option {
+	background-color: #fff;
+	color: #000;
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.credits_list
+	.card_credits {
+	width: 100%;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 0px 8px rgba(255, 255, 255, 0.1);
+}
+.conatainer_details_person
+	.content_wrapper
+	.right_side
+	.credits_list
+	.card_credits
+	tbody {
+	width: 100%;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: none;
+}
+.card_credits tbody tr td {
+	padding: 12px 16px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.card_credits tbody tr .separator {
+	text-align: center;
+	width: 24px;
+}
+.card_credits tbody tr .separator span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 12px;
+	height: 12px;
+	border: 1px solid #fff;
+	border-radius: 50%;
+}
+.card_credits tbody tr .separator span:hover span {
+	width: 6px;
+	height: 6px;
+	background-color: rgb(21, 137, 255);
+}
+.card_credits tbody tr .year {
+	width: 64px;
+	font-weight: 400;
+	text-align: center;
+	padding: 0;
+}
+.card_credits tbody tr td a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: 700;
+}
+.card_credits tbody tr .role {
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.card_credits tbody tr td a:hover {
+	color: rgb(21, 137, 255);
+}
+.card_credits tbody tr td .group {
+	padding-left: 0.85rem;
+
+	color: rgba(255, 255, 255, 0.5);
+}
+.card_credits tbody tr td .group span a {
+	color: rgba(255, 255, 255, 0.5);
+}
+.card_credits tbody tr td .group .character {
+	color: #fff;
+}

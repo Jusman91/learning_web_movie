@@ -92,7 +92,11 @@ const EpisodeCredits = () => {
 							</h3>
 							<div className='wrapper_profile'>
 								{cast.map((c, i) => (
-									<Card key={i} castCrew={c} />
+									<Card
+										key={i}
+										castCrew={c}
+										link={`/person/${c.id}`}
+									/>
 								))}
 							</div>
 						</div>
@@ -102,7 +106,11 @@ const EpisodeCredits = () => {
 							</h3>
 							<div className='wrapper_profile'>
 								{guestStars.map((c, i) => (
-									<Card key={i} castCrew={c} />
+									<Card
+										key={i}
+										castCrew={c}
+										link={`/person/${c.id}`}
+									/>
 								))}
 							</div>
 						</div>

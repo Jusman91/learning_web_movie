@@ -13,6 +13,7 @@ import TvSeason from './routes/season/TvSeason';
 import Credits from './routes/credits/Credits'
 import DetailsTvSeason from './components/main_content/season/details/DetailsTvSeason';
 import EpisodeCredits from './components/episode_credits/EpisodeCredits';
+import DetailsPerson from './routes/person/DetailsPerson';
 
 function App() {
   const user = true
@@ -35,8 +36,6 @@ function App() {
             <Route path='/details/:mediatype/:movieid/season' element={<TvSeason />} />
             <Route path='/details/:mediatype/:movieid/season/:seasonnumber' element={<DetailsTvSeason />}>
               <Route path=':episode/:episodenumber' element={<DetailsTvSeason />} />
-
-
             </Route>
             <Route path='/details/:mediatype/:movieid/season/:seasonnumber/episode/:episodenumber/cast' element={<EpisodeCredits />} />
             <Route path='/details/:mediatype/:movieid/cast' element={<Credits />} />
@@ -45,6 +44,7 @@ function App() {
             <Route path='search' element={user ? <SearchAll /> : <Navigate to='/login' />}>
               <Route path=':type' element={user ? <SearchAll /> : <Navigate to='/login' />} />
             </Route>
+            <Route path='/person/:personid' element={<DetailsPerson />} />
             <Route path='/*' element={<h1>Error Page</h1>} />
           </Routes>
           <Footer />
