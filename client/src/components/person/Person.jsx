@@ -203,59 +203,61 @@ const Person = () => {
 									))}
 								</select>
 							</div>
-							{departmentsActive === true &&
-								newCredits.map((c, i) => (
-									<div key={i}>
-										<h3>{c.department}</h3>
-										<table
-											key={i}
-											className='card_credits'
-											border='0'
-											cellSpacing='0'
-											cellPadding='0'>
-											<tbody>
-												<tr>
-													<td className='year'>
-														{formatYard(
-															c.release_date ||
-																c.first_air_date,
-														)}
-													</td>
-													<td className='separator'>
-														<span>
-															<span></span>
-														</span>
-													</td>
-													<td className='role'>
-														<Link
-															to={`/details/${c.media_type}/${c.id}`}>
-															{c.title || c.name}
-														</Link>
-
-														<span className='group'>
-															{c.episode_count && (
-																<span>
-																	<Link>{`(${c.episode_count} episodes)`}</Link>
-																</span>
-															)}{' '}
-															{c.character?.length > 0 &&
-															c.character
-																? 'as'
-																: c.job
-																? '...'
-																: ''}{' '}
-															<span className='character'>
-																{c.character
-																	? c.character
-																	: c.job}
+							<div className='defaultData'>
+								{departmentsActive === true &&
+									newCredits.map((c, i) => (
+										<div key={i}>
+											<h3>{c.department}</h3>
+											<table
+												key={i}
+												className='card_credits'
+												border='0'
+												cellSpacing='0'
+												cellPadding='0'>
+												<tbody>
+													<tr>
+														<td className='year'>
+															{formatYard(
+																c.release_date ||
+																	c.first_air_date,
+															)}
+														</td>
+														<td className='separator'>
+															<span>
+																<span></span>
 															</span>
-														</span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								))}
+														</td>
+														<td className='role'>
+															<Link
+																to={`/details/${c.media_type}/${c.id}`}>
+																{c.title || c.name}
+															</Link>
+
+															<span className='group'>
+																{c.episode_count && (
+																	<span>
+																		<Link>{`(${c.episode_count} episodes)`}</Link>
+																	</span>
+																)}{' '}
+																{c.character?.length > 0 &&
+																c.character
+																	? 'as'
+																	: c.job
+																	? '...'
+																	: ''}{' '}
+																<span className='character'>
+																	{c.character
+																		? c.character
+																		: c.job}
+																</span>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									))}
+							</div>
 							{departmentsActive === false &&
 								creditsPerson.map((c, i) => (
 									<div key={i}>

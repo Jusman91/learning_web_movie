@@ -17,6 +17,7 @@ import {
 	img_1280,
 	img_300,
 	img_500,
+	img_backdrop,
 	noProfile,
 	unavailable,
 } from '../../../config/config';
@@ -27,6 +28,10 @@ import {
 	IoIosArrowForward,
 } from 'react-icons/io';
 import Loading from '../../loading/Loading';
+import CreditsTvSeries from '../credits/CreditsTvSeries';
+import Hero from '../../header/hero/Hero';
+import PartTopDitails from './PartTopDitails';
+import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
 
 const MovieDetails = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -40,12 +45,6 @@ const MovieDetails = () => {
 	const params = useParams();
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
-	const rating = currentMovieDetail?.vote_average * 10;
-	const toHoursAndMinutes = (totalMinutes) => {
-		const hours = Math.floor(totalMinutes / 60);
-		const minutes = totalMinutes % 60;
-		return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
-	};
 
 	const responsive = {
 		0: {
@@ -98,16 +97,6 @@ const MovieDetails = () => {
 		);
 	};
 
-	const director = crew?.filter(
-		(f) => f.job === 'Director',
-	);
-	const writer = crew?.filter(
-		(f) =>
-			f.job === 'Story' ||
-			f.job === 'Screenplay' ||
-			f.job === 'writer',
-	);
-
 	const getData = async () => {
 		setIsLoading(true);
 		try {
@@ -129,7 +118,7 @@ const MovieDetails = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/credits?api_key=${process.env.REACT_APP_APIKEY}`,
 			);
-			console.log(response);
+			console.log('universal', response);
 			const crewResults = response.data.crew;
 			const castResults = response.data.cast;
 			setCrew(crewResults);
@@ -171,22 +160,12 @@ const MovieDetails = () => {
 		getCredits();
 		getSimilarMovies();
 		getMovieRecommendations();
-
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, _media_type]);
 
 	console.log('ddata', currentMovieDetail);
 
-	function numberWithCommas(x) {
-		return x
-			.toString()
-			.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-	}
-
-	const languageNames = new Intl.DisplayNames(['en'], {
-		type: 'language',
-	});
 	const season = currentMovieDetail?.seasons?.slice(-1);
 	console.log('season', season);
 	return (
@@ -194,286 +173,25 @@ const MovieDetails = () => {
 			{isLoading ? (
 				<Loading type='component' />
 			) : (
-				<div className='movie'>
-					<div className='movie__intro'>
-						<img
-							className='movie__backdrop'
-							src={
-								currentMovieDetail?.backdrop_path
-									? `${img_1280}/${currentMovieDetail?.backdrop_path}`
-									: unavailable
-							}
-							alt='poster'
+				<section className='container_details'>
+					<Hero detail={currentMovieDetail} />
+					{playTrailer && (
+						<TrailerPlayer
+							trailer={currentMovieDetail}
+							setPlayTrailer={() => setPlayTrailer(false)}
 						/>
+					)}
 
-						{playTrailer ? (
-							<YouTube
-								className='trailer'
-								videoId={
-									currentMovieDetail?.videos.results.find(
-										(vid) =>
-											vid.name === 'Official Trailer',
-									)
-										? currentMovieDetail?.videos.results.find(
-												(vid) =>
-													vid.name === 'Official Trailer',
-										  ).key
-										: currentMovieDetail?.videos.results[0]
-												.key
-								}
-								opts={{
-									width: '100%',
-									height: '100%',
-									playerVars: { autoplay: 1, controls: 0 },
-								}}
-							/>
-						) : null}
-						{playTrailer ? (
-							<button
-								className='trailer__btn trailer__btn__close'
-								onClick={() => setPlayTrailer(false)}>
-								Close Trailer
-							</button>
-						) : null}
-					</div>
-					<div className='movie__intro__overlay'></div>
-					<div className='movie__detail'>
-						<div className='movie__detailLeft'>
-							<img
-								src={
-									currentMovieDetail?.poster_path
-										? `${img_500}/${currentMovieDetail?.poster_path}`
-										: unavailable
-								}
-								alt='poster'
-							/>
-						</div>
-						<div className='movie__detailRight'>
-							<div className='top__part'>
-								<h3 className='movie__name'>
-									{`${
-										currentMovieDetail?.title ||
-										currentMovieDetail?.name
-									} (${dayjs(
-										currentMovieDetail?.release_date,
-									).format('YYYY')})`}
-								</h3>
-								<span className='movie__tagline'>
-									{currentMovieDetail?.tagline}
-								</span>
-							</div>
-							<div className='middle__part'>
-								<div className='middle__part__items_1'>
-									<div className='movie__voteCount'>
-										<div>Original Language: </div>
-										<span>
-											{languageNames?.of(
-												currentMovieDetail?.original_language ||
-													'en',
-											)}
-										</span>
-									</div>
-									<div className='movie__status'>
-										<div>Status: </div>
-										<span>
-											{currentMovieDetail?.status}
-										</span>
-									</div>
-									{currentMovieDetail?.runtime && (
-										<div className='movie__runtime'>
-											<div>Duration: </div>
-											<span>
-												{toHoursAndMinutes(
-													currentMovieDetail?.runtime,
-												)}
-											</span>
-										</div>
-									)}
-									{currentMovieDetail?.episode_run_time
-										?.length > 0 && (
-										<div className='movie__runtime'>
-											<div>Duration: </div>
-											<span>
-												{toHoursAndMinutes(
-													currentMovieDetail?.episode_run_time,
-												)}
-											</span>
-										</div>
-									)}
-									<div className='movie__releaseDate'>
-										<div>Release date: </div>
-										<span>
-											{dayjs(
-												currentMovieDetail?.release_date ||
-													currentMovieDetail?.first_air_date,
-											).format('MMM D, YYYY')}
-										</span>
-									</div>
-									<div>
-										<div>Budget: </div>
-										{currentMovieDetail?.budget ? (
-											<span>
-												{numberWithCommas(
-													`${'$'}${
-														currentMovieDetail?.budget
-													}${'.00'}`,
-												)}
-											</span>
-										) : (
-											<span>_</span>
-										)}
-									</div>
-									<div>
-										<div>Revenue: </div>
-										{currentMovieDetail?.revenue ? (
-											<span>
-												{numberWithCommas(
-													`${'$'}${
-														currentMovieDetail?.revenue
-													}${'.00'}`,
-												)}
-											</span>
-										) : (
-											<span>_</span>
-										)}
-									</div>
-								</div>
-								<div className='middle__part__items_2'>
-									<div className='movie__genres'>
-										{currentMovieDetail?.genres?.map(
-											(genre, index) => (
-												<span
-													key={index}
-													className='movie__genre'
-													id={genre.id}>
-													{genre.name}
-												</span>
-											),
-										)}
-									</div>
-								</div>
-								<ul className='middle__part__items_3'>
-									<li>
-										<div className='movie__rating__percent'>
-											<svg>
-												<circle
-													cx='19'
-													cy='20'
-													r='20'></circle>
-												<circle
-													style={{
-														stroke: `${
-															rating >= 80
-																? '#57e32c'
-																: rating <= 79 &&
-																  rating >= 68
-																? '#b7dd29'
-																: rating <= 67 &&
-																  rating >= 56
-																? '#ffe234'
-																: rating <= 55 &&
-																  rating >= 45
-																? '#ffa534'
-																: rating <= 44 &&
-																  rating >= 0
-																? '#ff4545'
-																: ''
-														}`,
-														strokeDashoffset: `calc(130 - (130 * ${Math.round(
-															rating,
-														)}) / 100)`,
-													}}
-													cx='19'
-													cy='20'
-													r='20'></circle>
-											</svg>
-											<div className='movie__rating__number'>
-												<h5>{Math.round(rating)}</h5>
-												<span>%</span>
-											</div>
-										</div>
-									</li>
-									<li>
-										<span>
-											<MdList />
-										</span>
-									</li>
-									<li>
-										<span>
-											<MdFavorite />
-										</span>
-									</li>
-									<li>
-										<span>
-											<MdBookmark />
-										</span>
-									</li>
-									<li>
-										<span>
-											<MdStar />
-										</span>
-									</li>
-									<li onClick={() => setPlayTrailer(true)}>
-										<span>
-											<MdOutlinePlayCircle />
-										</span>
-										Play Trailer
-									</li>
-								</ul>
-								<div className='middle__part__items_4'>
-									{director?.length > 0 && (
-										<div>
-											Director:{' '}
-											{director.map((d, i) => (
-												<span key={i}>
-													{d.name}
-													{director.length - 1 !== i &&
-														', '}
-												</span>
-											))}
-										</div>
-									)}
-									{writer?.length > 0 && (
-										<div>
-											Writer:{' '}
-											{writer.map((d, i) => (
-												<span key={i}>
-													{d.name}
-													{writer.length - 1 !== i && ', '}
-												</span>
-											))}
-										</div>
-									)}
-									{currentMovieDetail?.created_by?.length >
-										0 && (
-										<div>
-											Creator:{' '}
-											{currentMovieDetail?.created_by?.map(
-												(d, i) => (
-													<span key={i}>
-														{d.name}
-														{currentMovieDetail?.created_by
-															?.length -
-															1 !==
-															i && ', '}
-													</span>
-												),
-											)}
-										</div>
-									)}
-								</div>
-							</div>
-							<div className='movie__detailRightBottom'>
-								<div className='synopsisText'>Synopsis</div>
-								<span>
-									{currentMovieDetail?.overview?.length > 0
-										? currentMovieDetail?.overview
-										: "We don't have an overview translated in English. Help us expand our database by adding one."}
-								</span>
-							</div>
-						</div>
-					</div>
-					<div className='wrap_cast'>
+					<PartTopDitails
+						details={currentMovieDetail}
+						crew={crew}
+						setPlayTrailer={() => setPlayTrailer(true)}
+					/>
+					<CreditsTvSeries
+						id={id}
+						_media_type={_media_type}
+					/>
+					{/*<div className='wrap_cast'>
 						<h3>Top Billed Cast</h3>
 						<AliceCarousel
 							disableDotsControls
@@ -618,8 +336,8 @@ const MovieDetails = () => {
 									</div>
 								),
 							)}
-					</div>
-				</div>
+					</div> */}
+				</section>
 			)}
 		</>
 	);

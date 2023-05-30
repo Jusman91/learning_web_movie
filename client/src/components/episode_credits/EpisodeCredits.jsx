@@ -95,7 +95,9 @@ const EpisodeCredits = () => {
 									<Card
 										key={i}
 										castCrew={c}
-										link={`/person/${c.id}`}
+										link={`/person/${`${c.id}-${c.name
+											.replace(/\s+/g, '-')
+											.toLowerCase()}`}`}
 									/>
 								))}
 							</div>
@@ -109,7 +111,9 @@ const EpisodeCredits = () => {
 									<Card
 										key={i}
 										castCrew={c}
-										link={`/person/${c.id}`}
+										link={`/person/${`${c.id}-${c.name
+											.replace(/\s+/g, '-')
+											.toLowerCase()}`}`}
 									/>
 								))}
 							</div>

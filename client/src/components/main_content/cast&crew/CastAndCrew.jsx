@@ -125,7 +125,7 @@ const CastAndCrew = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/credits?api_key=${process.env.REACT_APP_APIKEY}`,
 			);
-			console.log(response);
+			console.log('credits', response);
 			const crewResults = response.data.crew;
 			const castResults = response.data.cast;
 			setCrew(crewResults);
@@ -145,7 +145,7 @@ const CastAndCrew = () => {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/tv/${id}/aggregate_credits?api_key=${process.env.REACT_APP_APIKEY}`,
 			);
-			console.log(response);
+			console.log('aggregate', response);
 		} catch (err) {
 			console.error(err, 'aggregateCreditsTv failed');
 		}
@@ -171,7 +171,9 @@ const CastAndCrew = () => {
 	useEffect(() => {
 		getData();
 		getCredits();
-		getAggregateCreditsTv();
+		if (_media_type === 'tv') {
+			getAggregateCreditsTv();
+		}
 		window.scrollTo(0, 0);
 		setTimeout(() => {
 			setIsLoading(false);

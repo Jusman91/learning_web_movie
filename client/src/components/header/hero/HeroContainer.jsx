@@ -12,37 +12,36 @@ import {
 } from '../../../config/config';
 
 const HeroContainer = ({
-	poster,
+	hero,
 	selectTrailers,
 	mediaType,
 }) => {
-	if (poster) {
-		const rating = poster.vote_average * 10;
-		const media_type = poster.media_type
-			? poster.media_type
+	if (hero) {
+		const rating = hero.vote_average * 10;
+		const media_type = hero.media_type
+			? hero.media_type
 			: mediaType;
 		return (
 			<>
 				<div className='posterImage'>
 					<img
 						src={
-							poster.backdrop_path
-								? `${img_1280}/${poster.backdrop_path}`
+							hero.backdrop_path
+								? `${img_1280}/${hero.backdrop_path}`
 								: unavailable
 						}
-						alt='poster'
+						alt='hero'
 					/>
 				</div>
 				<div className='hero__overlay'>
 					<div className='posterImage__overlay'>
 						<div className='overlay__left'>
 							<div className='posterImage__title'>
-								{poster.original_title || poster.name}
+								{hero.original_title || hero.name}
 							</div>
 							<div className='posterImage__runtime'>
 								<div>
-									{poster.release_date ||
-										poster.first_air_date}
+									{hero.release_date || hero.first_air_date}
 								</div>
 								<div className='rating__percent'>
 									<svg>
@@ -77,20 +76,20 @@ const HeroContainer = ({
 								</div>
 							</div>
 							<div className='posterImage__description'>
-								{poster.overview.length > 0
-									? poster.overview.slice(0, 300) + '...'
+								{hero.overview.length > 0
+									? hero.overview.slice(0, 300) + '...'
 									: "We don't have an overview translated in English. Help us expand our database by adding one."}
 							</div>
 							<div className='posterImage__icons'>
 								<Link
-									to={`/details/${poster.id}/${media_type}`}>
+									to={`/details/${hero.id}/${media_type}`}>
 									<div className='details__icon'>
 										<HiInformationCircle />
 									</div>
 								</Link>
 								<div className='trailers__icon'>
 									<HiPlay
-										onClick={() => selectTrailers(poster)}
+										onClick={() => selectTrailers(hero)}
 									/>
 								</div>
 							</div>
@@ -99,11 +98,11 @@ const HeroContainer = ({
 							<div className='__items'>
 								<img
 									src={
-										poster.poster_path
-											? `${img_500}/${poster.poster_path}`
+										hero.poster_path
+											? `${img_500}/${hero.poster_path}`
 											: unavailable
 									}
-									alt='poster'
+									alt='hero'
 								/>
 							</div>
 						</div>
@@ -116,7 +115,7 @@ const HeroContainer = ({
 			<>
 				<section className='container__hero'>
 					<div className='hero__img'>
-						<img src={heroImg} alt='poster' />
+						<img src={heroImg} alt='hero' />
 					</div>
 					<div className='overlay'>
 						<div className='logo__text'>

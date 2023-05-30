@@ -36,7 +36,7 @@
 }
 .card .card__details {
 	position: absolute;
-	bottom: -80px;
+	bottom: -85px;
 	left: 0;
 	width: 100%;
 	z-index: 2;
@@ -61,7 +61,7 @@
 }
 .card__language {
 	margin-left: 0.8rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 1rem;
 	background-color: #1e1e1e;
 	width: fit-content;
 	height: fit-content;

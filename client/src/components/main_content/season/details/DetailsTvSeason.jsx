@@ -217,7 +217,11 @@ const DetailsTvSeason = () => {
 																<Card
 																	key={i}
 																	castCrew={g}
-																	link={`/person/${g.id}`}
+																	link={`/person/${`${
+																		g.id
+																	}-${g.name
+																		.replace(/\s+/g, '-')
+																		.toLowerCase()}`}`}
 																/>
 															))}
 													</div>

@@ -53,7 +53,7 @@ const Card = ({
 							</div>
 							<div className='card__description'>
 								{movie.overview?.length > 0
-									? movie.overview.slice(0, 120) + '...'
+									? movie.overview.slice(0, 125) + '...'
 									: "We don't have an overview translated in English. Help us expand our database by adding one."}
 							</div>
 						</div>
