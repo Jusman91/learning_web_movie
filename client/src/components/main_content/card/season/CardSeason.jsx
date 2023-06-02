@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-	img_300,
-	img_500,
 	img_avatar,
-	img_backdrop,
-	img_gravatar,
 	img_poster,
 	noPoster,
 	noProfile,
@@ -49,7 +45,6 @@ const CardSeason = ({
 							}}>
 							<h4>{season.name}</h4>
 						</Link>
-
 						<p>
 							{air_date}
 							{' | '}
@@ -68,6 +63,10 @@ const CardSeason = ({
 		);
 	}
 	if (reviews) {
+		const vote_average =
+			reviews.author_details.rating &&
+			reviews.author_details.rating;
+
 		return (
 			<div className='wrap_card cardSeason cardReviews'>
 				<Link to={link}>
@@ -105,11 +104,10 @@ const CardSeason = ({
 							}}>
 							<h4>{`A review by ${reviews?.author}`}</h4>
 						</Link>
-
-						<span>
-							<AiFillStar />
-							{reviews?.author_details?.rating}
-						</span>
+						<p className='wrap_vote'>
+							<AiFillStar className='icon_star' />
+						</p>
+						<span className='votes'>{vote_average}</span>
 
 						<p>
 							Written by{' '}
