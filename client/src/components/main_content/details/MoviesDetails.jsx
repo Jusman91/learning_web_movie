@@ -28,17 +28,21 @@ import {
 	IoIosArrowForward,
 } from 'react-icons/io';
 import Loading from '../../loading/Loading';
-import CreditsTvSeries from '../credits/CreditsTvSeries';
+import CreditsTvSeries from '../credits/Credits';
 import Hero from '../../header/hero/Hero';
 import PartTopDitails from './PartTopDitails';
 import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
+import Credits from '../credits/Credits';
+import CardSeason from '../card/season/CardSeason';
+import PartMiddleDetails from './PartMiddleDetails';
 
 const MovieDetails = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [playTrailer, setPlayTrailer] = useState(false);
 	const [currentMovieDetail, setMovie] = useState({});
 	const [crew, setCrew] = useState([]);
-	const [cast, setCast] = useState([]);
+	const [index, setIndex] = useState([0]);
+	const [reviews, setReviews] = useState([]);
 	const [similarMovies, setSimilarMovies] = useState([]);
 	const [movieRecommendations, setMovieRecommendations] =
 		useState([]);
@@ -113,20 +117,20 @@ const MovieDetails = () => {
 		}, 1500);
 	};
 
-	const getCredits = async () => {
+	const getReviews = async () => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/credits?api_key=${process.env.REACT_APP_APIKEY}`,
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/reviews?api_key=${process.env.REACT_APP_APIKEY}`,
 			);
-			console.log('universal', response);
-			const crewResults = response.data.crew;
-			const castResults = response.data.cast;
-			setCrew(crewResults);
-			setCast(castResults);
-			console.log('CREW', crewResults);
-			console.log('CAST', castResults);
+			const results = response.data.results[0];
+			setReviews(results);
+			console.log('reviews', results);
+			// console.log(
+			// 	'contentdafafafasaasdadadadad',
+			// 	results.author_details.avatar_path.substring(1),
+			// );
 		} catch (err) {
-			console.error(err, '<==== get credits gagal ====>');
+			console.error(err, '<==== getReviews filed ====>');
 		}
 	};
 
@@ -157,9 +161,9 @@ const MovieDetails = () => {
 
 	useEffect(() => {
 		getData();
-		getCredits();
 		getSimilarMovies();
 		getMovieRecommendations();
+		getReviews();
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, _media_type]);
@@ -181,68 +185,44 @@ const MovieDetails = () => {
 							setPlayTrailer={() => setPlayTrailer(false)}
 						/>
 					)}
-
-					<PartTopDitails
-						details={currentMovieDetail}
-						crew={crew}
-						setPlayTrailer={() => setPlayTrailer(true)}
-					/>
-					<CreditsTvSeries
-						id={id}
-						_media_type={_media_type}
-					/>
-					{/*<div className='wrap_cast'>
-						<h3>Top Billed Cast</h3>
-						<AliceCarousel
-							disableDotsControls
-							disableButtonsControls
-							mouseTracking={true}
-							responsive={responsive}>
-							{cast &&
-								cast?.slice(0, 6).map((c, index) => (
-									<div key={index} className='cast_profile'>
-										<img
-											src={
-												c.profile_path
-													? `${img_500}${c.profile_path}`
-													: noProfile
-											}
-											alt='Profile'
-										/>
-										<div className='character'>
-											<span>{c.name}</span>
-											<span>{c.character}</span>
-										</div>
-									</div>
-								))}
-						</AliceCarousel>
-						<Link
-							to={`/details/${_media_type}/${id}/cast`}
-							className='full_castcrew'>
-							<h4> View more Cast & Crew ⇨</h4>
-						</Link>
+					<div className='top'>
+						<PartTopDitails
+							details={currentMovieDetail}
+							crew={crew}
+							setPlayTrailer={() => setPlayTrailer(true)}
+						/>
 					</div>
-					{season && (
-						<div className='wrap_current_season'>
-							<h3>Current Season</h3>
-							{season.map((item, index) => (
-								<div
-									key={index}
-									className='wrapper_card_season'>
-									<Card
-										season={item}
-										title={currentMovieDetail?.name}
+					<div className='middle'>
+						<Credits id={id} _media_type={_media_type} />
+
+						<PartMiddleDetails
+							id={id}
+							_media_type={_media_type}
+							season={season}
+							currentDetail={currentMovieDetail.name}
+							reviews={reviews}
+						/>
+
+						{/* {reviews && reviews.length > 0 && (
+							<div className='wrap_current_season'>
+								<h3>Sosial</h3>
+
+								<div className='wrapper_card_season'>
+									<CardSeason
+										reviews={reviews}
+										// title={currentMovieDetail}
 									/>
 								</div>
-							))}
-							<Link
-								to={`/details/${_media_type}/${id}/season`}
-								className='all_seasons'>
-								<h4>View All Seasons ⇨</h4>
-							</Link>
-						</div>
-					)}
-					{similarMovies && similarMovies.length > 0 ? (
+
+								<Link
+									to={`/details/${_media_type}/${id}/season`}
+									className='all_seasons'>
+									<h4>Read All Reviews ⇨</h4>
+								</Link>
+							</div>
+						)} */}
+					</div>
+					{/*{similarMovies && similarMovies.length > 0 ? (
 						<div className='wrap_similar_movies'>
 							<h3>Similar Movies</h3>
 							<AliceCarousel

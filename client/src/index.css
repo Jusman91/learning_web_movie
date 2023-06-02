@@ -10,7 +10,7 @@
 body {
 	min-height: 100vh;
 	color: beige;
-	background-color: #131313;
+	background-color: rgb(19, 19, 19);
 }
 /* width */
 ::-webkit-scrollbar {
@@ -33,4 +33,9 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
 	background: #616161;
+}
+
+a {
+	text-decoration: none;
+	color: beige;
 }

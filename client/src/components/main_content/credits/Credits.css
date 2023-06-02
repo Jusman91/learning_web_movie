@@ -1,0 +1,83 @@
+.wrap_cast {
+	width: 100%;
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	position: relative;
+}
+.container_flex {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	overflow-y: hidden;
+	overflow-x: scroll;
+	padding-bottom: 1rem;
+}
+.container_flex::after {
+	content: '';
+	width: 12%;
+	height: 81%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-image: linear-gradient(
+		to right,
+		rgba(18, 18, 18, 0) 0%,
+		rgba(19, 19, 19, 1) 75%
+	);
+	will-change: opacity;
+	pointer-events: none;
+}
+.container_flex.is_blur::after {
+	transition: linear 0.3s;
+	opacity: 1;
+}
+.container_flex.is_hidden::after {
+	transition: linear 0.3s;
+	opacity: 0;
+}
+.goMore {
+	margin-left: 1.5rem;
+	display: flex;
+	align-items: center;
+}
+.goMore a {
+	padding-right: 1.5rem;
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 1.25rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.goMore a span {
+	font-size: 1.5rem;
+	margin-top: 0.4rem;
+	font-weight: 900;
+	color: rgba(21, 137, 255, 0.91);
+	transition: 0.2s;
+}
+.goMore a:hover span {
+	animation: change-color 1s ease-in-out infinite;
+}
+@keyframes change-color {
+	0% {
+		color: rgba(21, 137, 255, 0.91);
+	}
+	100% {
+		color: rgb(205, 39, 39);
+	}
+}
+.go_castcrew {
+	display: inline-block;
+	text-decoration: none;
+	color: beige;
+	width: fit-content;
+	transition: 0.2s;
+}
+.go_castcrew:hover {
+	color: rgba(21, 137, 255, 0.91);
+}
+.go_castcrew h4 {
+	margin-top: 1rem;
+	padding: 0 1rem 0 1rem;
+}

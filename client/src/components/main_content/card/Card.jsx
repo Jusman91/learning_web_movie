@@ -304,62 +304,62 @@ const Card = ({
 			</div>
 		);
 	}
-	if (season) {
-		const id = season.id;
-		let seasonnumber = season.season_number;
-		const url = `/details/${mediaType}/${id}${seasonnumber}`;
-		return (
-			<div className='container_card'>
-				<div className='wrap_card cardSeason'>
-					<Link to={link}>
-						<div className='wrap_poster posterSeason'>
-							<img
-								src={
-									season.poster_path
-										? `${img_500}/${season.poster_path}`
-										: unavailable
-								}
-								alt='poster'
-							/>
-						</div>
-					</Link>
-					<div className='des'>
-						<div className='title titleSeason'>
-							<Link
-								to={link}
-								style={{
-									textDecoration: 'none',
-									color: '#fff',
-								}}>
-								<h4>{season.name}</h4>
-							</Link>
-							<p>
-								{dayjs(season.air_date).format('YYYY')}
-								{' | '}
-								{`${season.episode_count} Episode`}
-							</p>
-						</div>
-						<div className='synopsis'>
-							<p>
-								{`Season ${
-									season.season_number
-								} of ${title} premiered on ${dayjs(
-									season.air_date,
-								).format('MMM D, YYYY')}`}
-							</p>
-							<br />
-							<p>{season.overview}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
+	// if (season) {
+	// 	const id = season.id;
+	// 	let seasonnumber = season.season_number;
+	// 	const url = `/details/${mediaType}/${id}${seasonnumber}`;
+	// 	return (
+	// 		<div className='container_card'>
+	// 			<div className='wrap_card cardSeason'>
+	// 				<Link to={link}>
+	// 					<div className='wrap_poster posterSeason'>
+	// 						<img
+	// 							src={
+	// 								season.poster_path
+	// 									? `${img_500}/${season.poster_path}`
+	// 									: unavailable
+	// 							}
+	// 							alt='poster'
+	// 						/>
+	// 					</div>
+	// 				</Link>
+	// 				<div className='des'>
+	// 					<div className='title titleSeason'>
+	// 						<Link
+	// 							to={link}
+	// 							style={{
+	// 								textDecoration: 'none',
+	// 								color: '#fff',
+	// 							}}>
+	// 							<h4>{season.name}</h4>
+	// 						</Link>
+	// 						<p>
+	// 							{dayjs(season.air_date).format('YYYY')}
+	// 							{' | '}
+	// 							{`${season.episode_count} Episode`}
+	// 						</p>
+	// 					</div>
+	// 					<div className='synopsis'>
+	// 						<p>
+	// 							{`Season ${
+	// 								season.season_number
+	// 							} of ${title} premiered on ${dayjs(
+	// 								season.air_date,
+	// 							).format('MMM D, YYYY')}`}
+	// 						</p>
+	// 						<br />
+	// 						<p>{season.overview}</p>
+	// 					</div>
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 	);
+	// }
 	if (castCrew) {
 		return (
 			<div className='container_card'>
 				<div className='wrap_card cardCastCrew'>
-					<Link to={link}>
+					<Link to={link} className='cast_profile'>
 						<div className='wrap_poster profile'>
 							<img
 								src={

@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../Card';
+import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import {
 	img_500,
@@ -12,6 +12,8 @@ const CardDetailsTvSeason = ({ episodes }) => {
 		const minutes = totalMinutes % 60;
 		return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
 	};
+
+	const vote_average = episodes.vote_average.toFixed(1);
 	return (
 		<div className='container_card'>
 			<Link to={''} className='wrap_card cardSeason'>
@@ -28,7 +30,30 @@ const CardDetailsTvSeason = ({ episodes }) => {
 				<div className='des'>
 					<div className='title titleSeason'>
 						<h4>{episodes.episode_number}</h4>
-						<p className='votes'>{episodes.vote_average}</p>
+
+						<p className='wrap_vote'>
+							<AiFillStar
+								className='icon_star'
+								color={
+									vote_average >= 8.0
+										? '#57e32c'
+										: vote_average <= 7.9 &&
+										  vote_average >= 6.8
+										? '#b7dd29'
+										: vote_average <= 6.7 &&
+										  vote_average >= 5.6
+										? '#ffe234'
+										: vote_average <= 5.5 &&
+										  vote_average >= 4.5
+										? '#ffa534'
+										: vote_average <= 4.4 &&
+										  vote_average >= 0
+										? '#ff4545'
+										: ''
+								}
+							/>
+							<span className='votes'>{vote_average}</span>
+						</p>
 						<h4>
 							{episodes.original_title || episodes.name}
 						</h4>

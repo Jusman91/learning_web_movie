@@ -22,7 +22,7 @@ const NavBar = ({ user }) => {
 	};
 
 	const controlNavbar = () => {
-		if (window.scrollY > lastScrollY) {
+		if (window.scrollX > 10) {
 			// if scroll down hide the navbar
 			setShow(true);
 		} else {
@@ -31,7 +31,7 @@ const NavBar = ({ user }) => {
 		}
 
 		// remember current page location to use in the next move
-		setLastScrollY(window.scrollY);
+		setLastScrollY(window.scrollX);
 	};
 
 	useEffect(() => {
@@ -43,7 +43,6 @@ const NavBar = ({ user }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [lastScrollY]);
 	// =====>
-
 	return (
 		<nav
 			className={`container__navbar ${

@@ -1,6 +1,8 @@
 // image size from tmdb
 export const img_profile = 'https://image.tmdb.org/t/p/w185';
 export const img_logo = 'https://image.tmdb.org/t/p/w45';
+export const img_avatar = 'https://image.tmdb.org/t/p/w92';
+export const img_gravatar = 'https://secure.gravatar.com/avatar';
 export const img_still = 'https://image.tmdb.org/t/p/w185';
 export const img_poster = 'https://image.tmdb.org/t/p/w500';
 export const img_backdrop = 'https://image.tmdb.org/t/p/w1280';

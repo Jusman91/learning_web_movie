@@ -125,7 +125,8 @@ const Trending = ({ mediaType }) => {
 								data?.map((movie, index) => (
 									<HeroContainer
 										key={index}
-										poster={movie}
+										hero={movie}
+										// poster={movie}
 										selectTrailers={playTrailers}
 										mediaType={mediaType}
 									/>

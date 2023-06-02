@@ -1,0 +1,76 @@
+.wrap_card.cardSeason {
+	height: 200px;
+	align-items: center;
+	padding: 1rem;
+}
+.wrap_card.cardReviews {
+	height: max-content;
+}
+.wrap_card.cardReviews a {
+	align-self: baseline;
+}
+.wrap_card.cardSeason .wrap_poster.posterSeason {
+	width: 100px;
+	height: 150px;
+	align-content: center;
+}
+.wrap_card.cardSeason .wrap_poster.posterSeason img {
+	border-radius: 10px;
+	height: 150px;
+}
+.wrap_card .wrap_poster.reviewsAvatar {
+	width: 90px;
+	height: 90px;
+}
+.wrap_card .wrap_poster.reviewsAvatar img {
+	border-radius: 50%;
+}
+.wrap_card.cardSeason .des .title.titleSeason {
+	display: flex;
+	align-items: center;
+	align-content: center;
+	gap: 0.5rem;
+	font-weight: 700;
+}
+.wrap_card.cardSeason .des .title.titleSeason.titleReviews {
+	flex-wrap: wrap;
+	width: 350px;
+	line-height: 10px;
+}
+.wrap_card.cardSeason .des .title.titleSeason a h4:hover {
+	color: rgb(21, 137, 255);
+}
+.wrap_vote {
+	position: relative;
+}
+.icon_star {
+	width: 50px;
+	height: 50px;
+
+	/* font-size: 3rem; */
+}
+.wrap_card.cardSeason .des .title.titleSeason .votes {
+	/* background-color: rgb(21, 137, 255);
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 1rem;
+	color: #fff; */
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	color: #000;
+	font-weight: 800;
+	font-size: 0.85rem;
+}
+.wrap_card.cardSeason .des .synopsis.teaser {
+	white-space: pre-wrap;
+}
+.wrap_card.cardSeason .des .synopsis.teaser p a {
+	text-decoration: underline;
+}

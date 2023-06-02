@@ -6,9 +6,9 @@ import {
 	unavailable,
 } from '../../../config/config';
 import './Seasons.css';
-import Card from '../card/Card';
 import dayjs from 'dayjs';
 import Loading from '../../loading/Loading';
+import CardSeason from '../card/season/CardSeason';
 
 const Seasons = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -74,7 +74,7 @@ const Seasons = () => {
 						{seasons &&
 							seasons.length > 0 &&
 							seasons.map((item, index) => (
-								<Card
+								<CardSeason
 									key={index}
 									season={item}
 									title={currentTvShowDetails.name}

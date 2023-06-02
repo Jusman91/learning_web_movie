@@ -217,7 +217,7 @@
 .container_card {
 	width: 100%;
 }
-.container_card .wrap_card {
+.wrap_card {
 	display: flex;
 	width: 100%;
 	height: 130px;
@@ -228,7 +228,7 @@
 	overflow: hidden;
 }
 
-.container_card .wrap_card.cardCastCrew {
+.wrap_card.cardCastCrew {
 	height: 80px;
 }
 .wrap_card .wrap_poster {
@@ -302,7 +302,7 @@
 }
 
 /* styling for  card season */
-.container_card .wrap_card.cardSeason {
+/* .wrap_card.cardSeason {
 	height: 200px;
 	display: flex;
 	align-items: center;
@@ -315,28 +315,19 @@
 .wrap_card .wrap_poster.posterSeason img {
 	border-radius: 10px;
 }
-.container_card
-	.wrap_card.cardSeason
-	.des
-	.title.titleSeason {
+
+.wrap_card.cardSeason .des .title.titleSeason {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
 	font-weight: 700;
 }
-.container_card
-	.wrap_card.cardSeason
-	.des
-	.title.titleSeason
-	a
-	h4:hover {
+
+.wrap_card.cardSeason .des .title.titleSeason a h4:hover {
 	color: rgb(21, 137, 255);
 }
-.container_card
-	.wrap_card.cardSeason
-	.des
-	.title.titleSeason
-	.votes {
+
+.wrap_card.cardSeason .des .title.titleSeason .votes {
 	background-color: rgb(21, 137, 255);
 	width: 35px;
 	height: 35px;
@@ -347,4 +338,4 @@
 	text-align: center;
 	font-size: 1rem;
 	color: #fff;
-}
+} */
