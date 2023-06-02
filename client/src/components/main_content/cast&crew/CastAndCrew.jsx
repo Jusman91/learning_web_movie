@@ -1,10 +1,7 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import {
-	img_500,
-	unavailable,
-} from '../../../config/config';
+import { img_500, unavailable } from '../../../config/config';
 import dayjs from 'dayjs';
 import './CastAndCrew.css';
 import Card from '../card/Card';
@@ -19,8 +16,7 @@ const CastAndCrew = () => {
 	const params = useParams();
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
-	const [departmentsActive, setDepartmentsActive] =
-		useState('Art');
+	const [departmentsActive, setDepartmentsActive] = useState('Art');
 	const Departments = [
 		'Art',
 		'Camera',
@@ -35,53 +31,11 @@ const CastAndCrew = () => {
 	];
 
 	const [filterCrew, setFilterCrew] = useState();
-	const [activePage, setActivePage] = useState(
-		'active__pagination',
-	);
+	const [activePage, setActivePage] = useState('active__pagination');
 
 	const filterResult = (value) => {
-		const art = crew.filter((c) => c.department === value);
-		const camera = crew.filter(
-			(c) => c.department === value,
-		);
-		const costumeMakeUp = crew.filter(
-			(c) => c.department === value,
-		);
-		const _crew = crew.filter(
-			(c) => c.department === value,
-		);
-		const directing = crew.filter(
-			(c) => c.department === value,
-		);
-		const editing = crew.filter(
-			(c) => c.department === value,
-		);
-		const lighting = crew.filter(
-			(c) => c.department === value,
-		);
-		const production = crew.filter(
-			(c) => c.department === value,
-		);
-		const sound = crew.filter(
-			(c) => c.department === value,
-		);
-		const visualEffects = crew.filter(
-			(c) => c.department === value,
-		);
-		const writing = crew.filter(
-			(c) => c.department === value,
-		);
-		setFilterCrew(art);
-		setFilterCrew(camera);
-		setFilterCrew(costumeMakeUp);
-		setFilterCrew(_crew);
-		setFilterCrew(directing);
-		setFilterCrew(editing);
-		setFilterCrew(lighting);
-		setFilterCrew(production);
-		setFilterCrew(sound);
-		setFilterCrew(visualEffects);
-		setFilterCrew(writing);
+		const filteredCrew = crew.filter((c) => c.department === value);
+		setFilterCrew(filteredCrew);
 		setDepartmentsActive(value);
 	};
 
@@ -91,22 +45,19 @@ const CastAndCrew = () => {
 	const endOffsetCast = itemOffsetCast + itemsPerPage;
 	const endOffsetCrew = itemOffsetCrew + itemsPerPage;
 
-	const currentItemsCast = cast.slice(
-		itemOffsetCast,
-		endOffsetCast,
+	const currentItemsCast = useMemo(
+		() => cast.slice(itemOffsetCast, endOffsetCast),
+		[itemOffsetCast, endOffsetCast, cast],
 	);
 
-	const currentItemsCrew = filterCrew?.slice(
-		itemOffsetCrew,
-		endOffsetCrew,
+	const currentItemsCrew = useMemo(
+		() => filterCrew?.slice(itemOffsetCrew, endOffsetCrew),
+		[itemOffsetCrew, endOffsetCrew, filterCrew],
 	);
 
-	const pageCountCast = Math.ceil(
-		cast.length / itemsPerPage,
-	);
-	const pageCountCrew = Math.ceil(
-		filterCrew?.length / itemsPerPage,
-	);
+	const pageCountCast = Math.ceil(cast.length / itemsPerPage);
+	const pageCountCrew = Math.ceil(filterCrew?.length / itemsPerPage);
+	console.log('pageCountCast', pageCountCast);
 
 	const getData = async () => {
 		try {
@@ -130,9 +81,7 @@ const CastAndCrew = () => {
 			const castResults = response.data.cast;
 			setCrew(crewResults);
 			setCast(castResults);
-			setFilterCrew(
-				crewResults?.filter((c) => c.department === 'Art'),
-			);
+			setFilterCrew(crewResults?.filter((c) => c.department === 'Art'));
 			console.log('CREW', crewResults);
 			console.log('CAST', castResults);
 		} catch (err) {
@@ -152,19 +101,13 @@ const CastAndCrew = () => {
 	};
 
 	const handlePageCast = (event) => {
-		const newOffset =
-			(event.selected * itemsPerPage) % cast.length;
-		console.log(
-			`User requested page number ${event.selected}, which is offset ${newOffset}`,
-		);
+		const newOffset = (event.selected * itemsPerPage) % cast.length;
+		console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
 		setItemOffsetCast(newOffset);
 	};
 	const handlePageCrew = (event) => {
-		const newOffset =
-			(event.selected * itemsPerPage) % filterCrew.length;
-		console.log(
-			`User requested page number ${event.selected}, which is offset ${newOffset}`,
-		);
+		const newOffset = (event.selected * itemsPerPage) % filterCrew.length;
+		console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
 		setItemOffsetCrew(newOffset);
 	};
 
@@ -199,43 +142,27 @@ const CastAndCrew = () => {
 						<div className='cast__crew_title'>
 							<h1>
 								{currentTvShowDetails.name}{' '}
-								<span>{`${' ('}${dayjs(
-									currentTvShowDetails.first_air_date,
-								).format('YYYY')}${')'}`}</span>
+								<span>{`${' ('}${dayjs(currentTvShowDetails.first_air_date).format(
+									'YYYY',
+								)}${')'}`}</span>
 							</h1>
-							<Link to={`/details/${_media_type}/${id}`}>
-								← Back to main
-							</Link>
+							<Link to={`/details/${_media_type}/${id}`}>← Back to main</Link>
 						</div>
 					</div>
 					<div className='content_cast__crew'>
 						<div className='cast'>
 							<h3>
-								{_media_type === 'movie'
-									? 'Cast'
-									: 'Series Cast'}{' '}
-								<span>{cast.length} </span>
+								{_media_type === 'movie' ? 'Cast' : 'Series Cast'} <span>{cast.length} </span>
 							</h3>
 							<div className='wrapper_profile'>
 								{cast &&
-									currentItemsCast.map((item, index) => (
-										<Card key={index} castCrew={item} />
-									))}
+									currentItemsCast.map((item, index) => <Card key={index} castCrew={item} />)}
 							</div>
-							{
-								<Pagiantion
-									credits={handlePageCast}
-									pageNum={pageCountCast}
-									activenum={1}
-								/>
-							}
+							{<Pagiantion credits={handlePageCast} pageNum={pageCountCast} activenum={1} />}
 						</div>
 						<div className='crew'>
 							<h3>
-								{_media_type === 'movie'
-									? 'Crew'
-									: 'Series Crew'}{' '}
-								<span>{crew.length}</span>
+								{_media_type === 'movie' ? 'Crew' : 'Series Crew'} <span>{crew.length}</span>
 							</h3>
 							<ul>
 								{Departments?.map((item, index) => (
@@ -246,7 +173,8 @@ const CastAndCrew = () => {
 												: 'list_departments'
 										}
 										onClick={() => filterResult(item)}
-										key={index}>
+										key={index}
+									>
 										{item}
 									</li>
 								))}
@@ -254,22 +182,14 @@ const CastAndCrew = () => {
 							{crew && crew.length > 0 ? (
 								<div className='wrapper_profile'>
 									{currentItemsCrew?.map((item, index) => (
-										<Card
-											key={index}
-											castCrew={item}
-											link={`/person/${item.id}`}
-										/>
+										<Card key={index} castCrew={item} link={`/person/${item.id}`} />
 									))}
 								</div>
 							) : (
 								"There are no crew records added to Les Mystères de l'amour."
 							)}
 							{filterCrew?.length > 10 && (
-								<Pagiantion
-									credits={handlePageCrew}
-									pageNum={pageCountCrew}
-									activenum={1}
-								/>
+								<Pagiantion credits={handlePageCrew} pageNum={pageCountCrew} activenum={1} />
 							)}
 						</div>
 					</div>
