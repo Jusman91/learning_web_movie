@@ -1,0 +1,29 @@
+.header_content {
+	width: 100%;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	padding: 0 2.5rem;
+	background-color: #282828;
+}
+.header_content img {
+	width: 60px;
+	height: 80%;
+	object-fit: cover;
+	object-position: top;
+}
+.header_content .title h1 {
+	font-size: 1.85rem;
+}
+.header_content .title h1 span {
+	color: rgba(255, 255, 255, 0.5);
+	font-weight: 300;
+}
+.header_content .title a {
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.5);
+}
+.header_content .title a:hover {
+	color: #fff;
+}

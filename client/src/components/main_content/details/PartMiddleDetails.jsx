@@ -1,5 +1,4 @@
 import React from 'react';
-import Credits from '../credits/Credits';
 import { Link } from 'react-router-dom';
 import CardSeason from '../card/season/CardSeason';
 
@@ -35,16 +34,11 @@ const PartMiddleDetails = ({
 			{reviews && (
 				<div className='wrap_current_season'>
 					<h3>Sosial</h3>
-
 					<div className='wrapper_card_season'>
-						<CardSeason
-							reviews={reviews}
-							_media_type={_media_type}
-						/>
+						<CardSeason reviews={reviews} />
 					</div>
-
 					<Link
-						to={`/details/${_media_type}/${id}/season`}
+						to={`/details/${_media_type}/${id}/reviews`}
 						className='all_seasons'>
 						<h4>Read All Reviews ⇨</h4>
 					</Link>

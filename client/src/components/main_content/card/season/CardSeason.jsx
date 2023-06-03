@@ -10,17 +10,11 @@ import { AiFillStar } from 'react-icons/ai';
 import dayjs from 'dayjs';
 import './CardSeason.css';
 
-const CardSeason = ({
-	season,
-	title,
-	link,
-	reviews,
-	_media_type,
-}) => {
-	const air_date = dayjs(
-		season ? season.air_date : reviews?.created_at,
-	).format('MMM D, YYYY');
+const CardSeason = ({ season, title, link, reviews }) => {
 	if (season) {
+		const air_date = dayjs(season?.air_date).format(
+			'MMM D, YYYY',
+		);
 		return (
 			<div className='wrap_card cardSeason'>
 				<Link to={link}>
@@ -63,41 +57,30 @@ const CardSeason = ({
 		);
 	}
 	if (reviews) {
-		const vote_average =
-			reviews.author_details.rating &&
-			reviews.author_details.rating;
-
+		const regex = /https:\/\/\S+/g;
+		const path = reviews?.author_details?.avatar_path;
+		const avatarUrl = path?.match(regex);
+		const avatar = `${img_avatar}/${path}`;
+		const air_date = dayjs(reviews?.created_at).format(
+			'MMM D, YYYY',
+		);
+		const vote_average = reviews.author_details.rating
+			? reviews.author_details.rating
+			: '0';
 		return (
 			<div className='wrap_card cardSeason cardReviews'>
 				<Link to={link}>
 					<div className='wrap_poster reviewsAvatar'>
-						{_media_type === 'tv' ? (
-							<img
-								src={
-									reviews?.author_details?.avatar_path
-										? `${img_avatar}/${reviews?.author_details?.avatar_path}`
-										: noProfile
-								}
-								alt='Avatar'
-							/>
-						) : (
-							<img
-								src={
-									reviews?.author_details?.avatar_path
-										? reviews?.author_details?.avatar_path.substring(
-												1,
-										  )
-										: noProfile
-								}
-								alt='Avatar'
-							/>
-						)}
+						<img
+							src={path ? avatarUrl || avatar : noProfile}
+							alt='Avatar'
+						/>
 					</div>
 				</Link>
 				<div className='des'>
-					<div className='title titleSeason titleReviews'>
+					<div className='titleReviews'>
 						<Link
-							to={link}
+							to={`/review/${reviews?.id}`}
 							style={{
 								textDecoration: 'none',
 								color: '#fff',
@@ -105,11 +88,24 @@ const CardSeason = ({
 							<h4>{`A review by ${reviews?.author}`}</h4>
 						</Link>
 						<p className='wrap_vote'>
-							<AiFillStar className='icon_star' />
+							<AiFillStar
+								className='icon_star'
+								color={
+									vote_average >= 9.0
+										? '#57e32c'
+										: vote_average <= 8 && vote_average >= 6
+										? '#ffe234'
+										: vote_average <= 5 && vote_average >= 3
+										? '#ffa534'
+										: vote_average <= 2
+										? '#ff4545'
+										: ''
+								}
+							/>
+							<span className='votes'>{vote_average}</span>
 						</p>
-						<span className='votes'>{vote_average}</span>
 
-						<p>
+						<p className='author'>
 							Written by{' '}
 							<Link to={link}>{reviews?.author}</Link> on
 							{air_date}
@@ -119,7 +115,9 @@ const CardSeason = ({
 						{reviews.content.length > 600 ? (
 							<p>
 								{`${reviews?.content.slice(0, 601)}... `}
-								<Link>read the rest.</Link>
+								<Link to={`/review/${reviews?.id}`}>
+									read the rest.
+								</Link>
 							</p>
 						) : (
 							<p>{reviews.content}</p>

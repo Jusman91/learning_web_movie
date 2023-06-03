@@ -251,7 +251,7 @@
 	object-position: top;
 }
 .wrap_card .des {
-	padding: 1rem;
+	padding: 0 1rem;
 	align-self: center;
 	width: 100%;
 }

@@ -1,0 +1,27 @@
+.content_reviews {
+	display: flex;
+	gap: 2rem;
+	padding: 2rem;
+}
+.content_reviews .left {
+	flex: 1;
+	text-align: center;
+}
+.content_reviews .left button {
+	background-color: transparent;
+	padding: 0.3rem;
+}
+.content_reviews .left button a {
+	font-size: 1rem;
+	font-weight: 500;
+	text-transform: capitalize;
+}
+.content_reviews .left button:hover a {
+	color: rgb(21, 137, 255);
+}
+.content_reviews .right {
+	flex: 3;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}

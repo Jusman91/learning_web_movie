@@ -125,10 +125,6 @@ const MovieDetails = () => {
 			const results = response.data.results[0];
 			setReviews(results);
 			console.log('reviews', results);
-			// console.log(
-			// 	'contentdafafafasaasdadadadad',
-			// 	results.author_details.avatar_path.substring(1),
-			// );
 		} catch (err) {
 			console.error(err, '<==== getReviews filed ====>');
 		}

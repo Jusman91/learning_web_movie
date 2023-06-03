@@ -67,27 +67,38 @@ const Credits = ({ id, _media_type }) => {
 					? 'Top Billed Cast'
 					: 'Series Cast'}
 			</h3>
+
 			<div
 				className={
 					show
-						? 'container_flex is_hidden'
-						: 'container_flex is_blur'
-				}
-				onScroll={() => onScroll()}
-				ref={listInnerRef}>
-				{cast &&
-					cast
-						.slice(0, 11)
-						.map((c, index) => (
-							<CardProfile key={index} profile={c} />
-						))}
-				<div className='goMore'>
-					<Link to={`/details/${_media_type}/${id}/cast`}>
-						Go{' '}
-						<span>
-							<HiArrowNarrowRight />
-						</span>
-					</Link>
+						? 'wrapper_list is_hidden'
+						: 'wrapper_list is_blur'
+				}>
+				<div
+					className={
+						cast.length > 7
+							? 'container_flex scrollX'
+							: 'container_flex '
+					}
+					onScroll={() => onScroll()}
+					ref={listInnerRef}>
+					{cast &&
+						cast
+							.slice(0, 11)
+							.map((c, index) => (
+								<CardProfile key={index} profile={c} />
+							))}
+					{cast.length > 11 && (
+						<div className='goMore'>
+							<Link
+								to={`/details/${_media_type}/${id}/cast`}>
+								Go{' '}
+								<span>
+									<HiArrowNarrowRight />
+								</span>
+							</Link>
+						</div>
+					)}
 				</div>
 			</div>
 			<Link

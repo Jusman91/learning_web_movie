@@ -13,10 +13,8 @@ const Login = () => {
 
 	return (
 		<>
-			<div className='login'>
-				<h2 className='login__title'>
-					Choose a Login Method
-				</h2>
+			<div className='container_login'>
+				<h2 className='title'>Choose a Login Method</h2>
 				<div className='wrapper'>
 					<div className='left'>
 						<div

@@ -14,6 +14,8 @@ import Credits from './routes/credits/Credits'
 import DetailsTvSeason from './components/main_content/season/details/DetailsTvSeason';
 import EpisodeCredits from './components/episode_credits/EpisodeCredits';
 import DetailsPerson from './routes/person/DetailsPerson';
+import { UserReviews } from './components/main_content/user_reviews/UserReviews';
+import DetailsReview from './components/main_content/user_reviews/details/DetailsReview';
 
 function App() {
   const user = true
@@ -32,18 +34,20 @@ function App() {
           <Routes>
             <Route path='login' element={user ? <Navigate to='/' /> : <Login />} />
             <Route path='/' element={<Home />} />
-            <Route path='/details/:mediatype/:movieid' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
-            <Route path='/details/:mediatype/:movieid/season' element={<TvSeason />} />
-            <Route path='/details/:mediatype/:movieid/season/:seasonnumber' element={<DetailsTvSeason />}>
-              <Route path=':episode/:episodenumber' element={<DetailsTvSeason />} />
-            </Route>
-            <Route path='/details/:mediatype/:movieid/season/:seasonnumber/episode/:episodenumber/cast' element={<EpisodeCredits />} />
-            <Route path='/details/:mediatype/:movieid/cast' element={<Credits />} />
             <Route path='movies' element={user ? <TrendingMovies /> : <Navigate to='/login' />} />
             <Route path='tv' element={user ? <TrendingTv /> : <Navigate to='/login' />} />
             <Route path='search' element={user ? <SearchAll /> : <Navigate to='/login' />}>
               <Route path=':type' element={user ? <SearchAll /> : <Navigate to='/login' />} />
             </Route>
+            <Route path='/details/:mediatype/:movieid' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
+            <Route path='/details/:mediatype/:movieid/cast' element={<Credits />} />
+            <Route path='/details/:mediatype/:movieid/season' element={<TvSeason />} />
+            <Route path='/details/:mediatype/:movieid/season/:seasonnumber' element={<DetailsTvSeason />}>
+              <Route path=':episode/:episodenumber' element={<DetailsTvSeason />} />
+            </Route>
+            <Route path='/details/:mediatype/:movieid/season/:seasonnumber/episode/:episodenumber/cast' element={<EpisodeCredits />} />
+            <Route path='/details/:mediatype/:movieid/reviews' element={<UserReviews />} />
+            <Route path='/review/:reviewid' element={<DetailsReview />} />
             <Route path='/person/:personid' element={<DetailsPerson />} />
             <Route path='/*' element={<h1>Error Page</h1>} />
           </Routes>
