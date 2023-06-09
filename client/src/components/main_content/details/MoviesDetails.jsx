@@ -1,7 +1,11 @@
 import '../details/MovieDetails.css';
-import YouTube from 'react-youtube';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import {
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 
@@ -28,27 +32,76 @@ import {
 	IoIosArrowForward,
 } from 'react-icons/io';
 import Loading from '../../loading/Loading';
-import CreditsTvSeries from '../credits/Credits';
 import Hero from '../../header/hero/Hero';
-import PartTopDitails from './PartTopDitails';
+import PartTopDetails from './PartTopDetails';
 import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
 import Credits from '../credits/Credits';
-import CardSeason from '../card/season/CardSeason';
 import PartMiddleDetails from './PartMiddleDetails';
 
 const MovieDetails = () => {
 	const [isLoading, setIsLoading] = useState(true);
-	const [playTrailer, setPlayTrailer] = useState(false);
+	const [playHero, setPlayInHero] = useState(false);
 	const [currentMovieDetail, setMovie] = useState({});
 	const [crew, setCrew] = useState([]);
 	const [index, setIndex] = useState([0]);
 	const [reviews, setReviews] = useState([]);
+	const [media, setMedia] = useState('most popular');
+	const [videos, setVideos] = useState([]);
+	const [key, setKey] = useState('');
+	const [selectedItemName, setSelectedItemName] =
+		useState('');
+	const [playMedia, setPlayMedia] = useState(false);
+	const [backdrops, setBackdrops] = useState([]);
+	const [posters, setPosters] = useState([]);
 	const [similarMovies, setSimilarMovies] = useState([]);
 	const [movieRecommendations, setMovieRecommendations] =
 		useState([]);
 	const params = useParams();
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
+	const [show, setShow] = useState(false);
+	const listInnerRef = useRef();
+
+	const mostPopular = [
+		...videos.slice(-1),
+		...backdrops.slice(0, 1),
+		...posters.slice(0, 1),
+	];
+
+	console.log('Most Popular', mostPopular);
+
+	const videosReversed = [...videos].reverse();
+	const postersReversed = [...posters].slice(10, 17);
+	console.log('posterRev', postersReversed);
+
+	const dataMedia = [
+		{ type: 'most popular', items: [...mostPopular] },
+		{ type: 'videos', items: [...videosReversed] },
+		{ type: 'backdrops', items: [...backdrops] },
+		{ type: 'posters', items: [...posters] },
+	];
+
+	console.log('dataMedia', dataMedia);
+
+	const handleList = (value) => {
+		setMedia(value);
+	};
+
+	const getKey = (value) => {
+		setKey(value);
+		setPlayMedia(true);
+	};
+	console.log('KEY', key);
+	const onScroll = () => {
+		if (listInnerRef.current) {
+			const { scrollLeft } = listInnerRef.current;
+			if (scrollLeft > 50) {
+				setShow(true);
+			} else {
+				setShow(false);
+			}
+		}
+	};
 
 	const responsive = {
 		0: {
@@ -101,21 +154,34 @@ const MovieDetails = () => {
 		);
 	};
 
-	const getData = async () => {
+	const getData = useCallback(async () => {
 		setIsLoading(true);
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos`,
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos,images`,
 			);
 			const results = response.data;
+			const videos = results.videos.results;
+			const backdrops = results.images.backdrops;
+			const posters = results.images.posters;
 			setMovie(results);
+			setVideos(videos);
+			setBackdrops(backdrops);
+			setPosters(posters);
 		} catch (err) {
 			console.error(err, '<==== get data gagal ====>');
 		}
 		setTimeout(() => {
 			setIsLoading(false);
 		}, 1500);
-	};
+	}, [
+		_media_type,
+		id,
+		setMovie,
+		setBackdrops,
+		setPosters,
+		setIsLoading,
+	]);
 
 	const getReviews = async () => {
 		try {
@@ -130,41 +196,44 @@ const MovieDetails = () => {
 		}
 	};
 
-	const getSimilarMovies = async () => {
-		try {
-			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/similar?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
-			);
-			console.log(response);
-			const results = response.data.results;
-			setSimilarMovies(results);
-		} catch (err) {
-			console.error(err, '<==== get similar gagal ====>');
-		}
-	};
-	const getMovieRecommendations = async () => {
-		try {
-			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/recommendations?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
-			);
-			console.log(response);
-			const results = response.data.results;
-			setMovieRecommendations(results);
-		} catch (err) {
-			console.error(err, '<==== get similar gagal ====>');
-		}
-	};
+	// const getSimilarMovies = async () => {
+	// 	try {
+	// 		const response = await axios.get(
+	// 			`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/similar?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
+	// 		);
+	// 		console.log(response);
+	// 		const results = response.data.results;
+	// 		setSimilarMovies(results);
+	// 	} catch (err) {
+	// 		console.error(err, '<==== get similar gagal ====>');
+	// 	}
+	// };
+	// const getMovieRecommendations = async () => {
+	// 	try {
+	// 		const response = await axios.get(
+	// 			`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/recommendations?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
+	// 		);
+	// 		console.log(response);
+	// 		const results = response.data.results;
+	// 		setMovieRecommendations(results);
+	// 	} catch (err) {
+	// 		console.error(err, '<==== get similar gagal ====>');
+	// 	}
+	// };
 
 	useEffect(() => {
 		getData();
-		getSimilarMovies();
-		getMovieRecommendations();
+		// getSimilarMovies();
+		// getMovieRecommendations();
 		getReviews();
 		window.scrollTo(0, 0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id, _media_type]);
+	}, []);
 
 	console.log('ddata', currentMovieDetail);
+	console.log('backdrops', backdrops);
+	console.log('posters', posters);
+	console.log('videos', videos);
 
 	const season = currentMovieDetail?.seasons?.slice(-1);
 	console.log('season', season);
@@ -175,49 +244,50 @@ const MovieDetails = () => {
 			) : (
 				<section className='container_details'>
 					<Hero detail={currentMovieDetail} />
-					{playTrailer && (
-						<TrailerPlayer
-							trailer={currentMovieDetail}
-							setPlayTrailer={() => setPlayTrailer(false)}
-						/>
-					)}
+
 					<div className='top'>
-						<PartTopDitails
+						<PartTopDetails
 							details={currentMovieDetail}
 							crew={crew}
-							setPlayTrailer={() => setPlayTrailer(true)}
+							setPlayTrailer={() => setPlayInHero(true)}
 						/>
+						{playHero && (
+							<TrailerPlayer
+								hero={currentMovieDetail}
+								setPlayMedia={() => setPlayInHero(false)}
+							/>
+						)}
 					</div>
 					<div className='middle'>
 						<Credits id={id} _media_type={_media_type} />
-
 						<PartMiddleDetails
 							id={id}
 							_media_type={_media_type}
 							season={season}
 							currentDetail={currentMovieDetail.name}
 							reviews={reviews}
+							dataMedia={dataMedia}
+							media={media}
+							handleList={handleList}
+							show={show}
+							onScroll={() => onScroll()}
+							listInnerRef={listInnerRef}
+							mostPopular={mostPopular}
+							videos={videos}
+							backdrops={backdrops}
+							posters={posters}
+							setSelectedItemName={setSelectedItemName}
+							getKey={getKey}
 						/>
-
-						{/* {reviews && reviews.length > 0 && (
-							<div className='wrap_current_season'>
-								<h3>Sosial</h3>
-
-								<div className='wrapper_card_season'>
-									<CardSeason
-										reviews={reviews}
-										// title={currentMovieDetail}
-									/>
-								</div>
-
-								<Link
-									to={`/details/${_media_type}/${id}/season`}
-									className='all_seasons'>
-									<h4>Read All Reviews ⇨</h4>
-								</Link>
-							</div>
-						)} */}
+						{playMedia && (
+							<TrailerPlayer
+								keys={key}
+								titleVideos={selectedItemName}
+								setPlayMedia={() => setPlayMedia(false)}
+							/>
+						)}
 					</div>
+
 					{/*{similarMovies && similarMovies.length > 0 ? (
 						<div className='wrap_similar_movies'>
 							<h3>Similar Movies</h3>

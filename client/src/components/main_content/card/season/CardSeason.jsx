@@ -67,6 +67,29 @@ const CardSeason = ({ season, title, link, reviews }) => {
 		const vote_average = reviews.author_details.rating
 			? reviews.author_details.rating
 			: '0';
+		function getVoteAverageColor(vote_average) {
+			let color = '';
+
+			switch (true) {
+				case vote_average >= 9.0:
+					color = '#57e32c';
+					break;
+				case vote_average <= 8 && vote_average >= 6:
+					color = '#ffe234';
+					break;
+				case vote_average <= 5 && vote_average >= 3:
+					color = '#ffa534';
+					break;
+				case vote_average <= 2:
+					color = '#ff4545';
+					break;
+				default:
+					color = '';
+			}
+
+			return color;
+		}
+
 		return (
 			<div className='wrap_card cardSeason cardReviews'>
 				<Link to={link}>
@@ -90,17 +113,7 @@ const CardSeason = ({ season, title, link, reviews }) => {
 						<p className='wrap_vote'>
 							<AiFillStar
 								className='icon_star'
-								color={
-									vote_average >= 9.0
-										? '#57e32c'
-										: vote_average <= 8 && vote_average >= 6
-										? '#ffe234'
-										: vote_average <= 5 && vote_average >= 3
-										? '#ffa534'
-										: vote_average <= 2
-										? '#ff4545'
-										: ''
-								}
+								color={getVoteAverageColor(vote_average)}
 							/>
 							<span className='votes'>{vote_average}</span>
 						</p>

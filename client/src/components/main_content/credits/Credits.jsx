@@ -78,7 +78,7 @@ const Credits = ({ id, _media_type }) => {
 					className={
 						cast.length > 7
 							? 'container_flex scrollX'
-							: 'container_flex '
+							: 'container_flex'
 					}
 					onScroll={() => onScroll()}
 					ref={listInnerRef}>

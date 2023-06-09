@@ -11,7 +11,7 @@ import {
 	MdOutlinePlayCircle,
 	MdStar,
 } from 'react-icons/md';
-import './PartTopDitails.css';
+import './PartTopDetails.css';
 
 const PartTopDitails = ({
 	details,

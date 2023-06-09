@@ -51,6 +51,7 @@ const DetailsReview = () => {
 	useEffect(() => {
 		getReviewDetails();
 		getData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, _media_type, reviewid]);
 
 	console.log('dadada', allData);

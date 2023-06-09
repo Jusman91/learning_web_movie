@@ -16,6 +16,7 @@ import EpisodeCredits from './components/episode_credits/EpisodeCredits';
 import DetailsPerson from './routes/person/DetailsPerson';
 import { UserReviews } from './components/main_content/user_reviews/UserReviews';
 import DetailsReview from './components/main_content/user_reviews/details/DetailsReview';
+import Images from './components/main_content/images/Images';
 
 function App() {
   const user = true
@@ -40,6 +41,8 @@ function App() {
               <Route path=':type' element={user ? <SearchAll /> : <Navigate to='/login' />} />
             </Route>
             <Route path='/details/:mediatype/:movieid' element={user ? <MovieDetails /> : <Navigate to='/login' />} />
+            <Route path='/details/:mediatype/:movieid/images/:typemedia' element={user ? <Images /> : <Navigate to='/login' />} />
+
             <Route path='/details/:mediatype/:movieid/cast' element={<Credits />} />
             <Route path='/details/:mediatype/:movieid/season' element={<TvSeason />} />
             <Route path='/details/:mediatype/:movieid/season/:seasonnumber' element={<DetailsTvSeason />}>

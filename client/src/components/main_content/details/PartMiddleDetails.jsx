@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CardSeason from '../card/season/CardSeason';
+import { img_poster } from '../../../config/config';
+import { IoPlay } from 'react-icons/io5';
+import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
+import './PartMiddleDetails.css';
 
 const PartMiddleDetails = ({
 	id,
@@ -8,7 +12,41 @@ const PartMiddleDetails = ({
 	season,
 	currentDetail,
 	reviews,
+	dataMedia,
+	handleList,
+	media,
+	show,
+	onScroll,
+	listInnerRef,
+	mostPopular,
+	videos,
+	backdrops,
+	posters,
+	getKey,
+	setSelectedItemName,
 }) => {
+	let className = () => {
+		if (media === 'most popular') {
+			return mostPopular.length > 2
+				? 'container_flex scrollX'
+				: 'container_flex';
+		} else if (media === 'videos') {
+			return videos.length > 2
+				? 'container_flex scrollX'
+				: 'container_flex';
+		} else if (media === 'backdrops') {
+			return backdrops.length > 2
+				? 'container_flex scrollX'
+				: 'container_flex';
+		} else if (media === 'posters') {
+			return posters.length > 6
+				? 'container_flex scrollX'
+				: 'container_flex';
+		} else {
+			return '';
+		}
+	};
+
 	return (
 		<div>
 			{season && season.length > 0 && (
@@ -42,6 +80,90 @@ const PartMiddleDetails = ({
 						className='all_seasons'>
 						<h4>Read All Reviews ⇨</h4>
 					</Link>
+				</div>
+			)}
+			{dataMedia && (
+				<div className='wrap_content_media'>
+					<div className='menu'>
+						<h3>Media</h3>
+						<ul>
+							{dataMedia.map((list, i) => (
+								<li
+									className={
+										media === list.type ? 'list_media' : ''
+									}
+									key={i}
+									onClick={() => handleList(list.type)}>
+									{list.type}{' '}
+									<span>
+										{list.type !== 'most popular'
+											? list.items.length
+											: ''}
+									</span>
+								</li>
+							))}
+
+							<div className='li_before'></div>
+						</ul>
+						<div className='view_all'>
+							{media !== 'most popular' && (
+								<Link
+									to={`/details/${_media_type}/${id}/images/${media}`}>{`view all ${media}`}</Link>
+							)}
+						</div>
+					</div>
+					<div
+						className={
+							show
+								? 'wrapper_list is_hidden'
+								: 'wrapper_list is_blur'
+						}>
+						<div
+							className={className()}
+							onScroll={onScroll}
+							ref={listInnerRef}>
+							{dataMedia &&
+								dataMedia.map((data, i) => {
+									if (media === data.type) {
+										return data.items
+											?.slice(0, 7)
+											.map((b, index) => (
+												<div
+													key={`${i}-${index}`}
+													className={
+														b.key
+															? 'trailer_poster'
+															: b.width > 3000
+															? 'backdrops'
+															: b.width < 3000
+															? 'posters'
+															: ''
+													}>
+													<img
+														src={
+															b.key
+																? `https://img.youtube.com/vi/${b.key}/hqdefault.jpg`
+																: `${img_poster}/${b.file_path}`
+														}
+														alt='Posters'
+													/>
+													{b.key && (
+														<div
+															className='btn_play'
+															onClick={() => {
+																setSelectedItemName(b.name);
+																getKey(b.key);
+															}}>
+															<IoPlay className='icon_play' />
+														</div>
+													)}
+												</div>
+											));
+									}
+									return null; // Kembalikan null jika media tidak cocok dengan data.type
+								})}
+						</div>
+					</div>
 				</div>
 			)}
 		</div>

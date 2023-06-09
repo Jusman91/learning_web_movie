@@ -1,0 +1,167 @@
+/* start sesons */
+.wrap_current_season {
+	width: 100%;
+	margin-bottom: 3rem;
+}
+.all_seasons {
+	display: inline-block;
+	text-decoration: none;
+	color: beige;
+	width: fit-content;
+	transition: 0.2s;
+}
+.all_seasons:hover {
+	color: rgba(21, 137, 255, 0.91);
+}
+.all_seasons h4 {
+	margin-top: 1rem;
+	padding: 0 1rem 0 1rem;
+}
+/* end seasons */
+
+/* start media */
+.wrap_content_media {
+	position: relative;
+	width: 100%;
+}
+.wrap_content_media .menu {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 2rem;
+	margin-bottom: 1rem;
+	text-transform: capitalize;
+}
+.wrap_content_media .menu ul {
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+}
+.wrap_content_media .menu ul li {
+	position: relative;
+	width: 120px;
+	font-weight: 500;
+	text-align: center;
+	cursor: pointer;
+	transition: 0.5s ease-in-out;
+}
+.wrap_content_media .menu ul li span {
+	color: rgba(255, 255, 255, 0.5);
+}
+.wrap_content_media .menu ul .list_media {
+	color: rgb(21, 137, 255);
+	transform: translateY(-30%);
+}
+.li_before {
+	position: absolute;
+	bottom: -50%;
+	width: 120px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.5s;
+}
+.li_before::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 5px;
+	background: rgba(21, 137, 255);
+	z-index: 2;
+}
+.wrap_content_media
+	.menu
+	ul
+	li:nth-child(2).list_media
+	~ .li_before {
+	transform: translateX(calc(120px * 1));
+}
+.wrap_content_media
+	.menu
+	ul
+	li:nth-child(3).list_media
+	~ .li_before {
+	transform: translateX(calc(120px * 2));
+}
+.wrap_content_media
+	.menu
+	ul
+	li:nth-child(4).list_media
+	~ .li_before {
+	transform: translateX(calc(120px * 3));
+}
+.wrap_content_media .menu .view_all {
+	position: absolute;
+	right: 0;
+	z-index: 9;
+}
+.wrap_content_media .menu .view_all a {
+	color: rgba(21, 137, 255, 0.6);
+	transition: 0.3s;
+}
+.wrap_content_media .menu .view_all:hover a {
+	color: rgb(21, 137, 255);
+}
+.most_popular {
+	display: flex;
+}
+.posters {
+	width: 200px;
+	height: 300px;
+}
+.posters img {
+	width: 200px;
+	min-width: 200px;
+	height: 300px;
+	min-height: 300px;
+	object-fit: cover;
+}
+.backdrops {
+	width: 600px;
+	height: 300px;
+}
+.backdrops img {
+	width: 600px;
+	min-width: 600px;
+	height: 300px;
+	min-height: 300px;
+	object-fit: cover;
+}
+.trailer_poster {
+	position: relative;
+}
+.trailer_poster img {
+	width: 600px;
+	min-width: 600px;
+	height: 300px;
+	min-height: 300px;
+	object-fit: cover;
+}
+.btn_play {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	cursor: pointer;
+	transition: 0.5s;
+}
+.btn_play .icon_play {
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	font-size: 2.5rem;
+	color: rgba(21, 137, 255, 0.7);
+	cursor: pointer;
+	transition: 0.5s;
+}
+/* ens media */
