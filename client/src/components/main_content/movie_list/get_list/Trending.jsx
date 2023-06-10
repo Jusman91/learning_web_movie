@@ -3,13 +3,13 @@ import './Trending.css';
 import { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import AliceCarousel from 'react-alice-carousel';
-import Card from '../../card/Card';
-import HeroContainer from '../../../header/hero/HeroContainer';
 import Genres from '../../genres/Genres';
 import Pagination from '../../pagination/Pagiantion';
 import YouTube from 'react-youtube';
 import UseGenres from '../../../../hooks/UseGenres';
 import Loading from '../../../loading/Loading';
+import Card from '../../../card/Card';
+import HeroContainer from '../../../container/header/hero/HeroContainer';
 
 const Trending = ({ mediaType }) => {
 	const [isLoading, setIsLoading] = useState(true);

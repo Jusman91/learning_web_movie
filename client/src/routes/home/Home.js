@@ -1,8 +1,7 @@
 import { useEffect } from "react"
-import Hero from "../../components/header/hero/HeroContainer"
 import TrailerList from "../../components/main_content/movie_list/trailers/TrailerList"
 import HomeList from "../../components/main_content/movie_list/get_list/HomeList"
-import Pag from "../../components/main_content/ccc/Pag"
+import HeroContainer from "../../components/container/header/hero/HeroContainer"
 
 const Home = () => {
 
@@ -12,11 +11,10 @@ const Home = () => {
 
   return (
     <>
-      <Hero />
+      <HeroContainer />
       <HomeList mediaType={'movie'} listCategory={'Up Coming'} />
       <TrailerList />
       <HomeList mediaType={'tv'} listCategory={'Airing Today'} />
-      <Pag itemsPerPage={4} />
     </>
   )
 }

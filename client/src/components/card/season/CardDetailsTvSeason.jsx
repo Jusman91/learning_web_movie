@@ -2,9 +2,9 @@ import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import {
-	img_500,
+	img_poster,
 	unavailable,
-} from '../../../../config/config';
+} from '../../../config/config';
 
 const CardDetailsTvSeason = ({ episodes }) => {
 	const toHoursAndMinutes = (totalMinutes) => {
@@ -21,7 +21,7 @@ const CardDetailsTvSeason = ({ episodes }) => {
 					<img
 						src={
 							episodes.still_path
-								? `${img_500}/${episodes.still_path}`
+								? `${img_poster}/${episodes.still_path}`
 								: unavailable
 						}
 						alt='poster'

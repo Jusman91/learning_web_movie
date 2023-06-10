@@ -1,19 +1,23 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, {
+	useCallback,
+	useEffect,
+	useState,
+} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { img_poster } from '../../../../config/config';
 import './DetailsReview.css';
 import dayjs from 'dayjs';
 
 const DetailsReview = () => {
-	const [reviews, setReviews] = useState([]);
-	const [allData, setAllData] = useState([]);
+	const [reviews, setReviews] = useState({});
+	const [allData, setAllData] = useState({});
 	const params = useParams();
 
 	const reviewid = params.reviewid || '';
 
-	const id = reviews?.media_id;
-	const _media_type = reviews?.media_type;
+	const id = reviews.media_id;
+	const _media_type = reviews.media_type;
 
 	const title = reviews?.media_title;
 	const release_date = dayjs(allData?.release_date).format(
@@ -23,7 +27,21 @@ const DetailsReview = () => {
 		'MMM D, YYYY',
 	);
 
-	const getReviewDetails = async () => {
+	const getData = useCallback(async () => {
+		try {
+			if (_media_type && id) {
+				const response = await axios.get(
+					`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}`,
+				);
+				const results = response.data;
+				setAllData(results);
+			}
+		} catch (err) {
+			console.error(err, '<==== get data gagal ====>');
+		}
+	}, [_media_type, id]);
+
+	const getReviewDetails = useCallback(async () => {
 		try {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/review/${reviewid}?api_key=${process.env.REACT_APP_APIKEY}`,
@@ -34,27 +52,16 @@ const DetailsReview = () => {
 		} catch (err) {
 			console.error(err, '<==== get Review Details ====>');
 		}
-	};
+	}, [reviewid]);
 
-	const getData = async () => {
-		try {
-			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}`,
-			);
-			const results = response.data;
-			setAllData(results);
-		} catch (err) {
-			console.error(err, '<==== get data gagal ====>');
-		}
-	};
+	useEffect(() => {
+		getData();
+	}, [getData]);
 
 	useEffect(() => {
 		getReviewDetails();
-		getData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id, _media_type, reviewid]);
+	}, [getReviewDetails]);
 
-	console.log('dadada', allData);
 	return (
 		<section className='container_section'>
 			<div className='content_detailsReview'>
@@ -70,10 +77,9 @@ const DetailsReview = () => {
 					<div className='wrap_card cardSeason cardReviews detailsReview'>
 						<div className='des'>
 							<div className='titleReviews'>
-								<Link>
+								<Link to={''}>
 									<h3>{`${title} (${release_date})`}</h3>
 								</Link>
-
 								<p className='author'>
 									Written by{' '}
 									<Link to={''}>{reviews?.author}</Link> on

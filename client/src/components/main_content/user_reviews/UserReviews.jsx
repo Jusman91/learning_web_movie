@@ -1,9 +1,13 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, {
+	useCallback,
+	useEffect,
+	useState,
+} from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ContentHeader from '../../container/header/ContentHeader';
 import './UserReviews.css';
-import CardSeason from '../card/season/CardSeason';
+import CardReviews from '../../card/reviews/CardReviews';
+import ContentHeader from '../../container/header/ContentHeader';
 
 export const UserReviews = () => {
 	const [reviews, setReviews] = useState([]);
@@ -12,7 +16,7 @@ export const UserReviews = () => {
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
 
-	const getReviews = async () => {
+	const getReviews = useCallback(async () => {
 		try {
 			const response = await axios.get(
 				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=reviews`,
@@ -21,17 +25,14 @@ export const UserReviews = () => {
 			const reviews = results.reviews.results;
 			setAllData(results);
 			setReviews(reviews);
-			console.log('RESULTS DATA', results);
-			console.log('REVIEWS DATA', reviews);
 		} catch (err) {
 			console.error(err, '<==== get data gagal ====>');
 		}
-	};
+	}, [_media_type, id]);
 
 	useEffect(() => {
 		getReviews();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [getReviews]);
 
 	return (
 		<section className='container_section'>
@@ -49,12 +50,7 @@ export const UserReviews = () => {
 				<aside className='right'>
 					{reviews &&
 						reviews.map((r, i) => (
-							<CardSeason
-								key={i}
-								reviews={r}
-								id={id}
-								_media_type={_media_type}
-							/>
+							<CardReviews key={i} reviews={r} />
 						))}
 				</aside>
 			</div>

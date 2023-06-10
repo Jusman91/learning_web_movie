@@ -1,10 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { img_500, unavailable } from '../../config/config';
 import dayjs from 'dayjs';
 import './EpisodeCredits.css';
-import Card from '../main_content/card/Card';
+import Card from '../card/Card';
+import {
+	img_poster,
+	unavailable,
+} from '../../config/config';
 
 const EpisodeCredits = () => {
 	const [dataTvEpisode, setDataTvEpisode] = useState([]);
@@ -13,7 +16,6 @@ const EpisodeCredits = () => {
 	const [guestStars, setGuestStars] = useState([]);
 
 	const params = useParams();
-	// const navigate = useNavigate();
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
 	const season_number = params.seasonnumber;
@@ -64,7 +66,7 @@ const EpisodeCredits = () => {
 						<img
 							src={
 								dataTvEpisode.still_path
-									? `${img_500}/${dataTvEpisode.still_path}`
+									? `${img_poster}/${dataTvEpisode.still_path}`
 									: unavailable
 							}
 							alt='Poster'

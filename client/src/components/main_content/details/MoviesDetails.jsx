@@ -6,44 +6,20 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import dayjs from 'dayjs';
-
-import {
-	MdList,
-	MdFavorite,
-	MdBookmark,
-	MdStar,
-	MdOutlinePlayCircle,
-} from 'react-icons/md';
-import { FiExternalLink } from 'react-icons/fi';
-import {
-	img_1280,
-	img_300,
-	img_500,
-	img_backdrop,
-	noProfile,
-	unavailable,
-} from '../../../config/config';
-import AliceCarousel from 'react-alice-carousel';
-import Card from '../card/Card';
-import {
-	IoIosArrowBack,
-	IoIosArrowForward,
-} from 'react-icons/io';
+import { useParams } from 'react-router-dom';
 import Loading from '../../loading/Loading';
 import Hero from '../../header/hero/Hero';
-import PartTopDetails from './PartTopDetails';
 import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
 import Credits from '../credits/Credits';
-import PartMiddleDetails from './PartMiddleDetails';
+import PartTopDetails from '../../container/details/PartTopDetails';
+import PartMiddleDetails from '../../container/details/PartMiddleDetails';
+import PartBottom from '../../container/details/PartBottom';
 
 const MovieDetails = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [playHero, setPlayInHero] = useState(false);
 	const [currentMovieDetail, setMovie] = useState({});
 	const [crew, setCrew] = useState([]);
-	const [index, setIndex] = useState([0]);
 	const [reviews, setReviews] = useState([]);
 	const [media, setMedia] = useState('most popular');
 	const [videos, setVideos] = useState([]);
@@ -54,7 +30,7 @@ const MovieDetails = () => {
 	const [backdrops, setBackdrops] = useState([]);
 	const [posters, setPosters] = useState([]);
 	const [similarMovies, setSimilarMovies] = useState([]);
-	const [movieRecommendations, setMovieRecommendations] =
+	const [recommendationMovies, setRecommendationMovies] =
 		useState([]);
 	const params = useParams();
 	const id = params.movieid || '';
@@ -62,26 +38,71 @@ const MovieDetails = () => {
 	const [show, setShow] = useState(false);
 	const listInnerRef = useRef();
 
+	const getData = useCallback(async () => {
+		setIsLoading(true);
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=credits,reviews,videos,images,similar,recommendations`,
+			);
+			const results = response.data;
+			const credits = results.credits.crew;
+			const reviews = results.reviews.results[0];
+			const videos = results.videos.results;
+			const backdrops = results.images.backdrops;
+			const posters = results.images.posters;
+			const similar = results.similar.results;
+			const recommendations =
+				results.recommendations.results;
+			setMovie(results);
+			setCrew(credits);
+			setReviews(reviews);
+			setVideos(videos);
+			setBackdrops(backdrops);
+			setPosters(posters);
+			setSimilarMovies(similar);
+			setRecommendationMovies(recommendations);
+		} catch (err) {
+			console.error(err, '<==== get data gagal ====>');
+		}
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 1500);
+	}, [
+		_media_type,
+		id,
+		setMovie,
+		setReviews,
+		setBackdrops,
+		setPosters,
+		setSimilarMovies,
+		setRecommendationMovies,
+		setIsLoading,
+	]);
+
+	useEffect(() => {
+		getData();
+		window.scrollTo(0, 0);
+	}, [getData]);
+
+	const season = currentMovieDetail?.seasons?.slice(-1);
+
+	// mengambil index pertama tiap-tiap data
 	const mostPopular = [
 		...videos.slice(-1),
 		...backdrops.slice(0, 1),
 		...posters.slice(0, 1),
 	];
 
-	console.log('Most Popular', mostPopular);
-
+	// membalikan index pada data
 	const videosReversed = [...videos].reverse();
-	const postersReversed = [...posters].slice(10, 17);
-	console.log('posterRev', postersReversed);
 
+	// menambahkan type ditiap-tiap state
 	const dataMedia = [
 		{ type: 'most popular', items: [...mostPopular] },
 		{ type: 'videos', items: [...videosReversed] },
 		{ type: 'backdrops', items: [...backdrops] },
 		{ type: 'posters', items: [...posters] },
 	];
-
-	console.log('dataMedia', dataMedia);
 
 	const handleList = (value) => {
 		setMedia(value);
@@ -91,7 +112,7 @@ const MovieDetails = () => {
 		setKey(value);
 		setPlayMedia(true);
 	};
-	console.log('KEY', key);
+
 	const onScroll = () => {
 		if (listInnerRef.current) {
 			const { scrollLeft } = listInnerRef.current;
@@ -103,140 +124,6 @@ const MovieDetails = () => {
 		}
 	};
 
-	const responsive = {
-		0: {
-			items: 1,
-		},
-		512: {
-			items: 3,
-		},
-		1024: {
-			items: 6,
-		},
-	};
-	const similarResponsive = {
-		0: {
-			items: 1,
-		},
-		512: {
-			items: 3,
-		},
-		1024: {
-			items: 4,
-		},
-	};
-
-	const renderNextButton = () => {
-		return (
-			<IoIosArrowForward
-				style={{
-					position: 'absolute',
-					right: '-2%',
-					top: '35%',
-					fontSize: '40px',
-					cursor: 'pointer',
-				}}
-			/>
-		);
-	};
-
-	const renderPrevButton = () => {
-		return (
-			<IoIosArrowBack
-				style={{
-					position: 'absolute',
-					left: '-2%',
-					top: '35%',
-					fontSize: '40px',
-					cursor: 'pointer',
-				}}
-			/>
-		);
-	};
-
-	const getData = useCallback(async () => {
-		setIsLoading(true);
-		try {
-			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos,images`,
-			);
-			const results = response.data;
-			const videos = results.videos.results;
-			const backdrops = results.images.backdrops;
-			const posters = results.images.posters;
-			setMovie(results);
-			setVideos(videos);
-			setBackdrops(backdrops);
-			setPosters(posters);
-		} catch (err) {
-			console.error(err, '<==== get data gagal ====>');
-		}
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 1500);
-	}, [
-		_media_type,
-		id,
-		setMovie,
-		setBackdrops,
-		setPosters,
-		setIsLoading,
-	]);
-
-	const getReviews = async () => {
-		try {
-			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/reviews?api_key=${process.env.REACT_APP_APIKEY}`,
-			);
-			const results = response.data.results[0];
-			setReviews(results);
-			console.log('reviews', results);
-		} catch (err) {
-			console.error(err, '<==== getReviews filed ====>');
-		}
-	};
-
-	// const getSimilarMovies = async () => {
-	// 	try {
-	// 		const response = await axios.get(
-	// 			`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/similar?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
-	// 		);
-	// 		console.log(response);
-	// 		const results = response.data.results;
-	// 		setSimilarMovies(results);
-	// 	} catch (err) {
-	// 		console.error(err, '<==== get similar gagal ====>');
-	// 	}
-	// };
-	// const getMovieRecommendations = async () => {
-	// 	try {
-	// 		const response = await axios.get(
-	// 			`${process.env.REACT_APP_BASEURL}/${_media_type}/${id}/recommendations?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`,
-	// 		);
-	// 		console.log(response);
-	// 		const results = response.data.results;
-	// 		setMovieRecommendations(results);
-	// 	} catch (err) {
-	// 		console.error(err, '<==== get similar gagal ====>');
-	// 	}
-	// };
-
-	useEffect(() => {
-		getData();
-		// getSimilarMovies();
-		// getMovieRecommendations();
-		getReviews();
-		window.scrollTo(0, 0);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	console.log('ddata', currentMovieDetail);
-	console.log('backdrops', backdrops);
-	console.log('posters', posters);
-	console.log('videos', videos);
-
-	const season = currentMovieDetail?.seasons?.slice(-1);
-	console.log('season', season);
 	return (
 		<>
 			{isLoading ? (
@@ -287,102 +174,14 @@ const MovieDetails = () => {
 							/>
 						)}
 					</div>
-
-					{/*{similarMovies && similarMovies.length > 0 ? (
-						<div className='wrap_similar_movies'>
-							<h3>Similar Movies</h3>
-							<AliceCarousel
-								disableDotsControls
-								renderNextButton={renderNextButton}
-								renderPrevButton={renderPrevButton}
-								responsive={similarResponsive}>
-								{similarMovies &&
-									similarMovies?.map((m, i) => (
-										<Card
-											key={i}
-											movie={m}
-											link={`/details/${m.id}/${_media_type}`}
-										/>
-									))}
-							</AliceCarousel>
-						</div>
-					) : null}
-					{movieRecommendations &&
-					movieRecommendations.length > 0 ? (
-						<div className='wrap_recommendations'>
-							<h3>Recommendations</h3>
-							<AliceCarousel
-								disableDotsControls
-								renderNextButton={renderNextButton}
-								renderPrevButton={renderPrevButton}
-								responsive={similarResponsive}>
-								{movieRecommendations &&
-									movieRecommendations?.map((m, i) => (
-										<Card
-											key={i}
-											movie={m}
-											link={`/details/${m.id}/${_media_type}`}
-										/>
-									))}
-							</AliceCarousel>
-						</div>
-					) : null}
-					{}
-					<div className='movie__link'>
-						<div className='movie__heading'>
-							Useful Link
-						</div>
-						{currentMovieDetail &&
-							currentMovieDetail.homepage && (
-								<a
-									rel='noopener noreferrer'
-									href={currentMovieDetail.homepage}
-									target='_blank'
-									style={{ textDecoration: 'none' }}>
-									<p>
-										<span className='movie__homeBtn movie__btn'>
-											Homepage <FiExternalLink />
-										</span>
-									</p>
-								</a>
-							)}
-						{currentMovieDetail &&
-							currentMovieDetail.imdb_id && (
-								<a
-									rel='noopener noreferrer'
-									href={`https://www.imdb.com/title/${currentMovieDetail.imdb_id}`}
-									target='_blank'
-									style={{ textDecoration: 'none' }}>
-									<p>
-										<span className='movie__imdbBtn movie__btn'>
-											IMDb <FiExternalLink />
-										</span>
-									</p>
-								</a>
-							)}
+					<div className='bottom'>
+						<PartBottom
+							_media_type={_media_type}
+							data={currentMovieDetail}
+							similarMovies={similarMovies}
+							recommendationMovies={recommendationMovies}
+						/>
 					</div>
-					<div className='movie__production__heading'>
-						Production Companies
-					</div>
-					<div className='movie__production'>
-						{currentMovieDetail &&
-							currentMovieDetail.production_companies?.map(
-								(company, index) => (
-									<div key={index}>
-										{company.logo_path && (
-											<span className='productionCompanyImg'>
-												<img
-													className='movie__productionCompany'
-													src={`${img_300}${company.logo_path}`}
-													alt='ProductionCompany'
-												/>
-												<span>{company.name}</span>
-											</span>
-										)}
-									</div>
-								),
-							)}
-					</div> */}
 				</section>
 			)}
 		</>

@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HiArrowNarrowRight } from 'react-icons/hi';
-import CardProfile from '../card/profile/CardProfile';
 import './Credits.css';
+import CardProfile from '../../card/profile/CardProfile';
 
 const Credits = ({ id, _media_type }) => {
 	const [cast, setCast] = useState([]);

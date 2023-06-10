@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './Person.css';
-import { img_500, noProfile } from '../../config/config';
-import Card from '../main_content/card/Card';
 import dayjs from 'dayjs';
+import {
+	img_profile,
+	noProfile,
+} from '../../config/config';
+import Card from '../card/Card';
 
 const Person = () => {
 	const params = useParams();
@@ -98,7 +101,7 @@ const Person = () => {
 						<img
 							src={
 								person.profile_path
-									? `${img_500}/${person.profile_path}`
+									? `${img_profile}/${person.profile_path}`
 									: noProfile
 							}
 							alt='Profile'

@@ -1,5 +1,4 @@
 .container_details {
-	/* padding: 0 4rem; */
 	width: 100%;
 }
 .wrap_cast h3,
@@ -8,71 +7,11 @@
 .wrap_recommendations h3 {
 	margin-bottom: 0.5rem;
 }
-.middle {
-	padding: 0 2.5rem;
+.middle,
+.bottom {
+	padding: 1rem 2.5rem;
 }
 
-.wrap_similar_movies {
+.wrap_content {
 	width: 100%;
-	margin-bottom: 2rem;
-}
-
-.wrap_recommendations {
-	width: 100%;
-}
-
-.movie__link {
-	margin-top: 2rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 2rem;
-}
-.movie__heading {
-	font-size: 1.5rem;
-}
-.movie__btn {
-	border-radius: 10px;
-	cursor: pointer;
-	padding: 0.5rem 2rem;
-	font-size: 0.9rem;
-	font-weight: 700;
-	color: #000;
-}
-.movie__btn:hover {
-	color: #fff;
-}
-.movie__homeBtn {
-	background-color: red;
-}
-.movie__imdbBtn {
-	background-color: rgb(241, 211, 17);
-	padding: 0.5rem 3rem;
-}
-.movie__production__heading {
-	text-align: center;
-	padding: 4rem 2rem;
-	font-size: 1.5rem;
-}
-.movie__production {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 4rem;
-}
-.productionCompanyImg {
-	width: 100px;
-	height: 100px;
-	display: flex;
-	flex-direction: column;
-}
-.productionCompanyImg span {
-	font-size: 0.9rem;
-	text-align: center;
-	padding-top: 1rem;
-}
-.movie__productionCompany {
-	width: 100%;
-	height: 100%;
 }

@@ -2,13 +2,10 @@
 export const img_profile = 'https://image.tmdb.org/t/p/w185';
 export const img_logo = 'https://image.tmdb.org/t/p/w45';
 export const img_avatar = 'https://image.tmdb.org/t/p/w92';
-export const img_gravatar = 'https://secure.gravatar.com/avatar';
 export const img_still = 'https://image.tmdb.org/t/p/w185';
 export const img_poster = 'https://image.tmdb.org/t/p/w500';
 export const img_backdrop = 'https://image.tmdb.org/t/p/w1280';
-export const img_300 = 'https://image.tmdb.org/t/p/w300';
-export const img_500 = 'https://image.tmdb.org/t/p/w500';
-export const img_1280 = 'https://image.tmdb.org/t/p/w1280';
+
 
 // content card
 export const unavailable = 'https://www.bprsbds.co.id/wp-content/uploads/2019/07/Not-available.gif'

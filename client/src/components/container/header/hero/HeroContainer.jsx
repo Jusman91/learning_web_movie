@@ -3,13 +3,13 @@ import {
 	HiInformationCircle,
 	HiPlay,
 } from 'react-icons/hi';
-import heroImg from '../../../asset/hero/hero.jpg';
-import '../hero/Hero.css';
+import './Hero.css';
+import HeroImg from '../../../../asset/hero/hero.jpg';
 import {
-	img_1280,
-	img_500,
+	img_backdrop,
+	img_poster,
 	unavailable,
-} from '../../../config/config';
+} from '../../../../config/config';
 
 const HeroContainer = ({
 	hero,
@@ -27,7 +27,7 @@ const HeroContainer = ({
 					<img
 						src={
 							hero.backdrop_path
-								? `${img_1280}/${hero.backdrop_path}`
+								? `${img_backdrop}/${hero.backdrop_path}`
 								: unavailable
 						}
 						alt='hero'
@@ -99,7 +99,7 @@ const HeroContainer = ({
 								<img
 									src={
 										hero.poster_path
-											? `${img_500}/${hero.poster_path}`
+											? `${img_poster}/${hero.poster_path}`
 											: unavailable
 									}
 									alt='hero'
@@ -115,7 +115,7 @@ const HeroContainer = ({
 			<>
 				<section className='container__hero'>
 					<div className='hero__img'>
-						<img src={heroImg} alt='hero' />
+						<img src={HeroImg} alt='hero' />
 					</div>
 					<div className='overlay'>
 						<div className='logo__text'>

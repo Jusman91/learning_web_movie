@@ -9,8 +9,8 @@ import { MdUpcoming } from 'react-icons/md';
 import { RiSlideshow2Fill } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
-import Card from '../../card/Card';
 import './HomeList.css';
+import Card from '../../../card/Card';
 
 const HomeList = ({ mediaType, listCategory }) => {
 	const [movieList, setMovieList] = useState([]);

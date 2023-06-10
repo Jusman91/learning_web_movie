@@ -1,0 +1,39 @@
+.wrap_card.cardSeason {
+	height: 200px;
+	align-items: center;
+	padding: 1rem;
+}
+
+.wrap_card.cardSeason .wrap_poster.posterSeason {
+	width: 100px;
+	height: 150px;
+	align-content: center;
+}
+.wrap_card.cardSeason .wrap_poster.posterSeason img {
+	border-radius: 10px;
+	height: 150px;
+}
+
+.wrap_card.cardSeason .des .title.titleSeason {
+	display: flex;
+	align-items: center;
+	align-content: center;
+	font-weight: 700;
+}
+
+.wrap_card.cardSeason .des .title.titleSeason a:hover h4 {
+	color: rgb(21, 137, 255);
+}
+.wrap_vote {
+	position: relative;
+}
+
+.wrap_card.cardSeason .des .title.titleSeason .votes {
+	position: absolute;
+	left: 50%;
+	top: 45%;
+	transform: translate(-50%, -50%);
+	color: #000;
+	font-weight: 800;
+	font-size: 0.85rem;
+}

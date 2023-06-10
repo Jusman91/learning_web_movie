@@ -8,7 +8,7 @@ import {
 import YouTube from 'react-youtube';
 import { useEffect, useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
-import Card from '../../card/Card';
+import Card from '../../../card/Card';
 
 const TrailerList = () => {
 	const [dataTrailers, setDataTrailers] = useState([]);

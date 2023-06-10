@@ -1,10 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import './CardProfile.css';
 import {
 	img_profile,
 	noProfile,
-} from '../../../../config/config';
-import './CardProfile.css';
+} from '../../../config/config';
 
 const CardProfile = ({ profile }) => {
 	const replaceSeparator = (v) => {

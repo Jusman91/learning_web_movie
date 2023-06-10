@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CardSeason from '../card/season/CardSeason';
 import { img_poster } from '../../../config/config';
 import { IoPlay } from 'react-icons/io5';
-import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
 import './PartMiddleDetails.css';
+import CardSeason from '../../card/season/CardSeason';
+import CardReviews from '../../card/reviews/CardReviews';
 
 const PartMiddleDetails = ({
 	id,
@@ -73,7 +73,7 @@ const PartMiddleDetails = ({
 				<div className='wrap_current_season'>
 					<h3>Sosial</h3>
 					<div className='wrapper_card_season'>
-						<CardSeason reviews={reviews} />
+						<CardReviews reviews={reviews} />
 					</div>
 					<Link
 						to={`/details/${_media_type}/${id}/reviews`}
@@ -133,9 +133,9 @@ const PartMiddleDetails = ({
 													className={
 														b.key
 															? 'trailer_poster'
-															: b.width > 3000
+															: b.aspect_ratio > 1
 															? 'backdrops'
-															: b.width < 3000
+															: b.aspect_ratio < 1
 															? 'posters'
 															: ''
 													}>

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import '../card/Card.css';
+import { IoPlay } from 'react-icons/io5';
 import {
-	img_300,
-	img_500,
+	img_poster,
+	img_profile,
 	noProfile,
 	unavailable,
-} from '../../../config/config';
-import { IoPlay } from 'react-icons/io5';
-import dayjs from 'dayjs';
+} from '../../config/config';
+import SvgCircle from '../elements/SvgCircle';
 
 const Card = ({
 	movie,
@@ -26,12 +26,13 @@ const Card = ({
 		return (
 			<>
 				<Link to={link}>
+					<div></div>
 					<div className='card'>
 						<div className='poster'>
 							<img
 								src={
 									movie.poster_path
-										? `${img_500}/${movie.poster_path}`
+										? `${img_poster}/${movie.poster_path}`
 										: unavailable
 								}
 								alt='poster'
@@ -58,31 +59,7 @@ const Card = ({
 							</div>
 						</div>
 						<div className='rating__percent'>
-							<svg>
-								<circle cx='19' cy='20' r='20'></circle>
-								<circle
-									style={{
-										stroke: `${
-											rating >= 80
-												? '#57e32c'
-												: rating <= 79 && rating >= 68
-												? '#b7dd29'
-												: rating <= 67 && rating >= 56
-												? '#ffe234'
-												: rating <= 55 && rating >= 45
-												? '#ffa534'
-												: rating <= 44 && rating >= 0
-												? '#ff4545'
-												: ''
-										}`,
-										strokeDashoffset: `calc(130 - (130 * ${Math.round(
-											rating,
-										)}) / 100)`,
-									}}
-									cx='19'
-									cy='20'
-									r='20'></circle>
-							</svg>
+							<SvgCircle rating={rating} />
 							<div className='rating__number'>
 								<h5>{Math.round(rating)}</h5>
 								<span>%</span>
@@ -101,7 +78,7 @@ const Card = ({
 						<img
 							src={
 								trailers.poster_path
-									? `${img_500}/${trailers.poster_path}`
+									? `${img_poster}/${trailers.poster_path}`
 									: unavailable
 							}
 							alt='poster'
@@ -141,7 +118,7 @@ const Card = ({
 							<img
 								src={
 									trending.poster_path
-										? `${img_500}/${trending.poster_path}`
+										? `${img_poster}/${trending.poster_path}`
 										: unavailable
 								}
 								alt='poster'
@@ -196,7 +173,7 @@ const Card = ({
 							<img
 								src={
 									search.poster_path
-										? `${img_500}/${search.poster_path}`
+										? `${img_poster}/${search.poster_path}`
 										: unavailable
 								}
 								alt='poster'
@@ -226,7 +203,7 @@ const Card = ({
 							<img
 								src={
 									search.profile_path
-										? `${img_300}/${search.profile_path}`
+										? `${img_profile}/${search.profile_path}`
 										: noProfile
 								}
 								alt='poster'
@@ -255,7 +232,7 @@ const Card = ({
 							<img
 								src={
 									search.logo_path
-										? `${img_500}/${search.logo_path}`
+										? `${img_poster}/${search.logo_path}`
 										: unavailable
 								}
 								alt='poster'
@@ -276,7 +253,7 @@ const Card = ({
 							<img
 								src={
 									search.poster_path
-										? `${img_500}/${search.poster_path}`
+										? `${img_poster}/${search.poster_path}`
 										: unavailable
 								}
 								alt='poster'
@@ -316,7 +293,7 @@ const Card = ({
 	// 						<img
 	// 							src={
 	// 								season.poster_path
-	// 									? `${img_500}/${season.poster_path}`
+	// 									? `${img_poster}/${season.poster_path}`
 	// 									: unavailable
 	// 							}
 	// 							alt='poster'
@@ -364,7 +341,7 @@ const Card = ({
 							<img
 								src={
 									castCrew.profile_path
-										? `${img_500}/${castCrew.profile_path}`
+										? `${img_poster}/${castCrew.profile_path}`
 										: noProfile
 								}
 								alt='Profile'

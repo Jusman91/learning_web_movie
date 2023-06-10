@@ -1,15 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import {
-	img_500,
-	unavailable,
-} from '../../../config/config';
+import { useParams } from 'react-router-dom';
 import './Seasons.css';
-import dayjs from 'dayjs';
 import Loading from '../../loading/Loading';
-import CardSeason from '../card/season/CardSeason';
 import ContentHeader from '../../container/header/ContentHeader';
+import CardSeason from '../../card/season/CardSeason';
 
 const Seasons = () => {
 	const [isLoading, setIsLoading] = useState(true);

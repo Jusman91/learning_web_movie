@@ -5,11 +5,11 @@ import React, {
 	useState,
 } from 'react';
 import { useParams } from 'react-router-dom';
-import ContentHeader from '../../container/header/ContentHeader';
 import './Images.css';
 import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
-import CardImages from '../card/images/CardImages';
 import List from '../../list/List';
+import CardImages from '../../card/images/CardImages';
+import ContentHeader from '../../container/header/ContentHeader';
 
 const Images = () => {
 	const params = useParams();

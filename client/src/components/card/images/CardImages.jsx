@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 import './CardImages.css';
 import { IoPlay } from 'react-icons/io5';
-import { img_poster } from '../../../../config/config';
 import { AiFillLock } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { FaCaretDown, FaCheck } from 'react-icons/fa';
+import { img_poster } from '../../../config/config';
 
 const CardImages = ({
 	type,

@@ -12,6 +12,7 @@ import {
 	MdStar,
 } from 'react-icons/md';
 import './PartTopDetails.css';
+import SvgCircle from '../../elements/SvgCircle';
 
 const PartTopDitails = ({
 	details,
@@ -38,12 +39,15 @@ const PartTopDitails = ({
 	const director = crew?.filter(
 		(f) => f.job === 'Director',
 	);
-	const writer = crew?.filter(
-		(f) =>
-			f.job === 'Story' ||
-			f.job === 'Screenplay' ||
-			f.job === 'writer',
-	);
+
+	const writer = crew?.filter((f, index, self) => {
+		return (
+			(f.job === 'Story' ||
+				f.job === 'Screenplay' ||
+				f.job === 'Writer') &&
+			self.findIndex((s) => s.name === f.name) === index
+		);
+	});
 
 	return (
 		<section className='wrapper_top_content'>
@@ -153,31 +157,7 @@ const PartTopDitails = ({
 					<ul className='items3'>
 						<li>
 							<div className='movie_rating_percent'>
-								<svg>
-									<circle cx='19' cy='20' r='20'></circle>
-									<circle
-										style={{
-											stroke: `${
-												rating >= 80
-													? '#57e32c'
-													: rating <= 79 && rating >= 68
-													? '#b7dd29'
-													: rating <= 67 && rating >= 56
-													? '#ffe234'
-													: rating <= 55 && rating >= 45
-													? '#ffa534'
-													: rating <= 44 && rating >= 0
-													? '#ff4545'
-													: ''
-											}`,
-											strokeDashoffset: `calc(130 - (130 * ${Math.round(
-												rating,
-											)}) / 100)`,
-										}}
-										cx='19'
-										cy='20'
-										r='20'></circle>
-								</svg>
+								<SvgCircle rating={rating} />
 								<div className='movie_rating_number'>
 									<h5>{Math.round(rating)}</h5>
 									<span>%</span>

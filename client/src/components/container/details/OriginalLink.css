@@ -1,0 +1,25 @@
+.movie__link {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	margin-bottom: 1.5rem;
+}
+
+.movie__btn {
+	border-radius: 10px;
+	cursor: pointer;
+	padding: 0.5rem 2rem;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: #000;
+}
+.movie__btn:hover {
+	color: #fff;
+}
+.movie__homeBtn {
+	background-color: red;
+}
+.movie__imdbBtn {
+	background-color: rgb(241, 211, 17);
+	padding: 0.5rem 3rem;
+}
