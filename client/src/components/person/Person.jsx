@@ -3,11 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './Person.css';
 import dayjs from 'dayjs';
-import {
-	img_profile,
-	noProfile,
-} from '../../config/config';
 import Card from '../card/Card';
+import { img_profile, noProfile } from '../../config/tmdb';
 
 const Person = () => {
 	const params = useParams();

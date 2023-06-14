@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Seasons.css';
 import Loading from '../../loading/Loading';
-import ContentHeader from '../../container/header/ContentHeader';
+import ContentHeader from '../../header/ContentHeader';
 import CardSeason from '../../card/season/CardSeason';
 
 const Seasons = () => {

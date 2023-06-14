@@ -8,8 +8,8 @@ import { useParams } from 'react-router-dom';
 import './Images.css';
 import TrailerPlayer from '../movie_list/trailers/TrailerPlayer';
 import List from '../../list/List';
+import ContentHeader from '../../header/ContentHeader';
 import CardImages from '../../card/images/CardImages';
-import ContentHeader from '../../container/header/ContentHeader';
 
 const Images = () => {
 	const params = useParams();

@@ -8,12 +8,12 @@ import {
 import { BsFillArrowDownCircleFill } from 'react-icons/bs';
 import dayjs from 'dayjs';
 import './DetailsTvSeason.css';
+import CardDetailsTvSeason from '../../../card/season/CardDetailsTvSeason';
+import Card from '../../../card/Card';
 import {
 	img_poster,
 	unavailable,
-} from '../../../../config/config';
-import CardDetailsTvSeason from '../../../card/season/CardDetailsTvSeason';
-import Card from '../../../card/Card';
+} from '../../../../config/tmdb';
 
 const DetailsTvSeason = () => {
 	const [dataTvSeason, setDataTvSeason] = useState([]);

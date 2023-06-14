@@ -1,0 +1,189 @@
+.wrapper_hero {
+	width: 100%;
+	height: calc(100vh - 80px);
+	position: relative;
+	margin-bottom: 2rem;
+}
+.wrapper_hero .movie_backdrop {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.wrapper_hero .overlay_hero {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(10, 19, 19, 0.6);
+}
+
+.posterImage {
+	position: relative;
+	width: 100%;
+	height: 90vh;
+}
+.posterImage img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.hero__overlay {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+}
+.posterImage__overlay {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 4rem;
+	padding: 4rem 9rem;
+}
+.overlay__left .posterImage__title {
+	font-size: 3rem;
+	font-weight: 700;
+	color: rgb(21, 137, 255);
+	line-height: 45px;
+	margin-bottom: 2rem;
+}
+.overlay__left .posterImage__runtime {
+	position: relative;
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+.overlay__left .posterImage__ratings {
+	display: flex;
+	position: relative;
+}
+.overlay__left .posterImage__ratings .rating {
+	position: absolute;
+	left: 43%;
+	bottom: 23%;
+	font-size: 1rem;
+}
+.overlay__left .posterImage__ratings .rating span {
+	font-size: 0.7rem;
+}
+.overlay__left .posterImage__description {
+	text-align: justify;
+	font-style: italic;
+	font-size: 1.1rem;
+	margin-top: 1rem;
+}
+.overlay__left .posterImage__icons {
+	display: flex;
+	font-size: 4rem;
+	text-decoration: none;
+}
+.overlay__left .posterImage__icons .details__icon {
+	color: rgb(21, 137, 255);
+}
+.overlay__left .posterImage__icons .trailers__icon {
+	color: rgb(234, 14, 14);
+	padding-top: 0.15rem;
+	cursor: pointer;
+}
+.overlay__right .__items {
+	width: 300px;
+	height: 400px;
+}
+.overlay__right .__items img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 20px;
+	box-shadow: 5px 5px 5px rgba(21, 137, 255, 0.1),
+		15px 15px 15px rgba(21, 137, 255, 0.1),
+		20px 20px 20px rgba(21, 137, 255, 0.1),
+		30px 30px 30px rgba(21, 137, 255, 0.1);
+}
+
+/* componet hero style on home page */
+.container__hero {
+	position: relative;
+	width: 100%;
+}
+.container__hero img {
+	width: 100%;
+	height: 100vh;
+	object-fit: cover;
+	object-position: top;
+}
+.container__hero .overlay {
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	background-color: rgba(30, 30, 30, 0.7);
+}
+.container__hero .overlay .text__hero {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+.container__hero .overlay .text__hero h1 {
+	font-size: 2rem;
+	color: rgba(255, 255, 255, 0.85);
+}
+.container__hero .overlay .text__hero span {
+	font-size: 2.2rem;
+	color: rgba(255, 255, 255, 0.85);
+	text-transform: uppercase;
+}
+
+.container__hero .overlay .logo__text .logo__text__s {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 12rem;
+	background: linear-gradient(
+		90deg,
+		#ff0000,
+		#ffff00,
+		#ff0099,
+		#0099ff,
+		#ff0033
+	);
+	background-size: 400%;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	animation: animate 30s linear infinite;
+}
+.container__hero .overlay .logo__text .logo__text__3 {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 6rem;
+	font-weight: 600;
+	background: linear-gradient(
+		90deg,
+		#ff0000,
+		#ffff00,
+		#ff0099,
+		#0099ff,
+		#ff0033
+	);
+	background-size: 400%;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	animation: animate 60s linear infinite;
+}
+
+@keyframes animate {
+	0% {
+		background-position: 0%;
+	}
+	100% {
+		background-position: 400%;
+	}
+}

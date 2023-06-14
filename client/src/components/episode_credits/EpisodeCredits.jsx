@@ -4,10 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './EpisodeCredits.css';
 import Card from '../card/Card';
-import {
-	img_poster,
-	unavailable,
-} from '../../config/config';
+import { img_poster, unavailable } from '../../config/tmdb';
 
 const EpisodeCredits = () => {
 	const [dataTvEpisode, setDataTvEpisode] = useState([]);

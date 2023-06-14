@@ -6,8 +6,8 @@ import React, {
 } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './UserReviews.css';
+import ContentHeader from '../../header/ContentHeader';
 import CardReviews from '../../card/reviews/CardReviews';
-import ContentHeader from '../../container/header/ContentHeader';
 
 export const UserReviews = () => {
 	const [reviews, setReviews] = useState([]);

@@ -1,16 +1,11 @@
 import axios from 'axios';
 import { GiStarMedal } from 'react-icons/gi';
 import { AiTwotoneLike } from 'react-icons/ai';
-import {
-	IoIosArrowBack,
-	IoIosArrowForward,
-} from 'react-icons/io';
 import { MdUpcoming } from 'react-icons/md';
 import { RiSlideshow2Fill } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
-import AliceCarousel from 'react-alice-carousel';
 import './HomeList.css';
-import Card from '../../../card/Card';
+import Carousel from '../../../carousel/Carousel';
 
 const HomeList = ({ mediaType, listCategory }) => {
 	const [movieList, setMovieList] = useState([]);
@@ -20,71 +15,25 @@ const HomeList = ({ mediaType, listCategory }) => {
 		setCategorys(value);
 	};
 
-	const getMovies = async () => {
-		try {
-			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${mediaType}/${categorys}?api_key=${process.env.REACT_APP_APIKEY}&page=1`,
-			);
-			const results = response.data.results;
-			setMovieList(results);
-		} catch (err) {
-			console.error(err, '<=== MOVIES coba lagi boss ===>');
-		}
-	};
-
-	const renderNextButton = () => {
-		return (
-			<IoIosArrowForward
-				style={{
-					position: 'absolute',
-					right: '-2%',
-					top: '35%',
-					fontSize: '40px',
-					cursor: 'pointer',
-				}}
-			/>
-		);
-	};
-
-	const renderPrevButton = () => {
-		return (
-			<IoIosArrowBack
-				style={{
-					position: 'absolute',
-					left: '-2%',
-					top: '35%',
-					fontSize: '40px',
-					cursor: 'pointer',
-				}}
-			/>
-		);
-	};
-
-	const items = movieList.map((movie, index) => {
-		let name = movie.original_title || movie.name;
-		name = name.replace(/\s+/g, '-').toLowerCase();
-		const url = `/details/${mediaType}/${`${
-			movie.id
-		}${'-'}${name}`}`;
-		return <Card key={index} movie={movie} link={url} />;
-	});
-
-	const responsive = {
-		0: {
-			items: 1,
-		},
-		512: {
-			items: 3,
-		},
-		1024: {
-			items: 4,
-		},
-	};
-
 	useEffect(() => {
+		const getMovies = async () => {
+			try {
+				const response = await axios.get(
+					`${process.env.REACT_APP_BASEURL}/${mediaType}/${categorys}?api_key=${process.env.REACT_APP_APIKEY}&page=1`,
+				);
+				const results = response.data.results;
+				setMovieList(results);
+			} catch (err) {
+				console.error(
+					err,
+					'<=== MOVIES coba lagi boss ===>',
+				);
+			}
+		};
+
 		getMovies();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [categorys]);
+	}, [categorys, mediaType]);
+
 	return (
 		<>
 			<div className='container__main__content'>
@@ -167,15 +116,10 @@ const HomeList = ({ mediaType, listCategory }) => {
 				</div>
 			</div>
 			<div className='container__slider'>
-				{movieList && movieList.length > 0 ? (
-					<AliceCarousel
-						animationDuration={600}
-						mouseTracking
-						disableDotsControls
-						renderNextButton={renderNextButton}
-						renderPrevButton={renderPrevButton}
-						responsive={responsive}
-						items={items}
+				{movieList ? (
+					<Carousel
+						data={movieList}
+						_media_type={mediaType}
 					/>
 				) : (
 					<h2>Movies Not Found</h2>

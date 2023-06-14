@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import '../card/Card.css';
 import { IoPlay } from 'react-icons/io5';
+import SvgCircle from '../elements/SvgCircle';
 import {
 	img_poster,
 	img_profile,
 	noProfile,
 	unavailable,
-} from '../../config/config';
-import SvgCircle from '../elements/SvgCircle';
+} from '../../config/tmdb';
 
 const Card = ({
 	movie,
@@ -21,145 +21,6 @@ const Card = ({
 	title,
 	castCrew,
 }) => {
-	if (movie) {
-		const rating = movie.vote_average * 10;
-		return (
-			<>
-				<Link to={link}>
-					<div></div>
-					<div className='card'>
-						<div className='poster'>
-							<img
-								src={
-									movie.poster_path
-										? `${img_poster}/${movie.poster_path}`
-										: unavailable
-								}
-								alt='poster'
-							/>
-						</div>
-						<div className='card__details'>
-							<div className='card__title'>
-								{movie.original_title || movie.name}
-							</div>
-							<div className='card__runtime'>
-								<h5>
-									{movie.release_date ||
-										movie.first_air_date}
-								</h5>
-							</div>
-							<div className='card__language'>
-								Language:{' '}
-								<span>{movie.original_language}</span>
-							</div>
-							<div className='card__description'>
-								{movie.overview?.length > 0
-									? movie.overview.slice(0, 125) + '...'
-									: "We don't have an overview translated in English. Help us expand our database by adding one."}
-							</div>
-						</div>
-						<div className='rating__percent'>
-							<SvgCircle rating={rating} />
-							<div className='rating__number'>
-								<h5>{Math.round(rating)}</h5>
-								<span>%</span>
-							</div>
-						</div>
-					</div>
-				</Link>
-			</>
-		);
-	}
-	if (trailers) {
-		return (
-			<>
-				<div className='trailers__card'>
-					<div className='trailers__poster'>
-						<img
-							src={
-								trailers.poster_path
-									? `${img_poster}/${trailers.poster_path}`
-									: unavailable
-							}
-							alt='poster'
-						/>
-					</div>
-					<div className='btn__play__trailers'>
-						<IoPlay
-							onClick={() => selectMovie(trailers)}
-							className='play__icon'
-						/>
-					</div>
-				</div>
-				<div className='trailers__details'>
-					<div className='trailers__title'>
-						{trailers.original_title || trailers.name}
-					</div>
-				</div>
-			</>
-		);
-	}
-	if (trending) {
-		const rating = trending.vote_average * 10;
-		const id = trending.id;
-		const media_type = trending.media_type
-			? trending.media_type
-			: trending.type
-			? trending.type
-			: mediaType;
-		let name = trending.original_title || trending.name;
-		name = name.replace(/\s+/g, '-').toLowerCase();
-		const url = `/details/${media_type}/${`${id}${'-'}${name}`}`;
-		return (
-			<>
-				<Link to={url}>
-					<div className='trending__card'>
-						<div className='trending__poster'>
-							<img
-								src={
-									trending.poster_path
-										? `${img_poster}/${trending.poster_path}`
-										: unavailable
-								}
-								alt='poster'
-							/>
-						</div>
-						<div className='rating__percent'>
-							<svg>
-								<circle cx='20' cy='20' r='20'></circle>
-								<circle
-									style={{
-										stroke: `${
-											rating >= 80
-												? '#57e32c'
-												: rating <= 79 && rating >= 68
-												? '#b7dd29'
-												: rating <= 67 && rating >= 56
-												? '#ffe234'
-												: rating <= 55 && rating >= 45
-												? '#ffa534'
-												: rating <= 44 && rating >= 1
-												? '#ff4545'
-												: ''
-										}`,
-										strokeDashoffset: `calc(130 - (130 * ${Math.round(
-											rating,
-										)}) / 100)`,
-									}}
-									cx='20'
-									cy='20'
-									r='20'></circle>
-							</svg>
-							<div className='rating__number'>
-								<h5>{Math.round(rating)}</h5>
-								<span>%</span>
-							</div>
-						</div>
-					</div>
-				</Link>
-			</>
-		);
-	}
 	if (search) {
 		const id = search.id;
 		let name = search.original_title || search.name;

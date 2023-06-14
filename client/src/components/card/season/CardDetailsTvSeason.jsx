@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
 	img_poster,
 	unavailable,
-} from '../../../config/config';
+} from '../../../config/tmdb';
 
 const CardDetailsTvSeason = ({ episodes }) => {
 	const toHoursAndMinutes = (totalMinutes) => {

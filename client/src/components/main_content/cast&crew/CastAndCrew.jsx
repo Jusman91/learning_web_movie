@@ -5,11 +5,11 @@ import dayjs from 'dayjs';
 import './CastAndCrew.css';
 import Loading from '../../loading/Loading';
 import Pagiantion from '../pagination/Pagiantion';
+import Card from '../../card/Card';
 import {
 	img_poster,
 	unavailable,
-} from '../../../config/config';
-import Card from '../../card/Card';
+} from '../../../config/tmdb';
 
 const CastAndCrew = () => {
 	const [isLoading, setIsLoading] = useState(true);

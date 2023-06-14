@@ -45,6 +45,7 @@
 .trailer_btn:hover {
 	color: rgb(234, 14, 14);
 }
+
 .wrap_titleVideos {
 	position: absolute;
 	top: -7%;
@@ -53,6 +54,12 @@
 	display: flex;
 	justify-content: space-between;
 	padding: 0 0.5rem;
+}
+.wrap_titleVideos h2 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: max-content;
 }
 .btn_t {
 	position: absolute;

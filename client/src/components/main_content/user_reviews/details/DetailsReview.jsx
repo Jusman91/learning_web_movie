@@ -5,9 +5,9 @@ import React, {
 	useState,
 } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { img_poster } from '../../../../config/config';
 import './DetailsReview.css';
 import dayjs from 'dayjs';
+import { img_poster } from '../../../../config/tmdb';
 
 const DetailsReview = () => {
 	const [reviews, setReviews] = useState({});

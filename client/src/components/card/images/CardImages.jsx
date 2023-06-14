@@ -4,7 +4,7 @@ import { IoPlay } from 'react-icons/io5';
 import { AiFillLock } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { FaCaretDown, FaCheck } from 'react-icons/fa';
-import { img_poster } from '../../../config/config';
+import { img_poster } from '../../../config/tmdb';
 
 const CardImages = ({
 	type,

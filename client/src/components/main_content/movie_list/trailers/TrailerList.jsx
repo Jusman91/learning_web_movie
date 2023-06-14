@@ -7,8 +7,7 @@ import {
 } from 'react-icons/md';
 import YouTube from 'react-youtube';
 import { useEffect, useState } from 'react';
-import AliceCarousel from 'react-alice-carousel';
-import Card from '../../../card/Card';
+import Carousel from '../../../carousel/Carousel';
 
 const TrailerList = () => {
 	const [dataTrailers, setDataTrailers] = useState([]);
@@ -20,18 +19,6 @@ const TrailerList = () => {
 	const handleSet = (cate, media) => {
 		setMediaType(media);
 		setCategorys(cate);
-	};
-
-	const responsive = {
-		0: {
-			items: 1,
-		},
-		676: {
-			items: 2,
-		},
-		900: {
-			items: 3,
-		},
 	};
 
 	const fetchData = async () => {
@@ -154,26 +141,11 @@ const TrailerList = () => {
 					/>
 				) : null}
 
-				{dataTrailers && dataTrailers.length > 0 ? (
-					<AliceCarousel
-						autoPlay={true}
-						autoPlayInterval={3000}
-						infinite={true}
-						touchMoveDefaultEvents={false}
-						touchTracking={false}
-						mouseTracking
-						disableDotsControls
-						disableButtonsControls
-						responsive={responsive}>
-						{dataTrailers &&
-							dataTrailers?.map((movie, index) => (
-								<Card
-									key={index}
-									trailers={movie}
-									selectMovie={selectTrailers}
-								/>
-							))}
-					</AliceCarousel>
+				{dataTrailers ? (
+					<Carousel
+						trailers={dataTrailers}
+						selectMovie={selectTrailers}
+					/>
 				) : (
 					<h2>Movies Not Found</h2>
 				)}

@@ -3,7 +3,7 @@ import './CardProfile.css';
 import {
 	img_profile,
 	noProfile,
-} from '../../../config/config';
+} from '../../../config/tmdb';
 
 const CardProfile = ({ profile }) => {
 	const replaceSeparator = (v) => {

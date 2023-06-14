@@ -7,7 +7,7 @@ import './CardReviews.css';
 import {
 	img_avatar,
 	noProfile,
-} from '../../../config/config';
+} from '../../../config/tmdb';
 
 const CardReviews = ({ link, reviews }) => {
 	const regex = /https:\/\/\S+/g;
@@ -17,8 +17,8 @@ const CardReviews = ({ link, reviews }) => {
 	const air_date = dayjs(reviews?.created_at).format(
 		'MMM D, YYYY',
 	);
-	const vote_average = reviews.author_details.rating
-		? reviews.author_details.rating
+	const vote_average = reviews.author_details?.rating
+		? reviews.author_details?.rating
 		: '0';
 	function getVoteAverageColor(vote_average) {
 		let color = '';
@@ -77,7 +77,7 @@ const CardReviews = ({ link, reviews }) => {
 					</p>
 				</div>
 				<div className='synopsis teaser'>
-					{reviews.content.length > 600 ? (
+					{reviews.content?.length > 600 ? (
 						<p>
 							{`${reviews?.content.slice(0, 601)}... `}
 							<Link to={`/review/${reviews?.id}`}>

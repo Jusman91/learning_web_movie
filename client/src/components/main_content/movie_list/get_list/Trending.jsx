@@ -9,7 +9,8 @@ import YouTube from 'react-youtube';
 import UseGenres from '../../../../hooks/UseGenres';
 import Loading from '../../../loading/Loading';
 import Card from '../../../card/Card';
-import HeroContainer from '../../../container/header/hero/HeroContainer';
+import HeroContainer from '../../../header/hero/HeroContainer';
+import CardTrending from '../../../card/trending/CardTrending';
 
 const Trending = ({ mediaType }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -148,10 +149,10 @@ const Trending = ({ mediaType }) => {
 						/>
 						<div className='wrapper__trending__movies'>
 							{data &&
-								data?.map((movie) => (
-									<Card
+								data.map((movie) => (
+									<CardTrending
 										key={movie.id}
-										trending={movie}
+										data={movie}
 										mediaType={mediaType}
 									/>
 								))}

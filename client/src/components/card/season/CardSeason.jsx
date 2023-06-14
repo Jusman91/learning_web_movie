@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-	img_poster,
-	noPoster,
-} from '../../../config/config';
 import dayjs from 'dayjs';
 import './CardSeason.css';
+import { img_poster, noPoster } from '../../../config/tmdb';
 
 const CardSeason = ({ season, title, link }) => {
 	const air_date = dayjs(season?.air_date).format(
