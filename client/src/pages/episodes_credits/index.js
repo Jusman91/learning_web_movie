@@ -1,5 +1,5 @@
 import React from 'react'
-import EpisodeCredits from '../../components/episode_credits/EpisodeCredits'
+import EpisodeCredits from '../../components/main_content/episode_credits/EpisodeCredits'
 
 const EpisodesCredits = () => {
   return (

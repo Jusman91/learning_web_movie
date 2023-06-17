@@ -5,7 +5,7 @@ export const setDataDetails = (_media_type, id) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
       const response = await axios.get(
-        `${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=credits,reviews,videos,images,similar,recommendations`
+        `${process.env.REACT_APP_BASEURL}/${_media_type}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=credits,reviews,videos,images,similar,recommendations,watch/providers`
       );
       const results = response.data;
       const credits = results.credits.crew;

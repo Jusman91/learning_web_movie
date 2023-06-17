@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/loading/Loading";
-import Hero from "../../components/header/hero/Hero";
+import DetailsHero from '../../components/header/hero/DetailsHero';
 import PartTopDitails from "../../components/main_content/details/PartTopDetails";
-import TrailerPlayer from "../../components/main_content/movie_list/trailers/TrailerPlayer";
 import Credits from "../../components/main_content/credits/Credits";
 import PartMiddleDetails from "../../components/main_content/details/PartMiddleDetails";
 import PartBottom from "../../components/main_content/details/PartBottom";
 import './index.css';
 import { resetDetailsState, setDataDetails } from "../../config/redux/action";
+import { TrailerPlayer } from "../../components/main_content/movie_list";
 
 const MovieDetails = () => {
   const params = useParams();
@@ -34,10 +34,10 @@ const MovieDetails = () => {
         <Loading type='component' />
       ) : (
         <section className='container_details'>
-          <Hero />
+          <DetailsHero />
           <div className='top'>
             <PartTopDitails />
-            {playMediaInHero && <TrailerPlayer inHero />}
+            {playMediaInHero && <TrailerPlayer Hero />}
           </div>
           <div className='middle'>
             <Credits id={id} _media_type={_media_type} />

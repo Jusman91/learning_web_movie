@@ -18,12 +18,6 @@ const CardTrending = ({ data, mediaType }) => {
 	const id = data.id;
 	const _media_type =
 		data.media_type || data.type || mediaType;
-
-	// const media_type = data.media_type
-	// 	? data.media_type
-	// 	: data.type
-	// 	? data.type
-	// 	: mediaType;
 	let name = data.original_title || data.name;
 	name = name.replace(/\s+/g, '-').toLowerCase();
 	const url = `/details/${_media_type}/${`${id}${'-'}${name}`}`;
@@ -44,8 +38,8 @@ const CardTrending = ({ data, mediaType }) => {
 					<div className='rating__percent'>
 						<SvgCircle rating={rating} />
 						<div className='rating__number'>
-							<h5>{rating}</h5>
-							<span>%</span>
+							<h5>{rating !== 0 ? rating : 'NR'}</h5>
+							<span>{rating !== 0 ? '%' : ''}</span>
 						</div>
 					</div>
 				</div>

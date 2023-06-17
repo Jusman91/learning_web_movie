@@ -9,7 +9,7 @@ const PartBottom = ({ _media_type }) => {
 	return (
 		<>
 			<OriginalLink />
-			{similarMovies && (
+			{similarMovies.length > 0 && (
 				<div className='wrap_content'>
 					<h3>Similar Movies</h3>
 					<Carousel
@@ -18,7 +18,7 @@ const PartBottom = ({ _media_type }) => {
 					/>
 				</div>
 			)}
-			{recommendationMovies && (
+			{recommendationMovies.length > 0 && (
 				<div className='wrap_content'>
 					<h3>Recommendations</h3>
 					<Carousel

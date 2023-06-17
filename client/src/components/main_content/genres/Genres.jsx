@@ -42,6 +42,7 @@ const Genres = ({
 			);
 			const results = response.data.genres;
 			setGenres(results);
+			console.log(results);
 		} catch (err) {
 			console.error(err, 'Data Genres gagal');
 		}
@@ -54,6 +55,7 @@ const Genres = ({
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	return (
 		<>
 			<div className='container__genres'>

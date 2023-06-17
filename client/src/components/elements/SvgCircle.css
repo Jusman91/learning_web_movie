@@ -1,0 +1,21 @@
+.svgRating {
+	width: 100px;
+	height: 100px;
+}
+.svgRating circle {
+	width: 100px;
+	height: 100px;
+	fill: rgb(13, 39, 39);
+	stroke-width: 3;
+	stroke: rgba(25, 25, 25, 0.8);
+	transform: translate(5px, 5px);
+	stroke-dasharray: 125;
+	stroke-dashoffset: 125;
+	stroke-linecap: round;
+	transform: rotate(-90deg);
+	transform-origin: 25% 20%;
+}
+.svgRating circle:nth-child(1) {
+	stroke-dashoffset: 0;
+	stroke: rgba(25, 25, 25, 0.8);
+}

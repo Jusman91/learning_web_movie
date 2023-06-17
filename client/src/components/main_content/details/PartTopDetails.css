@@ -33,7 +33,8 @@
 }
 .movie_detailRight {
 	display: flex;
-	flex-wrap: wrap;
+	justify-content: center;
+	flex-direction: column;
 	align-items: flex-start;
 	align-content: center;
 	gap: 1.5rem;
@@ -119,7 +120,7 @@
 	width: 50px;
 	height: 50px;
 }
-.movie_rating_percent svg {
+/* .movie_rating_percent svg {
 	width: 100px;
 	height: 100px;
 }
@@ -136,7 +137,7 @@
 .movie_rating_percent svg circle:nth-child(1) {
 	stroke-dashoffset: 0;
 	stroke: rgba(25, 25, 25, 0.8);
-}
+} */
 .movie_rating_percent .movie_rating_number {
 	position: absolute;
 	color: #fff;

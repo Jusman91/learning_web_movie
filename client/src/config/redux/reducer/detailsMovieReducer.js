@@ -78,7 +78,8 @@ const detailsMovieReducer = (state = initialState, action) => {
       return {
         ...state,
         media: initialState.media,
-      };
+        onScrolled: initialState.onScrolled
+      }
     default:
       return state
   }

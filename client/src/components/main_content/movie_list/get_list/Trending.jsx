@@ -2,15 +2,20 @@ import axios from 'axios';
 import './Trending.css';
 import { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import AliceCarousel from 'react-alice-carousel';
 import Genres from '../../genres/Genres';
 import Pagination from '../../pagination/Pagiantion';
 import YouTube from 'react-youtube';
 import UseGenres from '../../../../hooks/UseGenres';
 import Loading from '../../../loading/Loading';
-import Card from '../../../card/Card';
-import HeroContainer from '../../../header/hero/HeroContainer';
 import CardTrending from '../../../card/trending/CardTrending';
+import Carousel from '../../../carousel/Carousel';
+// import TrailerPlayer from '../trailers/TrailerPlayer';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	setPlayMedia,
+	setPlayMediaInHero,
+	setTitleVideos,
+} from '../../../../config/redux/action';
 
 const Trending = ({ mediaType }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -22,12 +27,18 @@ const Trending = ({ mediaType }) => {
 	const [genres, setGenres] = useState([]);
 	const [selectedGenres, setSelectedGenres] = useState([]);
 	const genreforURL = UseGenres(selectedGenres);
+	const [filteredData, setFilteredData] = useState([]);
+	const dispatch = useDispatch();
+
+	const { playMedia } = useSelector(
+		(state) => state.trailersReducer,
+	);
 
 	const getData = async () => {
 		setIsLoading(true);
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/discover/${mediaType}?api_key=${process.env.REACT_APP_APIKEY}&page=${page}&with_genres=&language=en-US&with_genres=${genreforURL}`,
+				`${process.env.REACT_APP_BASEURL}/discover/${mediaType}?api_key=${process.env.REACT_APP_APIKEY}&page=${page}&language=en-US&with_genres=${genreforURL}&watch_region=ID&with_watch_monetization_types=free&sort_by=vote_average.desc`,
 			);
 			const results = response.data.results;
 			setData(results);
@@ -41,45 +52,37 @@ const Trending = ({ mediaType }) => {
 		}, 1500);
 	};
 
-	const getTrailers = async (id) => {
-		try {
-			const response = await axios.get(
-				`${process.env.REACT_APP_BASEURL}/${mediaType}/${id}?api_key=${process.env.REACT_APP_APIKEY}&append_to_response=videos`,
+	const sortData = (data) => {
+		return data.sort(
+			(a, b) => b.vote_average - a.vote_average,
+		);
+	};
+	// const getData = async () => {
+	// 	try {
+	// 		const response = await axios.get(
+	// 			`${process.env.REACT_APP_BASEURL}/movie/popular?api_key=${process.env.REACT_APP_APIKEY}&page=${page}&language=en-US&with_genres=${genreforURL}&sort_by=vote_average.asc`,
+	// 		);
+	// 		const results = response.data.results;
+	// 		setData(results);
+	// 		setPageNum(response.data.total_pages);
+	// 	} catch (err) {
+	// 		console.error(err, '<=== MOVIES coba lagi boss ===>');
+	// 	}
+	// };
+
+	const filterDataByGenre = (data, genreIds) => {
+		return data.filter((item) => {
+			return item.genre_ids.some(
+				(genreId) =>
+					Array.isArray(genreIds) &&
+					genreIds.includes(genreId),
 			);
-			setSelectMovie(response.data);
-		} catch (err) {
-			console.error(err, 'getTrailers error');
-		}
+		});
 	};
 
-	const playTrailers = async (video) => {
-		await getTrailers(video.id);
-		setPlayTrailer(true);
-	};
-
-	const randerTrailer = () => {
-		const trailer = selectMovie.videos.results.find(
-			(v) => v.name === 'Official Trailer',
-		);
-		const key = trailer
-			? trailer.key
-			: selectMovie.videos.results[0].key;
-		return (
-			<YouTube
-				videoId={key}
-				className={'trailer'}
-				opts={{
-					width: '100%',
-					height: '100%',
-					playerVars: {
-						autoplay: 1,
-						controls: 1,
-						origin: 'http://localhost:3000',
-					},
-				}}
-			/>
-		);
-	};
+	// const filterData = filterDataByGenre(data, genreforURL);
+	console.log('selected genres', selectedGenres);
+	console.log('genres', genres);
 
 	useEffect(() => {
 		getData();
@@ -93,82 +96,67 @@ const Trending = ({ mediaType }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [page, genreforURL]);
 
+	useEffect(() => {
+		const filteredData = filterDataByGenre(
+			data,
+			genreforURL,
+		);
+		setFilteredData(filteredData);
+	}, [data, genreforURL]);
+
+	console.log('filter', filteredData);
+
 	const handleClick = (number) => {
 		setPage(number);
 	};
-	console.log(data);
+
+	console.log('data', data);
+	console.log('PlayMedia', setPlayMediaInHero);
+	console.log('selec', selectMovie);
 	return (
 		<>
-			{isLoading ? (
+			{/* {isLoading ? (
 				<Loading type='component' />
-			) : (
-				<div className='container__trending'>
-					<div className='trending__hero'>
-						{selectMovie.videos && palayTrailer
-							? randerTrailer()
-							: null}
-						{palayTrailer ? (
-							<MdClose
-								type='button'
-								onClick={() => setPlayTrailer(false)}
-								className='close__tranding__trailer'
-							/>
-						) : null}
-						<AliceCarousel
-							disableDotsControls
-							disableButtonsControls
-							autoPlay={true}
-							autoPlayInterval={3000}
-							animationDuration={1000}
-							infinite={true}
-							mouseTracking={true}>
-							{data &&
-								data?.map((movie, index) => (
-									<HeroContainer
-										key={index}
-										hero={movie}
-										// poster={movie}
-										selectTrailers={playTrailers}
-										mediaType={mediaType}
-									/>
-								))}
-						</AliceCarousel>
-					</div>
-					<div className='container__trending__movies'>
-						<div className='trending__title'>
-							<h2>trending {mediaType}</h2>
-							<span>find your genres {mediaType}</span>
-						</div>
-						<Genres
-							type={mediaType}
-							selectedGenres={selectedGenres}
-							setSelectedGenres={setSelectedGenres}
-							genres={genres}
-							setGenres={setGenres}
-							setPage={setPage}
-						/>
-						<div className='wrapper__trending__movies'>
-							{data &&
-								data.map((movie) => (
-									<CardTrending
-										key={movie.id}
-										data={movie}
-										mediaType={mediaType}
-									/>
-								))}
-						</div>
-						{pageNum && pageNum > 1 ? (
-							<Pagination
-								handleClick={handleClick}
-								pageNum={pageNum}
-								activenum={page}
-							/>
-						) : (
-							''
-						)}
-					</div>
+			) : ( */}
+			<div className='container__trending'>
+				<div className='trending__hero'>
+					<Carousel hero={data} _media_type={mediaType} />
 				</div>
-			)}
+				<div className='container__trending__movies'>
+					<div className='trending__title'>
+						<h2>trending {mediaType}</h2>
+						<span>find your genres {mediaType}</span>
+					</div>
+					<Genres
+						type={mediaType}
+						selectedGenres={selectedGenres}
+						setSelectedGenres={setSelectedGenres}
+						genres={genres}
+						setGenres={setGenres}
+						setPage={setPage}
+					/>
+					<div className='wrapper__trending__movies'>
+						{data &&
+							data.map((movie) => (
+								<CardTrending
+									key={movie.id}
+									data={movie}
+									mediaType={mediaType}
+								/>
+							))}
+					</div>
+					{pageNum && pageNum > 1 ? (
+						<Pagination
+							handleClick={handleClick}
+							pageNum={pageNum}
+							activenum={page}
+						/>
+					) : (
+						''
+					)}
+				</div>
+			</div>
+			{/* )} */}
 		</>
 	);
 };

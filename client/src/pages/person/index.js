@@ -1,5 +1,5 @@
 import React from 'react'
-import Person from '../../components/person/Person'
+import Person from '../../components/main_content/person/Person'
 
 const DetailsPerson = () => {
   return (

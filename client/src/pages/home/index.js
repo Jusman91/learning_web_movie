@@ -1,7 +1,6 @@
 import { useEffect } from "react"
-import TrailerList from "../../components/main_content/movie_list/trailers/TrailerList"
-import HomeList from "../../components/main_content/movie_list/get_list/HomeList"
-import HeroContainer from "../../components/header/hero/HeroContainer"
+import Hero from "../../components/header/hero/Hero"
+import { FreeToWatch, Popular, TrailerList, Trending } from "../../components/main_content/movie_list"
 
 const Home = () => {
 
@@ -11,10 +10,11 @@ const Home = () => {
 
   return (
     <>
-      <HeroContainer />
-      <HomeList mediaType={'movie'} listCategory={'Up Coming'} />
+      <Hero />
+      <Trending />
       <TrailerList />
-      <HomeList mediaType={'tv'} listCategory={'Airing Today'} />
+      <Popular />
+      <FreeToWatch />
     </>
   )
 }

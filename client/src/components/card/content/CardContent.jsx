@@ -10,6 +10,7 @@ const CardContent = ({
 	link,
 	trailers,
 	selectMovie,
+	onImageSelect,
 }) => {
 	const getRoundedRating = () => {
 		const voteAverage = data?.vote_average;
@@ -36,9 +37,9 @@ const CardContent = ({
 						/>
 					</div>
 					<div className='card__details'>
-						<h3 className='card__title'>
+						<h4 className='card__title'>
 							{data?.original_title || data?.name}
-						</h3>
+						</h4>
 						<div className='card__runtime'>
 							<h5>
 								{data?.release_date || data?.first_air_date}
@@ -52,8 +53,8 @@ const CardContent = ({
 					<div className='rating__percent'>
 						<SvgCircle rating={rating} />
 						<div className='rating__number'>
-							<h5>{rating}</h5>
-							<span>%</span>
+							<h5>{rating !== 0 ? rating : 'NR'}</h5>
+							<span>{rating !== 0 ? '%' : ''}</span>
 						</div>
 					</div>
 				</div>
@@ -62,9 +63,14 @@ const CardContent = ({
 	}
 
 	if (trailers) {
+		const handleMouseEnter = () => {
+			onImageSelect(trailers.poster_path);
+		};
 		return (
 			<>
-				<div className='trailers__card'>
+				<div
+					className='trailers__card'
+					onMouseEnter={handleMouseEnter}>
 					<div className='trailers__poster'>
 						<img
 							src={

@@ -3,7 +3,7 @@ import './TrailerPlayer.css';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
-const TrailerPlayer = ({ inHero }) => {
+const TrailerPlayer = ({ Hero, trailers }) => {
 	const dispatch = useDispatch();
 	const { currentDetails } = useSelector(
 		(state) => state.detailsMovieReducer,
@@ -22,29 +22,55 @@ const TrailerPlayer = ({ inHero }) => {
 			payload: value,
 		});
 	};
-	const keyVideosInHero =
-		currentDetails?.videos.results.find(
-			(vid) => vid.name === 'Official Trailer',
-		)
-			? currentDetails.videos.results.find(
-					(vid) => vid.name === 'Official Trailer',
-			  ).key
-			: currentDetails?.videos.results[0].key;
 
-	const tiltelVideosInHero =
-		currentDetails?.videos.results.find(
-			(vid) => vid.name === 'Official Trailer',
-		)
-			? currentDetails.videos.results.find(
-					(vid) => vid.name === 'Official Trailer',
-			  ).name
-			: currentDetails?.videos.results[0].name;
+	const keyVideoIn = (params) => {
+		const trailer = params.videos?.results.find(
+			(v) => v.name === 'Official Trailer',
+		);
+
+		const key = trailer
+			? trailer?.key
+			: params.videos?.results[0]?.key;
+
+		return key;
+	};
+	const titleVideoIn = (params) => {
+		const trailer = params.videos?.results.find(
+			(v) => v.name === 'Official Trailer',
+		);
+
+		const title = trailer
+			? trailer?.name
+			: params.videos?.results[0]?.name;
+
+		return title;
+	};
+
+	const videoId = () => {
+		if (Hero) {
+			return keyVideoIn(currentDetails);
+		} else if (trailers) {
+			return keyVideoIn(trailers);
+		} else {
+			return keyVideos;
+		}
+	};
+	const videoTitle = () => {
+		if (Hero) {
+			return titleVideoIn(currentDetails);
+		} else if (trailers) {
+			return titleVideoIn(trailers);
+		} else {
+			return titleVideos;
+		}
+	};
+
 	return (
 		<div className='modal_bg'>
 			<div className='container_modal'>
 				<YouTube
 					className='trailer'
-					videoId={inHero ? keyVideosInHero : keyVideos}
+					videoId={videoId()}
 					opts={{
 						width: '100%',
 						height: '100%',
@@ -55,14 +81,13 @@ const TrailerPlayer = ({ inHero }) => {
 					}}
 				/>
 				<div className='wrap_titleVideos'>
-					<h2>
-						{inHero ? tiltelVideosInHero : titleVideos}
-					</h2>
+					<h2>{videoTitle()}</h2>
 					<button
 						className='btn_t'
 						onClick={() => playMedia(false)}>
 						<AiFillCloseCircle />
 					</button>
+					<div></div>
 				</div>
 			</div>
 		</div>

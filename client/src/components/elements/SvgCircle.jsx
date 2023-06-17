@@ -1,4 +1,4 @@
-import React from 'react';
+import './SvgCircle.css';
 
 const SvgCircle = ({ rating }) => {
 	function stroke(rating) {
@@ -17,7 +17,7 @@ const SvgCircle = ({ rating }) => {
 			case rating >= 45 && rating <= 55:
 				color = '#ffa534';
 				break;
-			case rating >= 0 && rating <= 44:
+			case rating >= 1 && rating <= 44:
 				color = '#ff4545';
 				break;
 			default:
@@ -29,18 +29,16 @@ const SvgCircle = ({ rating }) => {
 	}
 
 	return (
-		<svg>
-			<circle cx='19' cy='20' r='20'></circle>
+		<svg className='svgRating'>
+			<circle cx='20' cy='20' r='19'></circle>
 			<circle
 				style={{
 					stroke: stroke(rating),
-					strokeDashoffset: `calc(130 - (130 * ${Math.round(
-						rating,
-					)}) / 100)`,
+					strokeDashoffset: `calc(130 - (130 * ${rating}) / 105)`,
 				}}
-				cx='19'
+				cx='20'
 				cy='20'
-				r='20'></circle>
+				r='19'></circle>
 		</svg>
 	);
 };
