@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import './SearchResults.css';
-import Card from '../../card/Card';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Pagiantion from '../../pagination/Pagiantion';
 import Loading from '../../../loading/Loading';
+import Card from '../../../card/Card';
 
 const SearchResults = () => {
 	const [isLoading, setIsLoading] = useState(true);

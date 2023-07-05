@@ -5,15 +5,15 @@ import {
 	useNavigate,
 	useParams,
 } from 'react-router-dom';
-import {
-	img_500,
-	unavailable,
-} from '../../../../config/config';
 import { BsFillArrowDownCircleFill } from 'react-icons/bs';
 import dayjs from 'dayjs';
-import CardDetailsTvSeason from '../../card/season/CardDetailsTvSeason';
 import './DetailsTvSeason.css';
-import Card from '../../card/Card';
+import CardDetailsTvSeason from '../../../card/season/CardDetailsTvSeason';
+import Card from '../../../card/Card';
+import {
+	img_poster,
+	unavailable,
+} from '../../../../config/tmdb';
 
 const DetailsTvSeason = () => {
 	const [dataTvSeason, setDataTvSeason] = useState([]);
@@ -108,7 +108,7 @@ const DetailsTvSeason = () => {
 						<img
 							src={
 								dataTvSeason.poster_path
-									? `${img_500}/${dataTvSeason.poster_path}`
+									? `${img_poster}/${dataTvSeason.poster_path}`
 									: unavailable
 							}
 							alt='Poster'
@@ -245,7 +245,7 @@ const DetailsTvSeason = () => {
 															(epImg, i) => (
 																<img
 																	key={i}
-																	src={`${img_500}/${epImg.file_path}`}
+																	src={`${img_poster}/${epImg.file_path}`}
 																	alt={
 																		episode.name ||
 																		episode.original_title

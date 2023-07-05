@@ -152,6 +152,7 @@
 		#ff0033
 	);
 	background-size: 400%;
+	background-clip: text;
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
 	animation: animate 30s linear infinite;
@@ -172,6 +173,7 @@
 		#ff0033
 	);
 	background-size: 400%;
+	background-clip: text;
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
 	animation: animate 60s linear infinite;

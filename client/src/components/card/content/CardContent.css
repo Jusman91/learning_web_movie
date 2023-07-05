@@ -1,0 +1,129 @@
+.card {
+	position: relative;
+}
+.card .poster {
+	position: relative;
+	overflow: hidden;
+	height: 230px;
+	border-radius: 10px;
+	margin: 10px;
+}
+.card .poster img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: 0.5s;
+}
+.card .poster::before {
+	content: '';
+	position: absolute;
+	bottom: -200px;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		0deg,
+		rgba(255, 255, 255, 0.7) 20%,
+		transparent
+	);
+	transition: 0.5s;
+	z-index: 1;
+}
+.card:hover .poster::before {
+	bottom: 0px;
+}
+.card:hover .poster img {
+	transform: translateY(-50px);
+	filter: blur(5px);
+}
+.card .card__details {
+	position: absolute;
+	bottom: -120px;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+	transition: 0.4s linear;
+}
+.card:hover .card__details {
+	bottom: 0;
+}
+.card .card__details .card__title {
+	font-weight: 800;
+	color: rgb(21, 137, 255);
+	padding: 0 0.8rem;
+	line-height: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 90%;
+}
+.card__runtime {
+	display: flex;
+	gap: 1rem;
+	font-size: 1rem;
+	color: #000;
+	padding: 0 0.8rem;
+}
+.card__language {
+	margin-left: 0.8rem;
+	margin-bottom: 1rem;
+	background-color: #1e1e1e;
+	width: fit-content;
+	height: fit-content;
+	font-size: 0.75rem;
+	padding: 0.2rem;
+	color: rgba(255, 255, 255, 0.8);
+	border-radius: 5px;
+}
+.card__language span {
+	text-transform: uppercase;
+	color: rgb(230, 62, 62);
+}
+.rating__percent {
+	position: absolute;
+	top: 0;
+	right: 5%;
+	width: 50px;
+	height: 50px;
+}
+
+/* trailers */
+.trailers__card {
+	position: relative;
+	overflow: hidden;
+}
+.trailers__card:hover .trailers__poster {
+	transform: scale(1.05);
+}
+.trailers__card .trailers__poster {
+	position: relative;
+	margin: 10px;
+	margin-bottom: 0;
+	transition: 0.5s;
+}
+.trailers__card .trailers__poster img {
+	width: 100%;
+	height: 170px;
+	object-fit: cover;
+	object-position: top;
+}
+.trailers__details {
+	text-align: center;
+	width: 100%;
+}
+.btn__play__trailers .play__icon {
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	font-size: 2.5rem;
+	color: rgba(21, 137, 255, 0.7);
+	cursor: pointer;
+	z-index: 2;
+	transition: 0.5s;
+}
+.trailers__card:hover .play__icon {
+	transform: scale(1.7);
+	color: rgb(234, 14, 14);
+}

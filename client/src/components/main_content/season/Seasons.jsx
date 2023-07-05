@@ -1,14 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import {
-	img_500,
-	unavailable,
-} from '../../../config/config';
+import { useParams } from 'react-router-dom';
 import './Seasons.css';
-import dayjs from 'dayjs';
 import Loading from '../../loading/Loading';
-import CardSeason from '../card/season/CardSeason';
+import ContentHeader from '../../header/ContentHeader';
+import CardSeason from '../../card/season/CardSeason';
 
 const Seasons = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +23,7 @@ const Seasons = () => {
 			const seasons = results.seasons;
 			setTvShow(results);
 			setSeasons(seasons);
+			console.log('RESULTS DATA', results);
 		} catch (err) {
 			console.error(err, '<==== get data gagal ====>');
 		}
@@ -46,29 +43,13 @@ const Seasons = () => {
 			{isLoading ? (
 				<Loading type='component' />
 			) : (
-				<section className='container_season'>
+				<section className='container_section'>
 					{currentTvShowDetails && (
-						<div className='header_content'>
-							<img
-								src={
-									currentTvShowDetails.poster_path
-										? `${img_500}/${currentTvShowDetails.poster_path}`
-										: unavailable
-								}
-								alt='Poster'
-							/>
-							<div className='season_title'>
-								<h1>
-									{currentTvShowDetails.name}{' '}
-									<span>{`${' ('}${dayjs(
-										currentTvShowDetails.first_air_date,
-									).format('YYYY')}${')'}`}</span>
-								</h1>
-								<Link to={`/details/${_media_type}/${id}`}>
-									← Back to main
-								</Link>
-							</div>
-						</div>
+						<ContentHeader
+							allData={currentTvShowDetails}
+							_media_type={_media_type}
+							id={id}
+						/>
 					)}
 					<div className='content_tv_season'>
 						{seasons &&

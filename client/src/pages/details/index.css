@@ -1,0 +1,17 @@
+.container_details {
+	width: 100%;
+}
+.wrap_cast h3,
+.wrap_current_season h3,
+.wrap_similar_movies h3,
+.wrap_recommendations h3 {
+	margin-bottom: 0.5rem;
+}
+.middle,
+.bottom {
+	padding: 1rem 2.5rem;
+}
+
+.wrap_content {
+	width: 100%;
+}

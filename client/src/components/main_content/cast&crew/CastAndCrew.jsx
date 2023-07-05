@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { img_500, unavailable } from '../../../config/config';
 import dayjs from 'dayjs';
 import './CastAndCrew.css';
-import Card from '../card/Card';
 import Loading from '../../loading/Loading';
 import Pagiantion from '../pagination/Pagiantion';
+import Card from '../../card/Card';
+import {
+	img_poster,
+	unavailable,
+} from '../../../config/tmdb';
 
 const CastAndCrew = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +19,8 @@ const CastAndCrew = () => {
 	const params = useParams();
 	const id = params.movieid || '';
 	const _media_type = params.mediatype || '';
-	const [departmentsActive, setDepartmentsActive] = useState('Art');
+	const [departmentsActive, setDepartmentsActive] =
+		useState('Art');
 	const Departments = [
 		'Art',
 		'Camera',
@@ -31,10 +35,14 @@ const CastAndCrew = () => {
 	];
 
 	const [filterCrew, setFilterCrew] = useState();
-	const [activePage, setActivePage] = useState('active__pagination');
+	const [activePage, setActivePage] = useState(
+		'active__pagination',
+	);
 
 	const filterResult = (value) => {
-		const filteredCrew = crew.filter((c) => c.department === value);
+		const filteredCrew = crew.filter(
+			(c) => c.department === value,
+		);
 		setFilterCrew(filteredCrew);
 		setDepartmentsActive(value);
 	};
@@ -55,8 +63,12 @@ const CastAndCrew = () => {
 		[itemOffsetCrew, endOffsetCrew, filterCrew],
 	);
 
-	const pageCountCast = Math.ceil(cast.length / itemsPerPage);
-	const pageCountCrew = Math.ceil(filterCrew?.length / itemsPerPage);
+	const pageCountCast = Math.ceil(
+		cast.length / itemsPerPage,
+	);
+	const pageCountCrew = Math.ceil(
+		filterCrew?.length / itemsPerPage,
+	);
 	console.log('pageCountCast', pageCountCast);
 
 	const getData = async () => {
@@ -81,7 +93,9 @@ const CastAndCrew = () => {
 			const castResults = response.data.cast;
 			setCrew(crewResults);
 			setCast(castResults);
-			setFilterCrew(crewResults?.filter((c) => c.department === 'Art'));
+			setFilterCrew(
+				crewResults?.filter((c) => c.department === 'Art'),
+			);
 			console.log('CREW', crewResults);
 			console.log('CAST', castResults);
 		} catch (err) {
@@ -101,13 +115,19 @@ const CastAndCrew = () => {
 	};
 
 	const handlePageCast = (event) => {
-		const newOffset = (event.selected * itemsPerPage) % cast.length;
-		console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+		const newOffset =
+			(event.selected * itemsPerPage) % cast.length;
+		console.log(
+			`User requested page number ${event.selected}, which is offset ${newOffset}`,
+		);
 		setItemOffsetCast(newOffset);
 	};
 	const handlePageCrew = (event) => {
-		const newOffset = (event.selected * itemsPerPage) % filterCrew.length;
-		console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+		const newOffset =
+			(event.selected * itemsPerPage) % filterCrew.length;
+		console.log(
+			`User requested page number ${event.selected}, which is offset ${newOffset}`,
+		);
 		setItemOffsetCrew(newOffset);
 	};
 
@@ -134,7 +154,7 @@ const CastAndCrew = () => {
 						<img
 							src={
 								currentTvShowDetails.poster_path
-									? `${img_500}/${currentTvShowDetails.poster_path}`
+									? `${img_poster}/${currentTvShowDetails.poster_path}`
 									: unavailable
 							}
 							alt='Poster'
@@ -142,27 +162,43 @@ const CastAndCrew = () => {
 						<div className='cast__crew_title'>
 							<h1>
 								{currentTvShowDetails.name}{' '}
-								<span>{`${' ('}${dayjs(currentTvShowDetails.first_air_date).format(
-									'YYYY',
-								)}${')'}`}</span>
+								<span>{`${' ('}${dayjs(
+									currentTvShowDetails.first_air_date,
+								).format('YYYY')}${')'}`}</span>
 							</h1>
-							<Link to={`/details/${_media_type}/${id}`}>← Back to main</Link>
+							<Link to={`/details/${_media_type}/${id}`}>
+								← Back to main
+							</Link>
 						</div>
 					</div>
 					<div className='content_cast__crew'>
 						<div className='cast'>
 							<h3>
-								{_media_type === 'movie' ? 'Cast' : 'Series Cast'} <span>{cast.length} </span>
+								{_media_type === 'movie'
+									? 'Cast'
+									: 'Series Cast'}{' '}
+								<span>{cast.length} </span>
 							</h3>
 							<div className='wrapper_profile'>
 								{cast &&
-									currentItemsCast.map((item, index) => <Card key={index} castCrew={item} />)}
+									currentItemsCast.map((item, index) => (
+										<Card key={index} castCrew={item} />
+									))}
 							</div>
-							{<Pagiantion credits={handlePageCast} pageNum={pageCountCast} activenum={1} />}
+							{
+								<Pagiantion
+									credits={handlePageCast}
+									pageNum={pageCountCast}
+									activenum={1}
+								/>
+							}
 						</div>
 						<div className='crew'>
 							<h3>
-								{_media_type === 'movie' ? 'Crew' : 'Series Crew'} <span>{crew.length}</span>
+								{_media_type === 'movie'
+									? 'Crew'
+									: 'Series Crew'}{' '}
+								<span>{crew.length}</span>
 							</h3>
 							<ul>
 								{Departments?.map((item, index) => (
@@ -173,8 +209,7 @@ const CastAndCrew = () => {
 												: 'list_departments'
 										}
 										onClick={() => filterResult(item)}
-										key={index}
-									>
+										key={index}>
 										{item}
 									</li>
 								))}
@@ -182,14 +217,22 @@ const CastAndCrew = () => {
 							{crew && crew.length > 0 ? (
 								<div className='wrapper_profile'>
 									{currentItemsCrew?.map((item, index) => (
-										<Card key={index} castCrew={item} link={`/person/${item.id}`} />
+										<Card
+											key={index}
+											castCrew={item}
+											link={`/person/${item.id}`}
+										/>
 									))}
 								</div>
 							) : (
 								"There are no crew records added to Les Mystères de l'amour."
 							)}
 							{filterCrew?.length > 10 && (
-								<Pagiantion credits={handlePageCrew} pageNum={pageCountCrew} activenum={1} />
+								<Pagiantion
+									credits={handlePageCrew}
+									pageNum={pageCountCrew}
+									activenum={1}
+								/>
 							)}
 						</div>
 					</div>

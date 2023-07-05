@@ -1,0 +1,45 @@
+.container__slider__trailer {
+	position: relative;
+	width: 100%;
+	padding: 0 2rem;
+	left: 50%;
+	top: 43%;
+	transform: translate(-50%, -50%);
+}
+.backTrailers {
+	position: absolute;
+	top: -5%;
+	width: 100%;
+	height: 100%;
+	z-index: -9;
+	object-fit: cover;
+	object-position: 0 10%;
+	padding: 0;
+}
+.backOverlay {
+	position: absolute;
+	top: -5%;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(10, 19, 19, 0.6);
+	z-index: -8;
+}
+.close__trailer {
+	position: absolute;
+	right: -1%;
+	top: -4%;
+	background-color: rgba(21, 137, 255, 0.3);
+	border-radius: 50%;
+	font-size: 2rem;
+	z-index: 9;
+	cursor: pointer;
+}
+.trailer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+}

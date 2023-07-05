@@ -6,16 +6,21 @@
 }
 .container_flex {
 	display: flex;
-	justify-content: space-between;
-	gap: 1rem;
+	justify-content: flex-start;
+	/* gap: 1rem; */
 	overflow-y: hidden;
-	overflow-x: scroll;
+	/* overflow-x: scroll; */
+
 	padding-bottom: 1rem;
 }
-.container_flex::after {
+.container_flex.scrollX {
+	overflow-x: scroll;
+	/* background-color: aqua; */
+}
+.wrapper_list::after {
 	content: '';
 	width: 12%;
-	height: 81%;
+	height: 100%;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -27,11 +32,11 @@
 	will-change: opacity;
 	pointer-events: none;
 }
-.container_flex.is_blur::after {
+.wrapper_list.is_blur::after {
 	transition: linear 0.3s;
 	opacity: 1;
 }
-.container_flex.is_hidden::after {
+.wrapper_list.is_hidden::after {
 	transition: linear 0.3s;
 	opacity: 0;
 }
@@ -80,4 +85,7 @@
 .go_castcrew h4 {
 	margin-top: 1rem;
 	padding: 0 1rem 0 1rem;
+}
+.container_flex.noGap {
+	gap: 0;
 }
