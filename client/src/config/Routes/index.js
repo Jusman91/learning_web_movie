@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from '../../components/login/Login'
 import Loading from '../../components/loading/Loading'
 import NavBar from '../../components/header/navbar/NavBar'
-import { Credits, DetailsPerson, DetailsReviews, EpisodesCredits, Gallery, Home, MovieDetails, Review, SearchAll, SeasonDetails, TrendingMovies, TrendingTv, TvSeason } from '../../pages'
+import { Credits, DetailsPerson, DetailsReviews, EpisodesCredits, Gallery, Home, MovieDetails, Movies, Review, SearchAll, SeasonDetails, TrendingTv, TvSeason } from '../../pages'
 import Footer from '../../components/footer/Footer'
 
 
@@ -24,7 +24,7 @@ const Routers = () => {
           <Routes>
             <Route path='login' element={<Login />} />
             <Route path='/' element={<Home />} />
-            <Route path='movies' element={<TrendingMovies />} />
+            <Route path='movies' element={<Movies />} />
             <Route path='tv' element={<TrendingTv />} />
             <Route path='search' element={<SearchAll />}>
               <Route path=':type' element={<SearchAll />} />
