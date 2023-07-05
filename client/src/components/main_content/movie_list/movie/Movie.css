@@ -1,0 +1,125 @@
+.categorys {
+	border: none;
+	outline: none;
+	width: 150px;
+	font-size: 1rem;
+	border-radius: 5px;
+	background: rgb(21, 137, 255);
+	background: linear-gradient(
+		135deg,
+		rgba(228, 1, 1, 1) 0%,
+		rgba(21, 137, 255, 1) 80%
+	);
+	color: #fff;
+}
+.categorys option {
+	background-color: rgb(47, 47, 47);
+}
+.wrap_content_movie {
+	display: grid;
+	grid-template-columns: 280px auto;
+	gap: 2rem;
+	margin-top: 1rem;
+}
+.wrap_content_movie .left {
+	/* background-color: aqua; */
+}
+.filter h4 {
+	font-weight: 300;
+	color: rgba(255, 255, 255, 0.5);
+}
+.filter select {
+	border: none;
+	outline: none;
+	width: 100%;
+	padding: 0.3rem;
+	border-right: 0.3rem solid rgb(21, 137, 255);
+	border-radius: 5px;
+	background: rgb(21, 137, 255);
+	background: linear-gradient(
+		135deg,
+		rgba(228, 1, 1, 1) 0%,
+		rgba(21, 137, 255, 1) 80%
+	);
+	color: #fff;
+}
+.filter option {
+	background-color: rgb(47, 47, 47);
+}
+.container_accordion.regions {
+	padding: 0.2rem;
+	font-size: 0.75rem;
+	position: relative;
+}
+
+.serach_value {
+	padding: 0 0.3rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.input_region {
+	width: 100%;
+	background-color: rgb(67, 67, 67);
+	box-shadow: 0 0px 8px rgba(255, 255, 255, 0.4);
+	padding: 0.5rem;
+	position: absolute;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	left: 0;
+	top: 0;
+	transform: translateY(12%);
+}
+.wrap_input {
+	display: flex;
+	align-items: center;
+	border: 1px solid rgb(21, 137, 255);
+	border-radius: 5px;
+	padding: 0 0.25rem;
+}
+.wrap_input input {
+	width: 100%;
+	border: none;
+	outline: none;
+	background: transparent;
+	padding: 0.3rem;
+	color: #fff;
+}
+.wrap_option {
+	overflow-y: scroll;
+	height: 200px;
+}
+.wrap_option ol li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9rem;
+	width: 100%;
+	padding: 0.3rem 0;
+	cursor: pointer;
+	transition: 0.2s;
+}
+.wrap_option ol li:hover {
+	background-color: rgb(97, 97, 97);
+}
+.wrap_providers {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+.wrap_providers .logo_provider {
+	width: 50px;
+	height: 50px;
+}
+.wrap_providers .logo_provider img {
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+}
+.wrap_content_movie .right {
+	display: grid;
+	grid-template-columns: repeat(5, auto);
+	gap: 0.9rem;
+}

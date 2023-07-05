@@ -9,8 +9,8 @@ import Review from "./review";
 import SearchAll from "./search";
 import TvSeason from "./season";
 import SeasonDetails from "./season_details";
-import TrendingMovies from "./trending_movie";
+import Movies from "./movie";
 import TrendingTv from "./trending_tv";
 
 
-export { Home, Credits, MovieDetails, DetailsReviews, EpisodesCredits, Gallery, DetailsPerson, Review, SearchAll, TvSeason, SeasonDetails, TrendingMovies, TrendingTv };
+export { Home, Credits, MovieDetails, DetailsReviews, EpisodesCredits, Gallery, DetailsPerson, Review, SearchAll, TvSeason, SeasonDetails, Movies, TrendingTv };
