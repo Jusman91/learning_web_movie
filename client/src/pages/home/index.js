@@ -15,6 +15,7 @@ const Home = () => {
       <TrailerList />
       <Popular />
       <FreeToWatch />
+      <div>test</div>
     </>
   )
 }
